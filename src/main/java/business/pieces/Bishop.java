@@ -40,5 +40,9 @@ public class Bishop extends ChessGamePiece {
         );
     }
 
+    @Override
+    public boolean isNull(){
+        return false;
+    }
 
 }

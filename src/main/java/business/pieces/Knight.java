@@ -50,4 +50,9 @@ public class Knight extends ChessGamePiece {
                 getClass().getResource(resourceOfPiece.resourceByType("Knight"))
         );
     }
+
+    @Override
+    public boolean isNull(){
+        return false;
+    }
 }

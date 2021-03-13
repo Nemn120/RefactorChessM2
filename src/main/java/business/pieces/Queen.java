@@ -17,6 +17,10 @@ import javax.swing.*;
  */
 public class Queen extends ChessGamePiece {
 
+    @Override
+    public boolean isNull(){
+        return false;
+    }
 
     /**
      * Create a new Queen object.

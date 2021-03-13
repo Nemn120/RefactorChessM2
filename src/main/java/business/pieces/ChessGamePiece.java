@@ -39,14 +39,10 @@ public abstract class ChessGamePiece {
      */
     protected int pieceColumn;
 
-    /**
-     * Create a new GamePiece object.
-     *
-     * @param board      the board to create this piece on
-     * @param row        row of the GamePiece
-     * @param col        column of the GamePiece
-     * @param pieceColor either GamePiece.WHITE, BLACK, or UNASSIGNED
-     */
+    public ChessGamePiece(){
+
+    }
+
     public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor) {
         skipMoveGeneration = false;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
@@ -63,13 +59,12 @@ public abstract class ChessGamePiece {
      * Create a new GamePiece object. This constructor is used for special
      * pieces like pawn, which require other actions to occur before moves are
      * generated. (the pawn can move twice on its initialization, for example)
-     *
-     * @param board              the board to place the piece on
-     * @param row                the row to place the piece on
-     * @param col                the column to place the piece on
-     * @param skipMoveGeneration if true, moves will not be generated in the constructor
-     * @param pieceColor         either GamePiece.BLACK, WHITE, or UNASSIGNED
      */
+
+    public boolean isNull(){
+        return false;
+    }
+
     public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor, boolean skipMoveGeneration) {
         this.skipMoveGeneration = skipMoveGeneration;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
@@ -80,6 +75,10 @@ public abstract class ChessGamePiece {
         if (board.getCell(row, col) != null) {
             board.getCell(row, col).setPieceOnSquare(this);
         }
+    }
+
+    public ChessGamePiece(ChessGameBoard board) {
+
     }
 
     public abstract void calculatePossibleMoves(ChessGameBoard board);

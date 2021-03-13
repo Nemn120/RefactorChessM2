@@ -34,6 +34,11 @@ public class Pawn extends ChessGamePiece {
         pawnMove = new PawnMove();
     }
 
+    @Override
+    public boolean isNull(){
+        return false;
+    }
+
     /**
      * Calculates the possible moves for this piece. These are ALL the possible
      * moves, including illegal (but at the same time valid) moves.

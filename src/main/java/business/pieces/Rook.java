@@ -17,6 +17,11 @@ import javax.swing.*;
  */
 public class Rook extends ChessGamePiece {
 
+    @Override
+    public boolean isNull(){
+        return false;
+    }
+
     /**
      * Create a new Rook object.
      *
