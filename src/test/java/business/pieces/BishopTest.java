@@ -1,5 +1,6 @@
 package business.pieces;
 
+import business.factory.PieceFactory;
 import gui.board.ChessGameBoard;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,5 +96,55 @@ public class BishopTest {
         logger.info("CLONADO: "+bishopBlack.possibleMoves);
         logger.info("OBJECTOBASE"+bishopBlack.toString());
         logger.info("OBJECTOCLON"+bishopClone.toString());
+    }
+
+    @Test
+    public void PatternNullValidPiece(){
+        chessGameBoard=new ChessGameBoard();
+        bishopBlack=new Bishop(chessGameBoard,0,2,0);//row=0; col=2,5; color=0 black
+
+        ArrayList<String> expected=new ArrayList<>();
+        expected.add("1,3");
+        expected.add("2,4");
+        expected.add("3,5");
+        expected.add("4,6");
+        expected.add("5,7");
+        expected.add("1,1");
+        expected.add("2,0");
+        chessGameBoard.clearCell(1,1);
+        chessGameBoard.clearCell(1,3);
+        bishopBlack.calculatePossibleMoves(chessGameBoard);
+        ChessGamePiece bishop = PieceFactory.createChessPiece("Bishop",chessGameBoard,0,2,0);
+        assertNotNull(bishop);
+        assertNotNull(bishop.getPossibleMoves());
+        assertArrayEquals(expected.toArray(),bishop.getPossibleMoves().toArray());
+        assertFalse(bishop.isNull());
+
+        logger.info("MOVIMIENTOS POSIBLES: "+bishop.possibleMoves);
+        logger.info("OBJETO NO NULO"+bishop.toString());
+    }
+
+    @Test
+    public void PatternNullInvalidPiece(){
+        chessGameBoard=new ChessGameBoard();
+        bishopBlack=new Bishop(chessGameBoard,0,2,0);//row=0; col=2,5; color=0 black
+
+        ArrayList<String> expected=new ArrayList<>();
+        expected.add("1,3");
+        expected.add("2,4");
+        expected.add("3,5");
+        expected.add("4,6");
+        expected.add("5,7");
+        expected.add("1,1");
+        expected.add("2,0");
+        chessGameBoard.clearCell(1,1);
+        chessGameBoard.clearCell(1,3);
+        bishopBlack.calculatePossibleMoves(chessGameBoard);
+        ChessGamePiece bishop = PieceFactory.createChessPiece(null,chessGameBoard,0,2,0);
+        assertNotNull(bishop);
+        assertNull(bishop.getPossibleMoves());
+        assertTrue(bishop.isNull());
+        bishop.calculatePossibleMoves(chessGameBoard);
+        logger.info("OBJETO NULO: "+bishop.toString());
     }
 }
