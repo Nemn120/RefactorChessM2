@@ -77,10 +77,6 @@ public abstract class ChessGamePiece {
         }
     }
 
-    public ChessGamePiece(ChessGameBoard board) {
-
-    }
-
     public abstract void calculatePossibleMoves(ChessGameBoard board);
 
     /**
