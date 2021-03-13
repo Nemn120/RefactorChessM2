@@ -37,6 +37,15 @@ public class King extends ChessGamePiece{
         }
     }
 
+    public King(ChessGamePiece piece, ChessGameBoard board){
+        super(piece,board);
+    }
+
+    @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return new King(this,board);
+    }
+
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
         pieceMove = new PieceMove(CreateMoveService.kingOrQeenMove(pieceRow,pieceColumn,colorOfPiece));
