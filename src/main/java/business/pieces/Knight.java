@@ -28,13 +28,13 @@ public class Knight extends ChessGamePiece {
      */
     public Knight(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        knightMove = new KnightMove(CreateMoveService.knightMove(row,col,new ColorOfPiece(color)));
+        knightMove = new KnightMove(CreateMoveService.getInstance().knightMove(row,col,new ColorOfPiece(color)));
         possibleMoves = knightMove.calculatePossibleMoves(board,row,col);
     }
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        knightMove = new KnightMove(CreateMoveService.knightMove(pieceRow,pieceColumn,colorOfPiece));
+        knightMove = new KnightMove(CreateMoveService.getInstance().knightMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = knightMove.calculatePossibleMoves(board,pieceRow,pieceColumn);
     }
 

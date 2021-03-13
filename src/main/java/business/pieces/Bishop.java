@@ -19,12 +19,12 @@ public class Bishop extends ChessGamePiece {
 
     public Bishop(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        pieceMove = new PieceMove(CreateMoveService.bishopMove(row,col,new ColorOfPiece(color)));
+        pieceMove = new PieceMove(CreateMoveService.getInstance().bishopMove(row,col,new ColorOfPiece(color)));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
     public void calculatePossibleMoves(ChessGameBoard board){
-        pieceMove = new PieceMove(CreateMoveService.bishopMove(pieceRow,pieceColumn,colorOfPiece));
+        pieceMove = new PieceMove(CreateMoveService.getInstance().bishopMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
