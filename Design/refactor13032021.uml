@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>business.pieces.Rook</OriginalElement>
+  <nodes>
+    <node x="0.0" y="186.0">business.service.moves.cardinal.impl.CalculateSouthMoves</node>
+    <node x="694.0" y="347.0">business.service.moves.cardinal.impl.CalculateKnightSouthMoves</node>
+    <node x="228.5" y="264.0">business.pieces.ChessGamePiece</node>
+    <node x="1815.0" y="264.0">business.service.king.IKingService</node>
+    <node x="1819.5" y="347.0">business.service.king.KingService</node>
+    <node x="1808.0" y="186.0">business.service.moves.cardinal.impl.CalculateWestMoves</node>
+    <node x="987.0" y="347.0">business.service.moves.cardinal.impl.CalculateKnightNorthMoves</node>
+    <node x="239.0" y="186.0">business.service.moves.cardinal.impl.CalculateSouthEastMoves</node>
+    <node x="1582.5" y="347.0">util.ResourceOfPiece</node>
+    <node x="612.0" y="435.0">util.IsEnemy</node>
+    <node x="1258.0" y="186.0">business.service.moves.cardinal.impl.CalculateNorthWestMoves</node>
+    <node x="228.0" y="435.0">util.ColorOfPiece</node>
+    <node x="0.0" y="357.0">business.pieces.Queen</node>
+    <node x="0.0" y="435.0">business.game.ChessGameEngine</node>
+    <node x="1578.0" y="264.0">util.IResourceOfPiece</node>
+    <node x="443.0" y="357.0">business.pieces.Rook</node>
+    <node x="744.0" y="186.0">business.service.moves.cardinal.impl.CalculateNorthMoves</node>
+    <node x="547.0" y="357.0">business.pieces.Knight</node>
+    <node x="895.0" y="0.0">business.service.moves.cardinal.ICalculateMove</node>
+    <node x="827.0" y="264.0">business.service.moves.cardinal.ICalculateCardinalKnightMove</node>
+    <node x="321.0" y="357.0">business.pieces.Bishop</node>
+    <node x="1318.5" y="264.0">business.service.moves.IPieceMoveService</node>
+    <node x="113.0" y="357.0">business.pieces.Pawn</node>
+    <node x="514.0" y="186.0">business.service.moves.cardinal.impl.CalculateEastMoves</node>
+    <node x="429.0" y="435.0">util.IsOnScreen</node>
+    <node x="863.5" y="83.0">business.service.moves.cardinal.CalculateCardinalMove</node>
+    <node x="1305.0" y="347.0">business.service.moves.impl.PieceMoveServiceImpl</node>
+    <node x="983.0" y="186.0">business.service.moves.cardinal.impl.CalculateNorthEastMoves</node>
+    <node x="217.0" y="357.0">business.pieces.King</node>
+    <node x="1533.0" y="186.0">business.service.moves.cardinal.impl.CalculateSouthWestMoves</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="business.service.moves.cardinal.impl.CalculateNorthMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="853.5" y="166.0" />
+      <point x="967.1875" y="166.0" />
+      <point x="-14.8125" y="16.5" />
+    </edge>
+    <edge source="business.pieces.Pawn" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="155.0" y="327.0" />
+      <point x="272.0" y="327.0" />
+      <point x="-43.5" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateWestMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="1913.0" y="136.0" />
+      <point x="1085.6875" y="136.0" />
+      <point x="103.6875" y="16.5" />
+    </edge>
+    <edge source="business.pieces.Knight" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="598.0" y="317.0" />
+      <point x="388.0" y="317.0" />
+      <point x="72.5" y="16.5" />
+    </edge>
+    <edge source="business.pieces.Bishop" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="372.0" y="337.0" />
+      <point x="330.0" y="337.0" />
+      <point x="14.5" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateSouthMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="109.5" y="136.0" />
+      <point x="878.3125" y="136.0" />
+      <point x="-103.6875" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateSouthEastMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="366.5" y="146.0" />
+      <point x="907.9375" y="146.0" />
+      <point x="-74.0625" y="16.5" />
+    </edge>
+    <edge source="business.service.king.KingService" target="business.service.king.IKingService">
+      <point x="0.0" y="-16.5" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateEastMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="619.0" y="156.0" />
+      <point x="937.5625" y="156.0" />
+      <point x="-44.4375" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateNorthEastMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="1110.5" y="166.0" />
+      <point x="996.8125" y="166.0" />
+      <point x="14.8125" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateKnightSouthMoves" target="business.service.moves.cardinal.ICalculateCardinalKnightMove">
+      <point x="0.0" y="-16.5" />
+      <point x="830.5" y="322.0" />
+      <point x="902.0" y="322.0" />
+      <point x="-75.0" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateSouthWestMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="1660.5" y="146.0" />
+      <point x="1056.0625" y="146.0" />
+      <point x="74.0625" y="16.5" />
+    </edge>
+    <edge source="util.ResourceOfPiece" target="util.IResourceOfPiece">
+      <point x="0.0" y="-16.5" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="business.pieces.King" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="259.0" y="337.0" />
+      <point x="301.0" y="337.0" />
+      <point x="-14.5" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.CalculateCardinalMove" target="business.service.moves.cardinal.ICalculateMove">
+      <point x="0.0" y="-16.5" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateKnightNorthMoves" target="business.service.moves.cardinal.ICalculateCardinalKnightMove">
+      <point x="0.0" y="-16.5" />
+      <point x="1123.5" y="322.0" />
+      <point x="1052.0" y="322.0" />
+      <point x="75.0" y="16.5" />
+    </edge>
+    <edge source="business.pieces.Rook" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="485.0" y="327.0" />
+      <point x="359.0" y="327.0" />
+      <point x="43.5" y="16.5" />
+    </edge>
+    <edge source="business.pieces.Queen" target="business.pieces.ChessGamePiece">
+      <point x="0.0" y="-16.5" />
+      <point x="46.5" y="317.0" />
+      <point x="243.0" y="317.0" />
+      <point x="-72.5" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.impl.PieceMoveServiceImpl" target="business.service.moves.IPieceMoveService">
+      <point x="0.0" y="-16.5" />
+      <point x="0.0" y="16.5" />
+    </edge>
+    <edge source="business.service.moves.cardinal.impl.CalculateNorthWestMoves" target="business.service.moves.cardinal.CalculateCardinalMove">
+      <point x="0.0" y="-16.5" />
+      <point x="1385.5" y="156.0" />
+      <point x="1026.4375" y="156.0" />
+      <point x="44.4375" y="16.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7397196261682243" x="1100.4388254931614" y="408.0361713967724" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
