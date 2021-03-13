@@ -7,14 +7,6 @@ import util.ColorOfPiece;
 
 import javax.swing.*;
 
-/**
- * Class to represent the Bishop piece.
- *
- * @author Ben Katz (bakatz)
- * @author Myles David II (davidmm2)
- * @author Danielle Bushrow (dbushrow)
- * @version 2010.11.17
- */
 public class Bishop extends ChessGamePiece {
 
     public Bishop(ChessGameBoard board, int row, int col, int color) {
@@ -23,16 +15,20 @@ public class Bishop extends ChessGamePiece {
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
+    public Bishop(ChessGamePiece piece, ChessGameBoard board){
+        super(piece,board);
+    }
+
+    @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return new Bishop(this,board);
+    }
+
     public void calculatePossibleMoves(ChessGameBoard board){
         pieceMove = new PieceMove(CreateMoveService.bishopMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
-    /**
-     * Creates an icon for this piece depending on the piece's color.
-     *
-     * @return ImageIcon the ImageIcon representation of this piece.
-     */
     @Override
     public ImageIcon createImageByPieceType(){
         return new ImageIcon(
