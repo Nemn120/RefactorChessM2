@@ -96,9 +96,4 @@ public class BishopTest {
         logger.info("OBJECTOBASE"+bishopBlack.toString());
         logger.info("OBJECTOCLON"+bishopClone.toString());
     }
-
-
-
-
-
 }
