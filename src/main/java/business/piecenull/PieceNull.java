@@ -24,6 +24,11 @@ public class PieceNull extends ChessGamePiece {
     }
 
     @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return null;
+    }
+
+    @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
         System.out.println("Este objeto es nulo");
     }

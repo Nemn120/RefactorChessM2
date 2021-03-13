@@ -20,18 +20,13 @@ public class Pawn extends ChessGamePiece {
     private boolean notMoved;
     private PawnMove pawnMove;
 
-    /**
-     * Create a new Pawn object.
-     *
-     * @param board the board to create the pawn on
-     * @param row   row of the pawn
-     * @param col   column of the pawn
-     * @param color either GamePiece.WHITE, BLACK, or UNASSIGNED
-     */
     public Pawn(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color, true);
         notMoved = true;
         pawnMove = new PawnMove();
+    }
+    public Pawn(ChessGamePiece piece, ChessGameBoard board){
+        super(piece,board);
     }
 
     @Override
@@ -46,6 +41,10 @@ public class Pawn extends ChessGamePiece {
      * @param board the game board to calculate moves on
      * @return ArrayList<String> the moves
      */
+    @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return new Pawn(this,board);
+    }
 
     public void calculatePossibleMoves(ChessGameBoard board) {
         possibleMoves = pawnMove.calculatePossibleMoves(board,pieceRow,pieceColumn,colorOfPiece.getColor(),isNotMoved());
@@ -59,11 +58,6 @@ public class Pawn extends ChessGamePiece {
         this.notMoved = notMoved;
     }
 
-    /**
-     * Creates an icon for this piece depending on the piece's color.
-     *
-     * @return ImageIcon the ImageIcon representation of this piece.
-     */
     @Override
     public ImageIcon createImageByPieceType(){
         return new ImageIcon(
