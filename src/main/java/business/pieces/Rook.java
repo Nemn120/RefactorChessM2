@@ -1,39 +1,45 @@
 package business.pieces;
 
-import business.service.moves.pieces.CreateMoveService;
+import business.service.moves.cardinal.CalculateCardinalMove;
+import business.service.moves.pieces.CreateMoveFactory;
+import business.service.moves.pieces.ICreateMove;
 import business.service.moves.pieces.PieceMove;
 import gui.board.ChessGameBoard;
 import util.ColorOfPiece;
+import util.TypeOfMove;
 
 import javax.swing.*;
+import java.util.List;
 
-/**
- * Represents a Rook game piece.
- *
- * @author Ben Katz (bakatz)
- * @author Myles David II (davidmm2)
- * @author Danielle Bushrow (dbushrow)
- * @version 2010.11.17
- */
 public class Rook extends ChessGamePiece {
 
-    /**
-     * Create a new Rook object.
-     *
-     * @param board the board to create the rook on
-     * @param row   the row to create the rook on
-     * @param col   the column to create the rook on
-     * @param color either GamePiece.WHITE, BLACK, or UNASSIGNED
-     */
+    public Rook(ChessGamePiece piece, ChessGameBoard board){
+        super(piece,board);
+    }
+
+    @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return new Rook(this,board);
+    }
+
+    @Override
+    public boolean isNull(){
+        return false;
+    }
+
     public Rook(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        pieceMove = new PieceMove(CreateMoveService.getInstance().rookMove(row,col,new ColorOfPiece(color)));
+        ICreateMove createMoveRook = null;
+        createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
+        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveRook.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        pieceMove = new PieceMove(CreateMoveService.getInstance().rookMove(pieceRow,pieceColumn,colorOfPiece));
+        ICreateMove createMoveRook = null;
+        createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
+        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveRook.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 

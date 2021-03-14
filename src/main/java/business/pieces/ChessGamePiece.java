@@ -8,17 +8,6 @@ import util.ResourceOfPiece;
 import javax.swing.*;
 import java.util.List;
 
-/**
- * Abstract class that is used to represent a game piece on the chess board.
- * Classes to extend this piece are Rook, Bishop, Knight, Queen, King and Pawn.
- * Also contains a large number of methods to determine information about cells
- * around this piece.
- *
- * @author Ben Katz (bakatz)
- * @author Myles David II (davidmm2)
- * @author Danielle Bushrow (dbushrow)
- * @version 2010.11.17
- */
 public abstract class ChessGamePiece {
     protected boolean skipMoveGeneration;
     protected ColorOfPiece colorOfPiece;
@@ -39,14 +28,10 @@ public abstract class ChessGamePiece {
      */
     protected int pieceColumn;
 
-    /**
-     * Create a new GamePiece object.
-     *
-     * @param board      the board to create this piece on
-     * @param row        row of the GamePiece
-     * @param col        column of the GamePiece
-     * @param pieceColor either GamePiece.WHITE, BLACK, or UNASSIGNED
-     */
+    public ChessGamePiece(){
+
+    }
+
     public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor) {
         skipMoveGeneration = false;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
@@ -59,17 +44,32 @@ public abstract class ChessGamePiece {
         }
     }
 
+    public ChessGamePiece(ChessGamePiece piece,ChessGameBoard board){
+        if(piece != null){ // PATRON DE JORDY
+            this.skipMoveGeneration = piece.isSkipMoveGeneration();
+            this.colorOfPiece = piece.getColorOfPiece();
+            this.pieceColumn = piece.getColumn();
+            this.pieceRow = piece.getRow();
+            this.resourceOfPiece =piece.getResourceOfPiece();
+            this.pieceMove = piece.getPieceMove();
+            this.pieceImage = piece.getPieceImage();
+            this.possibleMoves = piece.getPossibleMoves();
+            if (board.getCell(this.pieceRow, this.pieceRow) != null) {
+                board.getCell(this.pieceRow, this.pieceRow).setPieceOnSquare(this);
+            }
+        }
+    }
+
     /**
      * Create a new GamePiece object. This constructor is used for special
      * pieces like pawn, which require other actions to occur before moves are
      * generated. (the pawn can move twice on its initialization, for example)
-     *
-     * @param board              the board to place the piece on
-     * @param row                the row to place the piece on
-     * @param col                the column to place the piece on
-     * @param skipMoveGeneration if true, moves will not be generated in the constructor
-     * @param pieceColor         either GamePiece.BLACK, WHITE, or UNASSIGNED
      */
+
+    public boolean isNull(){
+        return false;
+    }
+
     public ChessGamePiece(ChessGameBoard board, int row, int col, int pieceColor, boolean skipMoveGeneration) {
         this.skipMoveGeneration = skipMoveGeneration;
         this.colorOfPiece = new ColorOfPiece(pieceColor);
@@ -80,6 +80,12 @@ public abstract class ChessGamePiece {
         if (board.getCell(row, col) != null) {
             board.getCell(row, col).setPieceOnSquare(this);
         }
+    }
+
+    public abstract ChessGamePiece clone(ChessGameBoard board);
+
+    public ChessGamePiece(ChessGameBoard board) {
+
     }
 
     public abstract void calculatePossibleMoves(ChessGameBoard board);
@@ -105,31 +111,15 @@ public abstract class ChessGamePiece {
         return colorOfPiece;
     }
 
-    /**
-     * Sets the internal piece location.
-     *
-     * @param row the new row of the piece
-     * @param col the new column of the piece
-     */
     public void setPieceLocation(int row, int col) {
         pieceRow = row;
         pieceColumn = col;
     }
 
-    /**
-     * Returns this piece's row location.
-     *
-     * @return int the row
-     */
     public int getRow() {
         return pieceRow;
     }
 
-    /**
-     * Returns this piece's column.
-     *
-     * @return int the column
-     */
     public int getColumn() {
         return pieceColumn;
     }
@@ -151,15 +141,58 @@ public abstract class ChessGamePiece {
         this.possibleMoves = possibleMoves;
     }
 
-    /**
-     * Returns a string representation of this piece. Includes piece type and
-     * location.
-     *
-     * @return String the string representation
-     */
+    public void setColorOfPiece(ColorOfPiece colorOfPiece) {
+        this.colorOfPiece = colorOfPiece;
+    }
+
+    public ImageIcon getPieceImage() {
+        return pieceImage;
+    }
+
+    public void setPieceImage(ImageIcon pieceImage) {
+        this.pieceImage = pieceImage;
+    }
+
+    public PieceMove getPieceMove() {
+        return pieceMove;
+    }
+
+    public void setPieceMove(PieceMove pieceMove) {
+        this.pieceMove = pieceMove;
+    }
+
+    public ResourceOfPiece getResourceOfPiece() {
+        return resourceOfPiece;
+    }
+
+    public void setResourceOfPiece(ResourceOfPiece resourceOfPiece) {
+        this.resourceOfPiece = resourceOfPiece;
+    }
+
+
     @Override
     public String toString() {
-        return this.getClass().toString().substring(6) + " @ (" + pieceRow
-                + ", " + pieceColumn + ")";
+        return "ChessGamePiece{" +
+                "skipMoveGeneration=" + skipMoveGeneration +
+                ", colorOfPiece=" + colorOfPiece +
+                ", pieceImage=" + pieceImage +
+                ", pieceMove=" + pieceMove +
+                ", resourceOfPiece=" + resourceOfPiece +
+                ", possibleMoves=" + possibleMoves +
+                ", pieceRow=" + pieceRow +
+                ", pieceColumn=" + pieceColumn +
+                '}';
+    }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGamePiece that = (ChessGamePiece) o;
+        return skipMoveGeneration == that.skipMoveGeneration && pieceRow == that.pieceRow
+                && pieceColumn == that.pieceColumn && colorOfPiece.equals(that.colorOfPiece)
+                && pieceImage.equals(that.pieceImage) && resourceOfPiece.equals(that.resourceOfPiece) && possibleMoves.equals(that.possibleMoves);
     }
 }

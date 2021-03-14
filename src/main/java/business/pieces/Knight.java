@@ -1,40 +1,40 @@
 package business.pieces;
 
-import business.service.moves.pieces.CreateMoveService;
-import business.service.moves.pieces.KnightMove;
+import business.service.moves.cardinal.ICalculateCardinalKnightMove;
+import business.service.moves.pieces.*;
 import util.ColorOfPiece;
 import gui.board.ChessGameBoard;
+import util.TypeOfMove;
 
 import javax.swing.*;
+import java.util.List;
 
-/**
- * Represents a Knight game piece.
- *
- * @author Ben Katz (bakatz)
- * @author Myles David II (davidmm2)
- * @author Danielle Bushrow (dbushrow)
- * @version 2010.11.17
- */
 public class Knight extends ChessGamePiece {
 
     private KnightMove knightMove;
-    /**
-     * Knight constructor for gamePiece
-     *
-     * @param row   the row to create the knight on
-     * @param col   the column to create the knight on
-     * @param board the board to create the piece on
-     * @param color either GamePiece.WHITE, BLACK, or UNASSIGNED
-     */
+
     public Knight(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        knightMove = new KnightMove(CreateMoveService.getInstance().knightMove(row,col,new ColorOfPiece(color)));
+        ICreateMove createMoveKnight = null;
+        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = knightMove.calculatePossibleMoves(board,row,col);
+    }
+
+    public Knight(ChessGamePiece piece, ChessGameBoard board){
+        super(piece,board);
+    }
+
+    @Override
+    public ChessGamePiece clone(ChessGameBoard board) {
+        return new Knight(this,board);
     }
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        knightMove = new KnightMove(CreateMoveService.getInstance().knightMove(pieceRow,pieceColumn,colorOfPiece));
+        ICreateMove createMoveKnight = null;
+        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = knightMove.calculatePossibleMoves(board,pieceRow,pieceColumn);
     }
 
@@ -49,5 +49,10 @@ public class Knight extends ChessGamePiece {
         return new ImageIcon(
                 getClass().getResource(resourceOfPiece.resourceByType("Knight"))
         );
+    }
+
+    @Override
+    public boolean isNull(){
+        return false;
     }
 }
