@@ -1,11 +1,15 @@
 package business.pieces;
 
-import business.service.moves.pieces.CreateMoveService;
+import business.service.moves.cardinal.CalculateCardinalMove;
+import business.service.moves.pieces.CreateMoveFactory;
+import business.service.moves.pieces.ICreateMove;
 import business.service.moves.pieces.PieceMove;
 import gui.board.ChessGameBoard;
 import util.ColorOfPiece;
+import util.TypeOfMove;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Represents a Queen game piece.
@@ -18,6 +22,7 @@ import javax.swing.*;
 public class Queen extends ChessGamePiece {
 
 
+
     /**
      * Create a new Queen object.
      *
@@ -28,13 +33,18 @@ public class Queen extends ChessGamePiece {
      */
     public Queen(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        pieceMove = new PieceMove(CreateMoveService.kingOrQeenMove(row,col,new ColorOfPiece(color)));
+        ICreateMove createMoveQueen = null;
+        //pieceMove = new PieceMove(CreateMoveService.kingOrQeenMove(row,col,new ColorOfPiece(color)));
+        createMoveQueen = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
+        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveQueen.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        pieceMove = new PieceMove(CreateMoveService.kingOrQeenMove(pieceRow,pieceColumn,colorOfPiece));
+        ICreateMove createMoveQueen = null;
+        createMoveQueen = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
+        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveQueen.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
