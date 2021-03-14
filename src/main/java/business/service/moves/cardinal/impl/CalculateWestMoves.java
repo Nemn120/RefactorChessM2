@@ -17,7 +17,7 @@ public class CalculateWestMoves extends CalculateCardinalMove {
 
     @Override
     public ArrayList<String> invoke(ChessGameBoard board, int numMoves) {
-        ArrayList<String> moves = new ArrayList<String>();
+        ArrayList<String> moves = new ArrayList<>();
         int count = 0;
         if (IsOnScreen.invoke(getPieceRow(),getPieceColumn())) {
             for (int i = getPieceColumn() - 1; i >= 0 && count < numMoves; i--) {
@@ -35,27 +35,4 @@ public class CalculateWestMoves extends CalculateCardinalMove {
         }
         return moves;
     }
-
-  /*  @Override
-    public ArrayList<String> invoke(ChessGameBoard board, int numMoves, ChessGamePiece piece) {
-        ArrayList<String> moves = new ArrayList<String>();
-        int count = 0;
-        if (IsOnScreen.invoke(pieceRow,pieceColumn)) {
-            for (int i = pieceColumn - 1; i >= 0 && count < numMoves; i--) {
-                if ((board.getCell(pieceRow, i).getPieceOnSquare()
-                        == null || IsEnemy.invoke(board, pieceRow, i,piece.getColorOfPiece().getColor()))) {
-                    moves.add(pieceRow + "," + i);
-                    count++;
-                    if (IsEnemy.invoke(board, pieceRow, i,piece.getColorOfPiece().getColor())) {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            }
-        }
-        return moves;
-    }
-
-   */
 }
