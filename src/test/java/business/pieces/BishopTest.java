@@ -156,7 +156,7 @@ public class BishopTest {
 
     @Test
     public void PatternMethodFactoryValidad() {
-        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHSPO);
+        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHOP);
         assertNotNull(createMoveBishop.createMove(0, 2, new ColorOfPiece(0)));
         Assert.assertTrue(createMoveBishop instanceof BishopMove);
 
