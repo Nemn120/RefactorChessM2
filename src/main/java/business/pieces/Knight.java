@@ -1,11 +1,13 @@
 package business.pieces;
 
-import business.service.moves.pieces.CreateMoveService;
-import business.service.moves.pieces.KnightMove;
+import business.service.moves.cardinal.ICalculateCardinalKnightMove;
+import business.service.moves.pieces.*;
 import util.ColorOfPiece;
 import gui.board.ChessGameBoard;
+import util.TypeOfMove;
 
 import javax.swing.*;
+import java.util.List;
 
 public class Knight extends ChessGamePiece {
 
@@ -13,7 +15,9 @@ public class Knight extends ChessGamePiece {
 
     public Knight(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        knightMove = new KnightMove(CreateMoveService.knightMove(row,col,new ColorOfPiece(color)));
+        ICreateMove createMoveKnight = null;
+        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = knightMove.calculatePossibleMoves(board,row,col);
     }
 
@@ -28,7 +32,9 @@ public class Knight extends ChessGamePiece {
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        knightMove = new KnightMove(CreateMoveService.knightMove(pieceRow,pieceColumn,colorOfPiece));
+        ICreateMove createMoveKnight = null;
+        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = knightMove.calculatePossibleMoves(board,pieceRow,pieceColumn);
     }
 
