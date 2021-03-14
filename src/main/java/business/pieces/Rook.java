@@ -29,16 +29,14 @@ public class Rook extends ChessGamePiece {
 
     public Rook(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        ICreateMove createMoveRook = null;
-        createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
+        ICreateMove createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
         pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveRook.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        ICreateMove createMoveRook = null;
-        createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
+        ICreateMove createMoveRook = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_ROOK);
         pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveRook.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }

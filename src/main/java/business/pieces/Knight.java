@@ -15,8 +15,7 @@ public class Knight extends ChessGamePiece {
 
     public Knight(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        ICreateMove createMoveKnight = null;
-        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        ICreateMove createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);;
         knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(row,col,new ColorOfPiece(color)));
         possibleMoves = knightMove.calculatePossibleMoves(board,row,col);
     }
@@ -32,8 +31,7 @@ public class Knight extends ChessGamePiece {
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        ICreateMove createMoveKnight = null;
-        createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
+        ICreateMove createMoveKnight = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KNIGHT);
         knightMove = new KnightMove((List<ICalculateCardinalKnightMove>) createMoveKnight.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = knightMove.calculatePossibleMoves(board,pieceRow,pieceColumn);
     }

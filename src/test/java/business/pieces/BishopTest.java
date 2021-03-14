@@ -1,9 +1,15 @@
 package business.pieces;
 
 import business.factory.PieceFactory;
+import business.service.moves.pieces.BishopMove;
+import business.service.moves.pieces.CreateMoveFactory;
+import business.service.moves.pieces.ICreateMove;
 import gui.board.ChessGameBoard;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import util.ColorOfPiece;
+import util.TypeOfMove;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -146,5 +152,14 @@ public class BishopTest {
         assertTrue(bishop.isNull());
         bishop.calculatePossibleMoves(chessGameBoard);
         logger.info("OBJETO NULO: "+bishop.toString());
+    }
+
+    @Test
+    public void PatternMethodFactoryValidad() {
+        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHSPO);
+        assertNotNull(createMoveBishop.createMove(0, 2, new ColorOfPiece(0)));
+        Assert.assertTrue(createMoveBishop instanceof BishopMove);
+
+        logger.info("OBJETO NO NULO" + createMoveBishop.toString());
     }
 }
