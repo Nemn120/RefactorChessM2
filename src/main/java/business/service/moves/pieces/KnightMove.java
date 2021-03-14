@@ -32,7 +32,7 @@ public class KnightMove implements ICreateMove {
     }
 
     @Override
-    public List<?> createMove(int pieceRow, int pieceColumn, ColorOfPiece color) {
+    public List<ICalculateCardinalKnightMove> createMove(int pieceRow, int pieceColumn, ColorOfPiece color) {
         return Arrays.asList(new CalculateKnightNorthMoves(pieceRow,pieceColumn,color),
                 new CalculateKnightSouthMoves(pieceRow,pieceColumn,color));
     }
