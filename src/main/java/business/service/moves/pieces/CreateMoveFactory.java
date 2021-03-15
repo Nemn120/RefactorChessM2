@@ -9,7 +9,7 @@ public class CreateMoveFactory {
             case TypeOfMove.TYPE_MOVE_KING_OR_QUEEN: {
                 return new KingOrQueenMove();
             }
-            case TypeOfMove.TYPE_MOVE_BISHSPO: {
+            case TypeOfMove.TYPE_MOVE_BISHOP: {
                 return new BishopMove();
             }
             case TypeOfMove.TYPE_MOVE_ROOK: {

@@ -35,8 +35,7 @@ public class King extends ChessGamePiece{
      */
     public King( ChessGameBoard board, int row, int col, int color ){
         super( board, row, col, color, false );
-        ICreateMove createMoveKing = null;
-        createMoveKing = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
+        ICreateMove createMoveKing = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
         pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveKing.createMove(row,col,new ColorOfPiece(color)));
         if (!this.skipMoveGeneration) {
             possibleMoves = pieceMove.calculateCardinalMoves(board,1);
@@ -54,8 +53,7 @@ public class King extends ChessGamePiece{
 
     @Override
     public void calculatePossibleMoves(ChessGameBoard board) {
-        ICreateMove createMoveKing = null;
-        createMoveKing = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
+        ICreateMove createMoveKing = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_KING_OR_QUEEN);
         pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveKing.createMove(pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,1);
     }
