@@ -29,7 +29,7 @@ public class ChessPanel extends JPanel {
         this.setLayout(new BorderLayout());
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
-        gameLog = new ChessGameLog();
+        gameLog = ChessGameLog.getLogInstance();
         playerOneGraveyard = new ChessGraveyard("Player 1's graveyard");
         playerTwoGraveyard = new ChessGraveyard("Player 2's graveyard");
         this.add(menuBar, BorderLayout.NORTH);

@@ -17,6 +17,15 @@ public class KingService implements IKingService{
         this.pieceMoveService = pieceMoveService;
     }
 
+    private static KingService instance;
+
+    public static KingService getInstance(ChessGameBoard board, IPieceMoveService pieceMoveService){
+        if(instance == null){
+            instance = new KingService(board, pieceMoveService);
+        }
+        return instance;
+    }
+
     /**
      * Gets a list of GamePieces that can currently attack this game piece.
      *

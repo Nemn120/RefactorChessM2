@@ -127,7 +127,7 @@ public class ChessGameBoard extends JPanel {
         listener = new BoardListener();
         chessCells = new BoardSquare[8][8];
         initializeBoard();
-        pieceMoveService = new PieceMoveServiceImpl();
+        pieceMoveService = PieceMoveServiceImpl.getInstance();
     }
 
     /**

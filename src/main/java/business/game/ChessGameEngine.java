@@ -54,8 +54,8 @@ public class ChessGameEngine {
                         + "game has been started. Player 1 (white) will play "
                         + "against Player 2 (black). BEGIN!");
 
-        pieceMoveService = new PieceMoveServiceImpl();
-        kingService = new KingService(board,pieceMoveService);
+        pieceMoveService = PieceMoveServiceImpl.getInstance();
+        kingService = KingService.getInstance(board, pieceMoveService);
     }
 
     /**

@@ -22,7 +22,7 @@ public class PawnTest {
         logger = Logger.getLogger(PawnTest.class.getName());
 
         chessGameBoard=new ChessGameBoard();
-        pieceMoveService = new PieceMoveServiceImpl();
+        pieceMoveService = PieceMoveServiceImpl.getInstance();
         pawnBlack=new Pawn(chessGameBoard,1,1,0);//row=1;col=[0,7];color=0 black
         //pawnWhite=new Pawn(chessGameBoard,6,1,1);//row=6;col=[0,7];color=1 white
 

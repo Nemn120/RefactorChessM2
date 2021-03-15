@@ -21,6 +21,16 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
      * @param col   the column to move to
      * @return boolean true if the move was successful, false otherwise
      */
+
+    private static PieceMoveServiceImpl instance;
+
+    public static PieceMoveServiceImpl getInstance(){
+        if(instance == null){
+            instance = new PieceMoveServiceImpl();
+        }
+        return instance;
+    }
+
     @Override
     public boolean move(ChessGameBoard board, ChessGamePiece piece, int row, int col) {
         if (canMove(board,piece, row, col)) {

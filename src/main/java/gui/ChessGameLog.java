@@ -28,6 +28,15 @@ public class ChessGameLog extends JScrollPane {
         textArea = ((JTextArea) this.getViewport().getView());
     }
 
+    private static ChessGameLog logInstance;
+
+    public static ChessGameLog getLogInstance() {
+        if(logInstance == null){
+            logInstance = new ChessGameLog();
+        }
+        return logInstance;
+    }
+
     /**
      * Adds a new line of text to the log.
      *
