@@ -12,4 +12,5 @@ public class PieceMoveServiceImplTest {
         PieceMoveServiceImpl y = PieceMoveServiceImpl.getInstance();
         assertEquals(x,y);
     }
+
 }

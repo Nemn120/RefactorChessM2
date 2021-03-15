@@ -29,10 +29,10 @@ public class CreateMoveFactoryTest {
     }
 
     @Test
-    public void PatternMethodFactoryValidad() {
+    public void patternMethodFactoryValidad() {
         ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHOP);
         assertNotNull(createMoveBishop.createMove(0, 2, new ColorOfPiece(0)));
-        Assert.assertTrue(createMoveBishop instanceof BishopMove);
+        assertTrue(createMoveBishop instanceof BishopMove);
 
         logger.info("OBJETO NO NULO" + createMoveBishop.toString());
     }
