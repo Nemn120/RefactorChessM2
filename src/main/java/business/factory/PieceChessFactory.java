@@ -4,7 +4,7 @@ import business.pieces.*;
 import business.piecenull.PieceNull;
 import gui.board.ChessGameBoard;
 
-public class PieceFactory {
+public class PieceChessFactory {
     public static ChessGamePiece createChessPiece(String PieceType, ChessGameBoard board,
                                                   int row,
                                                   int col,

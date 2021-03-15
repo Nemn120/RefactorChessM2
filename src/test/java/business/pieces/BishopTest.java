@@ -1,6 +1,6 @@
 package business.pieces;
 
-import business.factory.PieceFactory;;
+import business.factory.PieceChessFactory;
 import gui.board.ChessGameBoard;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,7 +113,7 @@ public class BishopTest {
         chessGameBoard.clearCell(1,1);
         chessGameBoard.clearCell(1,3);
         bishopBlack.calculatePossibleMoves(chessGameBoard);
-        ChessGamePiece bishop = PieceFactory.createChessPiece("Bishop",chessGameBoard,0,2,0);
+        ChessGamePiece bishop = PieceChessFactory.createChessPiece("Bishop",chessGameBoard,0,2,0);
         assertNotNull(bishop);
         assertNotNull(bishop.getPossibleMoves());
         assertArrayEquals(expected.toArray(),bishop.getPossibleMoves().toArray());
@@ -139,7 +139,7 @@ public class BishopTest {
         chessGameBoard.clearCell(1,1);
         chessGameBoard.clearCell(1,3);
         bishopBlack.calculatePossibleMoves(chessGameBoard);
-        ChessGamePiece bishop = PieceFactory.createChessPiece(null,chessGameBoard,0,2,0);
+        ChessGamePiece bishop = PieceChessFactory.createChessPiece(null,chessGameBoard,0,2,0);
         assertNotNull(bishop);
         assertNull(bishop.getPossibleMoves());
         assertTrue(bishop.isNull());
