@@ -3,12 +3,12 @@ package util.colors;
 import util.Color;
 import util.ColorOfPiece;
 
-public class blackcolor implements Color {
+public class white implements Color {
     String PATH = "/ChessImages";
-    String color = "Black";
+    String color = "White";
     String pieceType;
 
-    public blackcolor(String pieceType){
+    public white(String pieceType){
         this.pieceType = pieceType;
     }
 
@@ -16,5 +16,4 @@ public class blackcolor implements Color {
     public String colorLink(String pieceType) {
         return PATH+"/"+color+pieceType+".gif";
     }
-
 }

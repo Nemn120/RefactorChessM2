@@ -1,8 +1,5 @@
 package util;
 
-import util.colors.blackcolor;
-import util.colors.nullcolor;
-import util.colors.whitecolor;
 import util.colorFactory.colorfactory;
 
 public class ResourceOfPiece implements IResourceOfPiece{
@@ -18,7 +15,6 @@ public class ResourceOfPiece implements IResourceOfPiece{
         String colorType;
         if ( color == ColorOfPiece.WHITE ){
             colorType = "whitecolor";
-
         }
         else if ( color == ColorOfPiece.BLACK ){
             colorType = "blackcolor";

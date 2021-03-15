@@ -1,18 +1,18 @@
 package util.colorFactory;
 
 import util.Color;
-import util.colors.blackcolor;
+import util.colors.black;
 import util.colors.nullcolor;
-import util.colors.whitecolor;
+import util.colors.white;
 
 public class colorfactory {
     public static Color createColor(String pieceType){
         Color color = null;
-        if("blackcolor".equalsIgnoreCase(pieceType)){
-            color = new blackcolor(pieceType);
+        if("black".equalsIgnoreCase(pieceType)){
+            color = new black(pieceType);
         }
-        else if("whitecolor".equalsIgnoreCase(pieceType)){
-            color = new whitecolor(pieceType);
+        else if("white".equalsIgnoreCase(pieceType)){
+            color = new white(pieceType);
         }
         else{
             color = new nullcolor(pieceType);
