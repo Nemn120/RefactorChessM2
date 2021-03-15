@@ -1,6 +1,6 @@
 package util;
 
-public  class ColorOfPiece {
+public class ColorOfPiece {
 
     /**
      * Represents a black piece as an int

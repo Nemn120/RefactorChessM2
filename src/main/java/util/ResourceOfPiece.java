@@ -1,5 +1,10 @@
 package util;
 
+import util.colors.blackcolor;
+import util.colors.nullcolor;
+import util.colors.whitecolor;
+import util.colorFactory.colorfactory;
+
 public class ResourceOfPiece implements IResourceOfPiece{
 
     int color;
@@ -10,17 +15,20 @@ public class ResourceOfPiece implements IResourceOfPiece{
 
     @Override
     public String resourceByType(String pieceType) {
-        String PATH = "/ChessImages";
+        String colorType;
         if ( color == ColorOfPiece.WHITE ){
-            return PATH+"/White"+pieceType+".gif";           
+            colorType = "whitecolor";
+
         }
         else if ( color == ColorOfPiece.BLACK ){
-            return PATH+"/Black"+pieceType+".gif";           
+            colorType = "blackcolor";
         }
         else
         {
-            return PATH+"/default-Unassigned.gif";     
-        }    
+            colorType = "nullcolor";
+        }
+        Color color = colorfactory.createColor(colorType);
+        return color.colorLink(pieceType);
     }
     
 }

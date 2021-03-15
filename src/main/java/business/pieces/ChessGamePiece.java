@@ -45,7 +45,7 @@ public abstract class ChessGamePiece {
     }
 
     public ChessGamePiece(ChessGamePiece piece,ChessGameBoard board){
-        if(piece != null){ // PATRON DE JORDY
+        if(piece != null){
             this.skipMoveGeneration = piece.isSkipMoveGeneration();
             this.colorOfPiece = piece.getColorOfPiece();
             this.pieceColumn = piece.getColumn();
