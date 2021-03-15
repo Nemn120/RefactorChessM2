@@ -1,17 +1,9 @@
 package business.pieces;
 
-import business.factory.PieceFactory;
-import business.service.moves.pieces.BishopMove;
-import business.service.moves.pieces.CreateMoveFactory;
-import business.service.moves.pieces.ICreateMove;
+import business.factory.PieceFactory;;
 import gui.board.ChessGameBoard;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import util.Color;
-import util.ColorOfPiece;
-import util.TypeOfMove;
-import util.colorFactory.colorfactory;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -21,7 +13,6 @@ public class BishopTest {
     Logger logger;
 
     Bishop bishopBlack;
-    //Bishop bishopWhite;
     ChessGameBoard chessGameBoard;
 
     @Before
@@ -156,33 +147,4 @@ public class BishopTest {
         logger.info("OBJETO NULO: "+bishop.toString());
     }
 
-    @Test
-    public void PatternMethodFactoryValidad() {
-        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHOP);
-        assertNotNull(createMoveBishop.createMove(0, 2, new ColorOfPiece(0)));
-        Assert.assertTrue(createMoveBishop instanceof BishopMove);
-
-        logger.info("OBJETO NO NULO" + createMoveBishop.toString());
-    }
-
-    @Test
-    public void PatternNullValidColor(){
-        String[] typeOfColors = new String[]{
-                "black","white"
-        };
-        for(String typeOfColor : typeOfColors){
-            Color color = colorfactory.createColor(typeOfColor);
-            logger.info("OBJETO NO NULO: "+color.toString());
-            logger.info("RUTA COLOR " + typeOfColor + ": " + color.colorLink("Bishop"));
-        }
-    }
-
-    @Test
-    public void PatternNullInvalidColor(){
-        bishopBlack=new Bishop(chessGameBoard,0,2,0);
-        String typeOfColors = null;
-        Color color = colorfactory.createColor(typeOfColors);
-        logger.info("OBJETO NULO: "+color.toString());
-        logger.info("RUTA NULA: " + color.colorLink("Bishop"));
-    }
 }

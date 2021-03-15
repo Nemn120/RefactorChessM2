@@ -1,18 +1,19 @@
 package util.colors;
 
 import util.Color;
-import util.ColorOfPiece;
 
-public class nullcolor implements Color {
+public class Black implements Color {
     String PATH = "/ChessImages";
+    String color = "Black";
     String pieceType;
 
-    public nullcolor(String pieceType){
+    public Black(String pieceType){
         this.pieceType = pieceType;
     }
 
     @Override
     public String colorLink(String pieceType) {
-        return PATH+"/default-Unassigned.gif";
+        return PATH+"/"+color+pieceType+".gif";
     }
+
 }

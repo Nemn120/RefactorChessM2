@@ -1,6 +1,6 @@
 package util;
 
-import util.colorFactory.colorfactory;
+import util.colorFactory.Colorfactory;
 
 public class ResourceOfPiece implements IResourceOfPiece{
 
@@ -23,7 +23,7 @@ public class ResourceOfPiece implements IResourceOfPiece{
         {
             colorType = "nullcolor";
         }
-        Color color = colorfactory.createColor(colorType);
+        Color color = Colorfactory.createColor(colorType);
         return color.colorLink(pieceType);
     }
     
