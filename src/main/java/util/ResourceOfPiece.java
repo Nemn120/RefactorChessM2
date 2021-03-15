@@ -14,14 +14,14 @@ public class ResourceOfPiece implements IResourceOfPiece{
     public String resourceByType(String pieceType) {
         String colorType;
         if ( color == ColorOfPiece.WHITE ){
-            colorType = "whitecolor";
+            colorType = "White";
         }
         else if ( color == ColorOfPiece.BLACK ){
-            colorType = "blackcolor";
+            colorType = "Black";
         }
         else
         {
-            colorType = "nullcolor";
+            colorType = "Nullcolor";
         }
         Color color = Colorfactory.createColor(colorType);
         return color.colorLink(pieceType);
