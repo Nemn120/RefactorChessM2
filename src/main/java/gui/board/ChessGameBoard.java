@@ -1,5 +1,7 @@
 package gui.board;
 
+import business.piecenull.PieceNull;
+import business.pieces.factory.PieceFactory;
 import business.service.moves.IPieceMoveService;
 import business.service.moves.impl.PieceMoveServiceImpl;
 import util.ColorOfPiece;
@@ -176,29 +178,29 @@ public class ChessGameBoard extends JPanel {
                 ChessGamePiece pieceToAdd;
                 if (i == 1) // black pawns
                 {
-                    pieceToAdd = new Pawn(this, i, j, ColorOfPiece.BLACK);
+                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.BLACK);
                 } else if (i == 6) // white pawns
                 {
-                    pieceToAdd = new Pawn(this, i, j, ColorOfPiece.WHITE);
+                    pieceToAdd =  PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.WHITE);
                 } else if (i == 0 || i == 7) // main rows
                 {
                     int colNum =
                             i == 0 ? ColorOfPiece.BLACK : ColorOfPiece.WHITE;
                     if (j == 0 || j == 7) {
-                        pieceToAdd = new Rook(this, i, j, colNum);
+                        pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, colNum);
                     } else if (j == 1 || j == 6) {
-                        pieceToAdd = new Knight(this, i, j, colNum);
+                        pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, colNum);
                     } else if (j == 2 || j == 5) {
 
-                        pieceToAdd = new Bishop(this, i, j, colNum);
+                        pieceToAdd = PieceFactory.createPiece ("Bishop",this, i, j, colNum);
 
                     } else if (j == 3) {
-                        pieceToAdd = new King(this, i, j, colNum);
+                        pieceToAdd = PieceFactory.createPiece("King",this, i, j, colNum);
                     } else {
-                        pieceToAdd = new Queen(this, i, j, colNum);
+                        pieceToAdd = PieceFactory.createPiece ("Queen",this, i, j, colNum);
                     }
                 } else {
-                    pieceToAdd = null;
+                    pieceToAdd = new PieceNull();
                 }
                 chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
                 if ((i + j) % 2 == 0) {
