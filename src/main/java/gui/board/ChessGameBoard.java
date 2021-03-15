@@ -200,7 +200,7 @@ public class ChessGameBoard extends JPanel {
                         pieceToAdd = PieceFactory.createPiece ("Queen",this, i, j, colNum);
                     }
                 } else {
-                    pieceToAdd = new PieceNull();
+                    pieceToAdd = null;
                 }
                 chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
                 if ((i + j) % 2 == 0) {

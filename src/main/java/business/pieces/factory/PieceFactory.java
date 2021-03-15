@@ -22,7 +22,7 @@ public class PieceFactory {
             case "Rook":
                 return new Rook(board,row,col,color);
             default:
-                return new PieceNull();
+                return null;
         }
 
     }
