@@ -33,6 +33,7 @@ public class ColorfactoryTest {
             Color color = Colorfactory.createColor(typeOfColor);
             logger.info("OBJETO NO NULO: "+color.toString());
             logger.info("RUTA COLOR " + typeOfColor + ": " + color.colorLink("Bishop"));
+            assertNotNull(color);
         }
     }
 
@@ -42,6 +43,18 @@ public class ColorfactoryTest {
         String typeOfColors = null;
         Color color = Colorfactory.createColor(typeOfColors);
         logger.info("OBJETO NULO: "+color.toString());
-        logger.info("RUTA NULA: " + color.colorLink("Bishop"));
+        logger.info("RUTA PREDETERMINADA: " + color.colorLink("Bishop"));
+        assertNotNull(color);
     }
 }
+
+
+
+
+
+
+
+
+
+
+

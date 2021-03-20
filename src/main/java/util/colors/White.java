@@ -1,7 +1,6 @@
 package util.colors;
 
 import util.Color;
-import util.ColorOfPiece;
 
 public class White implements Color {
     String PATH = "/ChessImages";
