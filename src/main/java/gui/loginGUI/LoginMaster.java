@@ -1,5 +1,7 @@
 package gui.loginGUI;
 
+import business.login.Login;
+import business.login.LoginUsernamePassword;
 import gui.ChessMain;
 import gui.ChessPanel;
 
@@ -40,13 +42,22 @@ public class LoginMaster {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JFrame frame = new JFrame("YetAnotherChessGame 1.0");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new ChessPanel());
-                frame.pack();
-                frame.setVisible(true);
+                Login l=new LoginUsernamePassword();
+                String username=textField1.getText();
+                String password=textField2.getText();
+                if (l.loginIn(username,password)) {
 
-                frameMaster.dispose();
+                    JFrame frame = new JFrame("YetAnotherChessGame 1.0");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.getContentPane().add(new ChessPanel());
+                    frame.pack();
+                    frame.setVisible(true);
+
+                    frameMaster.dispose();
+
+                }else{
+                   JOptionPane.showMessageDialog(null,"Credenciales Invalidas!");
+                }
 
             }
         });
