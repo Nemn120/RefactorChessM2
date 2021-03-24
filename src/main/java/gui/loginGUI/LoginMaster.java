@@ -4,6 +4,7 @@ import business.login.Login;
 import business.login.LoginUsernamePassword;
 import gui.ChessMain;
 import gui.ChessPanel;
+import util.university.Credential;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -54,6 +55,7 @@ public class LoginMaster {
                     frame.setVisible(true);
 
                     frameMaster.dispose();
+                    JOptionPane.showMessageDialog(null,"Bienvenido "+ Credential.CODE.get(username));
 
                 }else{
                    JOptionPane.showMessageDialog(null,"Credenciales Invalidas!");

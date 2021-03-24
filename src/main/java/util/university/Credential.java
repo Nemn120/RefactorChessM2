@@ -3,7 +3,7 @@ package util.university;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Credential {
+public abstract class Credential {
 
     public static final Map<String,String> CODE=new HashMap<String,String>(){{
         put("admin", "Administrador");
