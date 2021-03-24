@@ -57,7 +57,7 @@ public class LoginMaster {
                     frame.setVisible(true);
 
                     frameMaster.dispose();
-                    JOptionPane.showMessageDialog(null,"Bienvenido "+ Credential.CODE.get(username));
+                    JOptionPane.showMessageDialog(null,"Bienvenido Administrador!");
 
                 }else{
                    JOptionPane.showMessageDialog(null,"Credenciales Invalidas!");

@@ -30,7 +30,7 @@ public class LoginUniversity {
 
                 Login l=new LoginUniversityCardAdapter();
                 String code=textField1.getText();
-                if (l.loginIn(code,null)) {
+                if (l.loginIn(code,null) && !"admin".equals(code)) {
 
                     JFrame frame = new JFrame("YetAnotherChessGame 1.0");
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
