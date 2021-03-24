@@ -2,7 +2,6 @@ package gui.loginGUI;
 
 import business.login.Login;
 import business.login.LoginUsernamePassword;
-import gui.ChessMain;
 import gui.ChessPanel;
 import util.university.Credential;
 
@@ -10,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginMaster {
+public class LoginAdmin {
     private JPanel panel1;
     private JTextField textField1;
     private JTextField textField2;
@@ -19,7 +18,7 @@ public class LoginMaster {
 
     static JFrame frameMaster;
 
-    public LoginMaster() {
+    public LoginAdmin() {
         ingresarComoUniversitarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +66,7 @@ public class LoginMaster {
 
     public static void main(String[] args) {
         frameMaster = new JFrame("LoginMaster");
-        frameMaster.setContentPane(new LoginMaster().panel1);
+        frameMaster.setContentPane(new LoginAdmin().panel1);
         frameMaster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMaster.pack();
         frameMaster.setVisible(true);
