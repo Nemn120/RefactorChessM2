@@ -7,6 +7,7 @@ import gui.ChessPanel;
 import util.university.Credential;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,6 +20,9 @@ public class LoginUniversity {
     public JFrame frameLoginUniversity;
 
     public LoginUniversity() {
+
+        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        panel1.setBorder(padding);
 
         ingresarButton.addActionListener(new ActionListener() {
             @Override

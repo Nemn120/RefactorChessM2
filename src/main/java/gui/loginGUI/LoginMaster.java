@@ -6,10 +6,11 @@ import gui.ChessPanel;
 import util.university.Credential;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginAdmin {
+public class LoginMaster {
     private JPanel panel1;
     private JTextField textField1;
     private JTextField textField2;
@@ -18,14 +19,16 @@ public class LoginAdmin {
 
     static JFrame frameMaster;
 
-    public LoginAdmin() {
+    public LoginMaster() {
+
+        Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        panel1.setBorder(padding);
+
         ingresarComoUniversitarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
-
-                JFrame frame2=new JFrame();
+                JFrame frame2=new JFrame("LoginUniversity");
 
                 LoginUniversity loginUniversity=new LoginUniversity();
                 loginUniversity.frameLoginUniversity=frame2;
@@ -66,7 +69,7 @@ public class LoginAdmin {
 
     public static void main(String[] args) {
         frameMaster = new JFrame("LoginMaster");
-        frameMaster.setContentPane(new LoginAdmin().panel1);
+        frameMaster.setContentPane(new LoginMaster().panel1);
         frameMaster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMaster.pack();
         frameMaster.setVisible(true);
