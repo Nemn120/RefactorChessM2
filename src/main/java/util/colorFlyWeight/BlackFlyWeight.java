@@ -1,15 +1,12 @@
-package util.colors;
+package util.colorFlyWeight;
 
-import util.Color;
-
-public class White implements Color  {
+public class BlackFlyWeight extends Colors {
     String PATH = "/ChessImages";
-    String color = "White";
+    String color = "Black";
     String pieceType;
     public static int num;
 
-    public White(String pieceType){
-        this.pieceType = pieceType;
+    public BlackFlyWeight(){
         num++;
     }
 
@@ -17,4 +14,5 @@ public class White implements Color  {
     public String colorLink(String pieceType) {
         return PATH+"/"+color+pieceType+".gif";
     }
+
 }

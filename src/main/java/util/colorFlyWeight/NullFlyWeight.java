@@ -1,14 +1,11 @@
-package util.colors;
+package util.colorFlyWeight;
 
-import util.Color;
-
-public class Nullcolor implements Color {
+public class NullFlyWeight extends Colors {
     String PATH = "/ChessImages";
     String pieceType;
     public static int num;
 
-    public Nullcolor(String pieceType){
-        this.pieceType = pieceType;
+    public NullFlyWeight(){
         num++;
     }
 

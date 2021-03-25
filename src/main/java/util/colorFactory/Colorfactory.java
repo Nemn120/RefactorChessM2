@@ -6,7 +6,7 @@ import util.colors.Nullcolor;
 import util.colors.White;
 
 public class Colorfactory {
-
+    /*
     public static Color createColor(String pieceType){
         Color color = null;
         if("black".equalsIgnoreCase(pieceType)){
@@ -20,4 +20,6 @@ public class Colorfactory {
         }
         return color;
     }
+
+     */
 }

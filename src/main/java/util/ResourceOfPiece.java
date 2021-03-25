@@ -1,15 +1,23 @@
 package util;
 
-import util.colorFactory.Colorfactory;
+import util.colorFlyWeight.ColorFactoryFlyWeight;
+import util.colorFlyWeight.Colors;
 
 public class ResourceOfPiece implements IResourceOfPiece{
 
-    int color;
+    //int color;
+    private Colors colors;
 
     public ResourceOfPiece(int pieceColor){
-        this.color = pieceColor;
+        //this.color = pieceColor;
+        colors = ColorFactoryFlyWeight.getColor(pieceColor);
     }
 
+    @Override
+    public String resourceByType(String pieceType){
+        return colors.colorLink(pieceType);
+    }
+    /*
     @Override
     public String resourceByType(String pieceType) {
         String colorType;
@@ -26,5 +34,6 @@ public class ResourceOfPiece implements IResourceOfPiece{
         Color color = Colorfactory.createColor(colorType);
         return color.colorLink(pieceType);
     }
-    
+     */
+
 }
