@@ -1,17 +1,18 @@
-package util.colorFactory;
+package util.colorFlyWeight;
 
 import business.pieces.Bishop;
-import business.pieces.BishopTest;
 import gui.board.ChessGameBoard;
 import org.junit.Before;
-import org.junit.Test;
-import util.Color;
+import org.junit.jupiter.api.Test;
+import util.ResourceOfPiece;
+import util.colorFactory.ColorfactoryTest;
 
+import java.awt.*;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ColorfactoryTest {
+class ColorFactoryFlyWeightTest {
 
     Logger logger;
     Bishop bishopBlack;
@@ -23,43 +24,19 @@ public class ColorfactoryTest {
         chessGameBoard=new ChessGameBoard();
         bishopBlack=new Bishop(chessGameBoard,0,2,0);//row=0; col=2,5; color=0 black
     }
-/*
-
 
     @Test
-    public void PatternNullValidColor(){
+    public void testRaceCar() {
         String[] typeOfColors = new String[]{
                 "black","white"
         };
         for(String typeOfColor : typeOfColors){
-            Color color = Colorfactory.createColor(typeOfColor);
+            Colors color = ColorFactoryFlyWeight.getColor(1);
             logger.info("OBJETO NO NULO: "+color.toString());
             logger.info("RUTA COLOR " + typeOfColor + ": " + color.colorLink("Bishop"));
             assertNotNull(color);
         }
+
     }
 
-    @Test
-    public void PatternNullInvalidColor(){
-        bishopBlack=new Bishop(chessGameBoard,0,2,0);
-        String typeOfColors = null;
-        Color color = Colorfactory.createColor(typeOfColors);
-        logger.info("OBJETO NULO: "+color.toString());
-        logger.info("RUTA PREDETERMINADA: " + color.colorLink("Bishop"));
-        assertNotNull(color);
-    }
-
-
- */
 }
-
-
-
-
-
-
-
-
-
-
-

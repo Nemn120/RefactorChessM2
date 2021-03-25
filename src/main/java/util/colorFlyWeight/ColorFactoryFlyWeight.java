@@ -12,10 +12,10 @@ public class ColorFactoryFlyWeight {
         Colors color;
         switch (key)
         {
-            case 1:
+            case 0:
                 color = new BlackFlyWeight();
                 break;
-            case 0:
+            case 1:
                 color = new WhiteFlyWeight();
                 break;
             default:

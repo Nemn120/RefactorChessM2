@@ -8,8 +8,9 @@ public class ResourceOfPiece implements IResourceOfPiece{
     //int color;
     private Colors colors;
 
+    //this.color = pieceColor;
+
     public ResourceOfPiece(int pieceColor){
-        //this.color = pieceColor;
         colors = ColorFactoryFlyWeight.getColor(pieceColor);
     }
 
