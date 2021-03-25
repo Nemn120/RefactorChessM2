@@ -1,6 +1,9 @@
 package business.service.moves.cardinal.impl;
 
 import business.service.moves.cardinal.CalculateCardinalMove;
+import business.service.moves.cardinal.builder.Move;
+import business.service.moves.cardinal.builder.Position;
+import util.CardinalPoint;
 import util.ColorOfPiece;
 import util.IsEnemy;
 import util.IsOnScreen;
@@ -17,18 +20,18 @@ public class CalculateNorthWestMoves extends CalculateCardinalMove {
     @Override
     public ArrayList<String> invoke(ChessGameBoard board, int numMoves) {
         ArrayList<String> moves = new ArrayList<>();
-        int count = 0;
         if (IsOnScreen.invoke(getPieceRow(),getPieceColumn())) {
-            for (int i = 1; i < 8 && count < numMoves; i++) {
-                if (IsOnScreen.invoke(getPieceRow() - i, getPieceColumn() - i)
-                        && (board.getCell(getPieceRow() - i,
-                        getPieceColumn() - i).getPieceOnSquare() == null)) {
-                    moves.add((getPieceRow() - i) + "," + (getPieceColumn() - i));
-                    count++;
-                } else if (IsEnemy.invoke(board, getPieceRow() - i, getPieceColumn() - i,getColorOfPiece().getColor())) {
-                    moves.add((getPieceRow() - i) + "," + (getPieceColumn() - i));
-                    count++;
-                    break;
+            Move move = new Move.Builder().addMove(CardinalPoint.NORTHWEST, numMoves).addPosition(getPieceRow(), getPieceColumn()).build();
+            ArrayList<Position> cells = move.getValidCells();
+            for (int i = 0; i < cells.size(); i++) {
+                int row = cells.get(i).getRow();
+                int column = cells.get(i).getCol();
+                if ((board.getCell(row, column).getPieceOnSquare() == null 
+                || IsEnemy.invoke(board, row, column, getColorOfPiece().getColor()))) {
+                    moves.add(row + "," + column);
+                    if (IsEnemy.invoke(board, row, column, getColorOfPiece().getColor())) {
+                        break;
+                    }
                 } else {
                     break;
                 }

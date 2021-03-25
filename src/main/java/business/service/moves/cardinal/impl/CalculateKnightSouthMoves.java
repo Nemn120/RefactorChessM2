@@ -1,7 +1,10 @@
 package business.service.moves.cardinal.impl;
 
 import business.service.moves.cardinal.ICalculateCardinalKnightMove;
+import business.service.moves.cardinal.builder.Move;
+import business.service.moves.cardinal.builder.Position;
 import gui.board.ChessGameBoard;
+import util.CardinalPoint;
 import util.ColorOfPiece;
 import util.IsEnemy;
 import util.IsOnScreen;
@@ -22,18 +25,28 @@ public class CalculateKnightSouthMoves implements ICalculateCardinalKnightMove {
 
     @Override
     public ArrayList<String> invoke(ChessGameBoard board) {
-        ArrayList<String> moves = new ArrayList<>();
-        for (int i = 1; i >= -1; i -= 2) {
-            for (int j = 2; j >= -2; j -= 4) {
-                if (IsOnScreen.invoke(pieceRow + i, pieceColumn + j)
-                        && (IsEnemy.invoke(board, pieceRow + i, pieceColumn + j,colorOfPiece.getColor()) ||
-                        board.getCell(
-                                pieceRow + i,
-                                pieceColumn + j)
-                                .getPieceOnSquare() == null)) {
-                    moves.add((pieceRow + i) + "," + (pieceColumn + j));
-                }
+        ArrayList<String> moves = new ArrayList<String>();
+        Move.Builder builder = new Move.Builder();
+        Move moveSE1 = builder.addMove(CardinalPoint.SOUTH, 2).addPosition(pieceRow,pieceColumn).addMove(CardinalPoint.EAST, 1).build();
+        Move moveSW1 = builder.addMove(CardinalPoint.SOUTH, 2).addPosition(pieceRow,pieceColumn).addMove(CardinalPoint.WEST, 1).build();
+        Move moveSE2 = builder.addMove(CardinalPoint.SOUTH, 1).addPosition(pieceRow,pieceColumn).addMove(CardinalPoint.EAST, 2).build();
+        Move moveSW2 = builder.addMove(CardinalPoint.SOUTH, 1).addPosition(pieceRow,pieceColumn).addMove(CardinalPoint.WEST, 2).build();
+        ArrayList<Position> cells = new ArrayList<Position>();
+        ArrayList<Move> totalMoves = new ArrayList<Move>();
+        totalMoves.add(moveSE1);totalMoves.add(moveSW1);totalMoves.add(moveSE2);totalMoves.add(moveSW2);
+        for (int i = 0; i < totalMoves.size(); i++) {
+            if(totalMoves.get(i).getValidCells().size()==totalMoves.get(i).getPositions().size()){
+                cells.add(totalMoves.get(i).getPositions().get(totalMoves.get(i).getPositions().size()-1));
             }
+        }
+        for (int i = 0; i < cells.size(); i++) {
+            int row = cells.get(i).getRow();
+            int column = cells.get(i).getCol();
+            if (IsOnScreen.invoke(row, column)
+                        && (IsEnemy.invoke(board, row, column,colorOfPiece.getColor()) ||
+                        board.getCell(row,column).getPieceOnSquare() == null)) {
+                    moves.add(row + "," + column);
+                }
         }
         return moves;
     }
