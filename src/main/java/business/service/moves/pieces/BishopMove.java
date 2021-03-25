@@ -15,7 +15,7 @@ public class BishopMove implements ICreateMove{
 
     @Override
     public List<CalculateCardinalMove> createMove(int pieceRow, int pieceColumn, ColorOfPiece color){
-        Object cruz = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalCruzFactory());
+        Object cruz = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalCruzFactory(), "cruz");
         return ((CalculateMoveCruz)cruz).getInstance(pieceRow, pieceColumn, color,
                 CardinalPoint.NORTHEAST,
                 CardinalPoint.NORTHWEST,
