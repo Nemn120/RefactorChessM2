@@ -5,10 +5,7 @@ import util.colorFlyWeight.Colors;
 
 public class ResourceOfPiece implements IResourceOfPiece{
 
-    //int color;
     private Colors colors;
-
-    //this.color = pieceColor;
 
     public ResourceOfPiece(int pieceColor){
         colors = ColorFactoryFlyWeight.getColor(pieceColor);
@@ -18,23 +15,5 @@ public class ResourceOfPiece implements IResourceOfPiece{
     public String resourceByType(String pieceType){
         return colors.colorLink(pieceType);
     }
-    /*
-    @Override
-    public String resourceByType(String pieceType) {
-        String colorType;
-        if ( color == ColorOfPiece.WHITE ){
-            colorType = "White";
-        }
-        else if ( color == ColorOfPiece.BLACK ){
-            colorType = "Black";
-        }
-        else
-        {
-            colorType = "Nullcolor";
-        }
-        Color color = Colorfactory.createColor(colorType);
-        return color.colorLink(pieceType);
-    }
-     */
 
 }

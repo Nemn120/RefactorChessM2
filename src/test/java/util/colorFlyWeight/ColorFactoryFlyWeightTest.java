@@ -26,16 +26,24 @@ class ColorFactoryFlyWeightTest {
     }
 
     @Test
-    public void testRaceCar() {
-        String[] typeOfColors = new String[]{
-                "black","white"
-        };
-        for(String typeOfColor : typeOfColors){
-            Colors color = ColorFactoryFlyWeight.getColor(1);
-            logger.info("OBJETO NO NULO: "+color.toString());
-            logger.info("RUTA COLOR " + typeOfColor + ": " + color.colorLink("Bishop"));
-            assertNotNull(color);
-        }
+    public void testRaceCar() throws Exception{
+        ResourceOfPiece colors[] = {
+            new ResourceOfPiece(0),
+            new ResourceOfPiece(1),
+            new ResourceOfPiece(3),
+            new ResourceOfPiece(1),
+            new ResourceOfPiece(1),
+        } ;
+        colors[0].resourceByType("Bishop");
+        colors[1].resourceByType("Bishop");
+        colors[2].resourceByType("Bishop");
+        colors[2].resourceByType("Knight");
+        colors[2].resourceByType("Pawn");
+        System.out.println("BLACK INSTANCES: " + BlackFlyWeight.num);
+        System.out.println("WHITE INSTANCES: " + WhiteFlyWeight.num);
+        System.out.println("UNDEFINED INSTANCES: " + NullFlyWeight.num);
+        assertNotNull(colors);
+
 
     }
 
