@@ -8,6 +8,9 @@ public abstract class CalculateCardinalMove implements ICalculateMove {
     private int pieceColumn;
     private ColorOfPiece colorOfPiece;
 
+    public CalculateCardinalMove(){
+    }
+
     public CalculateCardinalMove(int pieceRow, int pieceColumn, ColorOfPiece colorOfPiece) {
         this.pieceRow = pieceRow;
         this.pieceColumn = pieceColumn;
