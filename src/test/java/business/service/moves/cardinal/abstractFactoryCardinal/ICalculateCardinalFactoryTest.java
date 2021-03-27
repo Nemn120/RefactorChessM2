@@ -28,7 +28,7 @@ public class ICalculateCardinalFactoryTest {
 
     @Test
     public void CalculateCardinal() {
-        Object invokeDiagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory(), "diagonal");
+        Object invokeDiagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory());
         CalculateMoveDiagonal moveDiagonal = ((CalculateMoveDiagonal)invokeDiagonal);
         assertNotNull(moveDiagonal.getInstance(0, 2, new ColorOfPiece(0),
                 CardinalPoint.NORTHEAST,
