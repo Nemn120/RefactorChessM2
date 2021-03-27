@@ -2,10 +2,7 @@ package business.service.moves.pieces;
 
 import business.service.moves.cardinal.CalculateCardinalMove;
 import business.service.moves.cardinal.CalculateMovesFactory;
-import business.service.moves.cardinal.abstractFactoryCardinal.CalculateCardinalCruzFactory;
-import business.service.moves.cardinal.abstractFactoryCardinal.CalculateMoveCruz;
-import business.service.moves.cardinal.abstractFactoryCardinal.ICalculateCardinalFactory;
-import business.service.moves.cardinal.abstractFactoryCardinal.InvokeMoveCardinal;
+import business.service.moves.cardinal.abstractFactoryCardinal.*;
 import util.CardinalPoint;
 import util.ColorOfPiece;
 
@@ -15,8 +12,8 @@ public class BishopMove implements ICreateMove{
 
     @Override
     public List<CalculateCardinalMove> createMove(int pieceRow, int pieceColumn, ColorOfPiece color){
-        Object cruz = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalCruzFactory(), "cruz");
-        return ((CalculateMoveCruz)cruz).getInstance(pieceRow, pieceColumn, color,
+        Object diagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory(), "diagonal");
+        return ((CalculateMoveDiagonal)diagonal).getInstance(pieceRow, pieceColumn, color,
                 CardinalPoint.NORTHEAST,
                 CardinalPoint.NORTHWEST,
                 CardinalPoint.SOUTHEAST,
