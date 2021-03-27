@@ -1,10 +1,8 @@
 package business.service.moves.cardinal.abstractFactoryCardinal;
 
 import business.service.moves.cardinal.CalculateCardinalMove;
-import business.service.moves.cardinal.impl.CalculateEastMoves;
-import business.service.moves.cardinal.impl.CalculateNorthMoves;
-import business.service.moves.cardinal.impl.CalculateSouthMoves;
-import business.service.moves.cardinal.impl.CalculateWestMoves;
+import business.service.moves.cardinal.impl.*;
+
 import util.CardinalPoint;
 import util.ColorOfPiece;
 
@@ -15,7 +13,7 @@ public class CalculateMoveCruz extends CreateMoveCardinal{
 
     @Override
     public List<CalculateCardinalMove> getInstance(int pieceRow, int pieceColumn, ColorOfPiece color,String ... cardinalPoints) {
-        List<CalculateCardinalMove> moves = new ArrayList<CalculateCardinalMove>();
+        List<CalculateCardinalMove> moves = new ArrayList<>();
         for(int i=0; i<cardinalPoints.length; i++) {
             switch (cardinalPoints[i]) {
                 case CardinalPoint.SOUTH: {
