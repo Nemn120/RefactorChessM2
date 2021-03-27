@@ -3,14 +3,7 @@ package business.service.moves.cardinal;
 import java.util.ArrayList;
 import java.util.List;
 
-import business.service.moves.cardinal.impl.CalculateEastMoves;
-import business.service.moves.cardinal.impl.CalculateNorthEastMoves;
-import business.service.moves.cardinal.impl.CalculateNorthMoves;
-import business.service.moves.cardinal.impl.CalculateNorthWestMoves;
-import business.service.moves.cardinal.impl.CalculateSouthEastMoves;
-import business.service.moves.cardinal.impl.CalculateSouthMoves;
-import business.service.moves.cardinal.impl.CalculateSouthWestMoves;
-import business.service.moves.cardinal.impl.CalculateWestMoves;
+import business.service.moves.cardinal.impl.*;
 import util.CardinalPoint;
 import util.ColorOfPiece;
 
