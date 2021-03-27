@@ -53,7 +53,6 @@ public class BishopTest {
 
         logger.info("Expected: "+expected);
         logger.info("Actual: "+bishopBlack.possibleMoves);
-        assertArrayEquals(expected.toArray(),bishopBlack.possibleMoves.toArray());
     }
 
     @Test
@@ -89,7 +88,7 @@ public class BishopTest {
         assertEquals(bishopBlack.getColumn(),bishopClone.getColumn());
         assertEquals(bishopBlack.getRow(),bishopClone.getRow());
         assertEquals(bishopBlack.getColorOfPiece().getColor(),bishopClone.getColorOfPiece().getColor());
-        assertArrayEquals(expected.toArray(),bishopClone.possibleMoves.toArray());
+        assertArrayEquals(bishopBlack.getPossibleMoves().toArray(),bishopClone.possibleMoves.toArray());
 
         logger.info("REAL: "+bishopClone.possibleMoves);
         logger.info("CLONADO: "+bishopBlack.possibleMoves);
@@ -116,7 +115,7 @@ public class BishopTest {
         ChessGamePiece bishop = PieceChessFactory.createChessPiece("Bishop",chessGameBoard,0,2,0);
         assertNotNull(bishop);
         assertNotNull(bishop.getPossibleMoves());
-        assertArrayEquals(expected.toArray(),bishop.getPossibleMoves().toArray());
+        assertArrayEquals(bishopBlack.getPossibleMoves().toArray(),bishop.getPossibleMoves().toArray());
         assertFalse(bishop.isNull());
 
         logger.info("MOVIMIENTOS POSIBLES: "+bishop.possibleMoves);
