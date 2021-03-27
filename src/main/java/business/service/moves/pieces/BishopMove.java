@@ -12,7 +12,7 @@ public class BishopMove implements ICreateMove{
 
     @Override
     public List<CalculateCardinalMove> createMove(int pieceRow, int pieceColumn, ColorOfPiece color){
-        Object diagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory(), "diagonal");
+        Object diagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory());
         return ((CalculateMoveDiagonal)diagonal).getInstance(pieceRow, pieceColumn, color,
                 CardinalPoint.NORTHEAST,
                 CardinalPoint.NORTHWEST,
