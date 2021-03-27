@@ -28,16 +28,16 @@ public class ICalculateCardinalFactoryTest {
 
     @Test
     public void CalculateCardinal() {
-        Object invokeCruz = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalCruzFactory(), "cruz");
-        CalculateMoveCruz moveCruz = ((CalculateMoveCruz)invokeCruz);
-        assertNotNull(moveCruz.getInstance(0, 2, new ColorOfPiece(0),
+        Object invokeDiagonal = InvokeMoveCardinal.createMoveCardinal(new CalculateCardinalDiagonalFactory(), "diagonal");
+        CalculateMoveDiagonal moveDiagonal = ((CalculateMoveDiagonal)invokeDiagonal);
+        assertNotNull(moveDiagonal.getInstance(0, 2, new ColorOfPiece(0),
                 CardinalPoint.NORTHEAST,
                 CardinalPoint.NORTHWEST,
                 CardinalPoint.SOUTHEAST,
                 CardinalPoint.SOUTHWEST));
-        assertTrue(moveCruz instanceof CalculateMoveCruz);
+        assertTrue(moveDiagonal instanceof CalculateMoveDiagonal);
 
-        logger.info("OBJETO NO NULO" + moveCruz.toString());
+        logger.info("OBJETO NO NULO" + moveDiagonal.toString());
     }
 
 }
