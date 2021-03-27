@@ -19,9 +19,9 @@ public class ChessMenuBar extends JMenuBar {
      * Create a new ChessMenuBar object.
      */
     public ChessMenuBar() {
-        String[] menuCategories = {"File", "Options", "Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log",
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -61,6 +61,10 @@ public class ChessMenuBar extends JMenuBar {
                 toggleGameLogHandler();
             } else if (buttonName.equals("Exit")) {
                 exitHandler();
+            } else if (buttonName.equals("Guardar")) {
+                JOptionPane.showMessageDialog(null,"Guardando");
+            } else if (buttonName.equals("Restaurar")) {
+                JOptionPane.showMessageDialog(null,"Restaurando");
             } else {
                 toggleGraveyardHandler();
             }
