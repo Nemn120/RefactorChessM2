@@ -39,10 +39,14 @@ class ColorFactoryFlyWeightTest {
         colors[2].resourceByType("Bishop");
         colors[2].resourceByType("Knight");
         colors[2].resourceByType("Pawn");
+        assertNotNull(colors);
+        assertEquals(1,BlackFlyWeight.num);
+        assertEquals(1,WhiteFlyWeight.num);
+        assertEquals(1,NullFlyWeight.num);
         System.out.println("BLACK INSTANCES: " + BlackFlyWeight.num);
         System.out.println("WHITE INSTANCES: " + WhiteFlyWeight.num);
         System.out.println("UNDEFINED INSTANCES: " + NullFlyWeight.num);
-        assertNotNull(colors);
+
 
 
     }
