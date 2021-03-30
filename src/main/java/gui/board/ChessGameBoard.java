@@ -1,5 +1,6 @@
 package gui.board;
 
+import business.game.ChessGameEngine;
 import business.piecenull.PieceNull;
 import business.pieces.factory.PieceFactory;
 import business.service.moves.IPieceMoveService;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 // -------------------------------------------------------------------------
 
 /**
@@ -214,6 +216,39 @@ public class ChessGameBoard extends JPanel {
         }
     }
 
+    public void restaurarBoard(BoardSquare[][] boardSquare) {
+        resetBoard(false);
+        for (int i = 0; i < chessCells.length; i++) {
+            for (int j = 0; j < chessCells[0].length; j++) {
+                ChessGamePiece pieceToAdd;
+                if(boardSquare[i][j].getPieceOnSquare() instanceof Pawn){
+                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                } else if (boardSquare[i][j].getPieceOnSquare() instanceof Rook) {
+                    pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Bishop) {
+                    pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Knight) {
+                    pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                }else if (boardSquare[i][j].getPieceOnSquare() instanceof King) {
+                    pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Queen) {
+                    pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());;
+                }else{
+                    pieceToAdd =null;
+                }
+
+                chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
+                if ((i + j) % 2 == 0) {
+                    chessCells[i][j].setBackground(Color.WHITE);
+                } else {
+                    chessCells[i][j].setBackground(Color.BLACK);
+                }
+                chessCells[i][j].addMouseListener(listener);
+                this.add(chessCells[i][j]);
+            }
+        }
+    }
+
     /**
      * Clears the colors on the board.
      */
@@ -284,4 +319,13 @@ public class ChessGameBoard extends JPanel {
         public void mouseReleased(MouseEvent e) { /* not used */
         }
     }
+
+    public BoardSquare[][] getChessCells() {
+        return chessCells;
+    }
+
+    public void setChessCells(BoardSquare[][] chessCells) {
+        this.chessCells = chessCells;
+    }
+
 }

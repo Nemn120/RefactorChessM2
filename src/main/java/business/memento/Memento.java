@@ -1,16 +1,16 @@
 package business.memento;
 
-import business.game.ChessGameEngine;
+import gui.board.BoardSquare;
 
 public class Memento {
 
-    private ChessGameEngine estado;
+    private BoardSquare[][] estado;
 
-    public Memento(ChessGameEngine estado) {
+    public Memento(BoardSquare[][] estado) {
         this.estado = estado;
     }
 
-    public ChessGameEngine getEstado() {
+    public BoardSquare[][] getEstado() {
         return estado;
     }
 

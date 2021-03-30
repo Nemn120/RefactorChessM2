@@ -15,4 +15,11 @@ public class Caretaker {
         return mementos.get(index);
     }
 
+    public List<Memento> getMementos() {
+        return mementos;
+    }
+
+    public void setMementos(List<Memento> mementos) {
+        this.mementos = mementos;
+    }
 }

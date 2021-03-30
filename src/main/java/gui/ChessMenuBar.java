@@ -1,9 +1,16 @@
 package gui;
 
+import business.game.ChessGameEngine;
+import business.memento.Caretaker;
+import business.memento.Originator;
+import gui.board.BoardSquare;
+import gui.board.ChessGameBoard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 /**
  * Represents the north menu-bar that contains various controls for the game.
@@ -15,10 +22,18 @@ import java.awt.event.ActionListener;
  */
 public class ChessMenuBar extends JMenuBar {
 
+
+    public ChessGameBoard board;
+    Caretaker caretaker = new Caretaker();
+    Originator originator = new Originator();
+
     /**
      * Create a new ChessMenuBar object.
      */
     public ChessMenuBar() {
+
+
+
         String[] menuCategories = {"File", "Options","Partida", "Help"};
         String[] menuItemLists =
                 {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
@@ -62,9 +77,31 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Exit")) {
                 exitHandler();
             } else if (buttonName.equals("Guardar")) {
-                JOptionPane.showMessageDialog(null,"Guardando");
+
+                originator.setEstado(board.getChessCells());
+                caretaker.addMemento(originator.guardar());
+
+                System.out.println("------------GUARDADO--------------");
+                viewBoard(board.getChessCells());
+
             } else if (buttonName.equals("Restaurar")) {
-                JOptionPane.showMessageDialog(null,"Restaurando");
+
+                    int index=Integer.parseInt(JOptionPane.showInputDialog("Versiones disponibles: "+caretaker.getMementos().size()));
+                    if(0<index && index <=caretaker.getMementos().size()) {
+                        originator.restaurar(caretaker.getMemento(index - 1));
+                        BoardSquare[][] temp = originator.getEstado();
+
+                        System.out.println("------------RESTAURADO--------------");
+                        viewBoard(temp);
+
+                        restaurarGame(temp);
+
+                    }else{
+                        JOptionPane.showInputDialog("Version no disponible");
+                    }
+
+
+
             } else {
                 toggleGraveyardHandler();
             }
@@ -86,6 +123,10 @@ public class ChessMenuBar extends JMenuBar {
      */
     private void restartHandler() {
         ((ChessPanel) this.getParent()).getGameEngine().reset();
+    }
+
+    private void restaurarGame(BoardSquare[][] boardSquare) {
+        ((ChessPanel) this.getParent()).getGameEngine().restaurar(boardSquare);
     }
 
     /**
@@ -123,4 +164,19 @@ public class ChessMenuBar extends JMenuBar {
                 !((ChessPanel) this.getParent()).getGameLog().isVisible());
         ((ChessPanel) this.getParent()).revalidate();
     }
+
+    public  void viewBoard(BoardSquare[][] board){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(board[i][j].getPieceOnSquare()!=null){
+                    System.out.print(" "+1);
+                }else {
+                    System.out.print(" "+0);
+                }
+
+            }
+            System.out.println("");
+        }
+    }
+
 }
