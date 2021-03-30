@@ -97,7 +97,7 @@ public class ChessMenuBar extends JMenuBar {
                         restaurarGame(temp);
 
                     }else{
-                        JOptionPane.showInputDialog("Version no disponible");
+                        JOptionPane.showMessageDialog(null,"Version no disponible");
                     }
 
 
