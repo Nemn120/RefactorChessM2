@@ -23,4 +23,5 @@ public class AgregadoConcreto implements Agregado{
         this.aDatos.add( new String("Queen") );
         this.aDatos.add( new String("Rook") );
     }
+
 }
