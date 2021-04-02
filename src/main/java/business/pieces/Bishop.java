@@ -2,6 +2,7 @@ package business.pieces;
 
 import business.service.moves.cardinal.CalculateCardinalMove;
 import business.service.moves.pieces.CreateMoveFactory;
+import business.service.moves.pieces.FacadeMoveByPiece;
 import business.service.moves.pieces.ICreateMove;
 import business.service.moves.pieces.PieceMove;
 import gui.board.ChessGameBoard;
@@ -15,8 +16,7 @@ public class Bishop extends ChessGamePiece {
 
     public Bishop(ChessGameBoard board, int row, int col, int color) {
         super(board, row, col, color);
-        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHOP);
-        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveBishop.createMove(row,col,new ColorOfPiece(color)));
+        pieceMove = new PieceMove((List<CalculateCardinalMove>)FacadeMoveByPiece.movePiece(TypeOfMove.TYPE_MOVE_BISHOP,row,col,new ColorOfPiece(color)));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
@@ -30,8 +30,7 @@ public class Bishop extends ChessGamePiece {
     }
 
     public void calculatePossibleMoves(ChessGameBoard board){
-        ICreateMove createMoveBishop = CreateMoveFactory.getInstance(TypeOfMove.TYPE_MOVE_BISHOP);
-        pieceMove = new PieceMove((List<CalculateCardinalMove>) createMoveBishop.createMove(pieceRow,pieceColumn,colorOfPiece));
+        pieceMove = new PieceMove((List<CalculateCardinalMove>)FacadeMoveByPiece.movePiece(TypeOfMove.TYPE_MOVE_BISHOP,pieceRow,pieceColumn,colorOfPiece));
         possibleMoves = pieceMove.calculateCardinalMoves(board,8);
     }
 
