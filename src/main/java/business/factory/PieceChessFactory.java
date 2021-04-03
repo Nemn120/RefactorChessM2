@@ -12,30 +12,26 @@ public class PieceChessFactory {
                                                   int col,
                                                   int color){
         ChessGamePiece piece = null;
-        AgregadoConcreto agregado = new AgregadoConcreto();
-        Iterador iterador = agregado.getIterador();
-        while(iterador.hasNext() == true){
-            if(iterador.actual() == "Bishop"){
-                piece = new Bishop(board, row, col, color);
-            }
-            else if(iterador.actual() == "King"){
-                piece = new King(board, row, col, color);
-            }
-            else if(iterador.actual() == "Knight"){
-                piece = new Knight(board, row, col, color);
-            }
-            else if(iterador.actual() == "Pawn"){
-                piece = new Pawn(board, row, col, color);
-            }
-            else if(iterador.actual() == "Queen"){
-                piece = new Queen(board, row, col, color);
-            }
-            else if(iterador.actual() == "Rook"){
-                piece = new Rook(board, row, col, color);
-            }
-            else{
-                piece = new PieceNull();
-            }
+        if("Bishop".equalsIgnoreCase(PieceType)){
+            piece = new Bishop(board, row, col, color);
+        }
+        else if("King".equalsIgnoreCase(PieceType)){
+            piece = new King(board, row, col, color);
+        }
+        else if("Knight".equalsIgnoreCase(PieceType)){
+            piece = new Knight(board, row, col, color);
+        }
+        else if("Pawn".equalsIgnoreCase(PieceType)){
+            piece = new Pawn(board, row, col, color);
+        }
+        else if("Queen".equalsIgnoreCase(PieceType)){
+            piece = new Queen(board, row, col, color);
+        }
+        else if("Rook".equalsIgnoreCase(PieceType)){
+            piece = new Rook(board, row, col, color);
+        }
+        else{
+            piece = new PieceNull();
         }
         return piece;
     }

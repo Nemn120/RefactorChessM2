@@ -1,6 +1,8 @@
 package util.IteratorPattern;
 
+import business.factory.PieceChessFactory;
 import business.pieces.Bishop;
+import business.pieces.ChessGamePiece;
 import gui.board.ChessGameBoard;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -15,13 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class IteradorTest {
     Logger logger;
     Bishop bishopBlack;
-    ChessGameBoard chessGameBoard;
 
     @Before
     public void before(){
         logger = Logger.getLogger(ColorfactoryTest.class.getName());
-        chessGameBoard=new ChessGameBoard();
-        bishopBlack=new Bishop(chessGameBoard,0,2,0);//row=0; col=2,5; color=0 black
     }
 
     @Test
