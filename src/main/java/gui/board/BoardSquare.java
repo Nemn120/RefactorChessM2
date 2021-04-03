@@ -3,6 +3,7 @@ package gui.board;
 import business.pieces.ChessGamePiece;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Represents a cell on the chess board. Holds a game piece.
@@ -25,6 +26,7 @@ public class BoardSquare extends JPanel {
      * @param col   the column
      * @param piece the game piece
      */
+
     public BoardSquare(int row, int col, ChessGamePiece piece) {
         super();
         this.row = row;

@@ -102,6 +102,24 @@ public class ChessGameEngine {
     }
 
     /**
+     * Resets the game to its save state.
+     */
+    public void restaurar(BoardSquare[][] boardSquare) {
+        firstClick = true;
+        currentPlayer = 1;
+        ((ChessPanel) board.getParent()).getGraveyard(1).clearGraveyard();
+        ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
+        ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare);
+        ((ChessPanel) board.getParent()).revalidate();
+        //this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
+        //this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        ((ChessPanel) board.getParent()).getGameLog().clearLog();
+        ((ChessPanel) board.getParent()).getGameLog().addToLog(
+                "Restaurado!");
+    }
+
+
+    /**
      * Gets the current player. Used for determining the turn.
      *
      * @return int the current player (1 or 2)
@@ -312,5 +330,49 @@ public class ChessGameEngine {
                 firstClick = true;
             }
         }
+    }
+
+    public ChessGamePiece getCurrentPiece() {
+        return currentPiece;
+    }
+
+    public void setCurrentPiece(ChessGamePiece currentPiece) {
+        this.currentPiece = currentPiece;
+    }
+
+    public boolean isFirstClick() {
+        return firstClick;
+    }
+
+    public void setFirstClick(boolean firstClick) {
+        this.firstClick = firstClick;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public ChessGameBoard getBoard() {
+        return board;
+    }
+
+    public void setBoard(ChessGameBoard board) {
+        this.board = board;
+    }
+
+    public King getKing1() {
+        return king1;
+    }
+
+    public void setKing1(King king1) {
+        this.king1 = king1;
+    }
+
+    public King getKing2() {
+        return king2;
+    }
+
+    public void setKing2(King king2) {
+        this.king2 = king2;
     }
 }

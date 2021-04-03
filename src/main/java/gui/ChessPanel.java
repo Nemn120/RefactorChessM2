@@ -39,6 +39,10 @@ public class ChessPanel extends JPanel {
         this.add(playerTwoGraveyard, BorderLayout.EAST);
         this.setPreferredSize(new Dimension(800, 600));
         gameEngine = new ChessGameEngine(gameBoard); // start the game
+
+
+        menuBar.board=gameBoard;
+
     }
 
     /**
