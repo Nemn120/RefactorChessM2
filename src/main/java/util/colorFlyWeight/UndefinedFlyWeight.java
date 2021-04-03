@@ -1,11 +1,11 @@
 package util.colorFlyWeight;
 
-public class NullFlyWeight extends Colors {
+public class UndefinedFlyWeight extends Colors {
     String PATH = "/ChessImages";
     String pieceType;
     public static int num;
 
-    public NullFlyWeight(){
+    public UndefinedFlyWeight(){
         num++;
     }
 

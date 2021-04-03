@@ -19,7 +19,7 @@ public class ColorFactoryFlyWeight {
                 color = new WhiteFlyWeight();
                 break;
             default:
-                color = new NullFlyWeight();
+                color = new UndefinedFlyWeight();
         }
         flyweights.put(key, color);
         return color;
