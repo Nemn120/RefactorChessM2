@@ -113,8 +113,6 @@ public class ChessGameEngine {
         ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
         ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare);
         ((ChessPanel) board.getParent()).revalidate();
-        //this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
-        //this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "Restaurado!");

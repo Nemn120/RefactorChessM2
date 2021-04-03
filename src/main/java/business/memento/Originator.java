@@ -20,18 +20,11 @@ public class Originator {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                //if(estado[i][j]!=null){
                     temp[i][j]=new BoardSquare(estado[i][j].getRow(),
                             estado[i][j].getColumn(),estado[i][j].getPieceOnSquare());
-                //}else{
-                //    temp[i][j]=null;
-                //}
-
             }
         }
-
         return new Memento(temp);
-
     }
 
     public void restaurar(Memento m) {
