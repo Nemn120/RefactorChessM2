@@ -5,6 +5,7 @@ import business.service.king.KingService;
 import business.service.moves.IPieceMoveService;
 import business.service.moves.impl.PieceMoveServiceImpl;
 import util.ColorOfPiece;
+import business.game.state.*;
 import business.pieces.ChessGamePiece;
 import business.pieces.King;
 import gui.ChessPanel;
@@ -35,6 +36,7 @@ public class ChessGameEngine {
     private IKingService kingService;
     private King king1;
     private King king2;
+    private State state;
 
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -56,6 +58,15 @@ public class ChessGameEngine {
 
         pieceMoveService = PieceMoveServiceImpl.getInstance();
         kingService = KingService.getInstance(board, pieceMoveService);
+        setState(new NormalState(this));
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     /**
@@ -99,6 +110,7 @@ public class ChessGameEngine {
                 "A new chess "
                         + "game has been started. Player 1 (white) will play "
                         + "against Player 2 (black). BEGIN!");
+        setState(new NormalState(this));
     }
 
     /**
@@ -196,15 +208,18 @@ public class ChessGameEngine {
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
             if (gameLostRetVal < 0) {
+                setState(new StaleMateState(this));
                 askUserToPlayAgain("Game over - STALEMATE. You should both go"
                         + " cry in a corner!");
                 return;
             } else if (gameLostRetVal > 0) {
+                setState(new CheckMateState(this,gameLostRetVal));
                 askUserToPlayAgain("Game over - CHECKMATE. " + "Player "
                         + gameLostRetVal + " loses and should go"
                         + " cry in a corner!");
                 return;
             } else if (isKingInCheck(true)) {
+                setState(new CheckState(this,currentPlayer));
                 JOptionPane.showMessageDialog(
                         board.getParent(),
                         "Be careful player " + currentPlayer + ", " +
@@ -212,6 +227,8 @@ public class ChessGameEngine {
                                 "him out of check or you're screwed.",
                         "Warning",
                         JOptionPane.WARNING_MESSAGE);
+            } else if (getState().getStateName() == State.CHECK && getState().getPlayer() == currentPlayer){
+                setState(new NormalState(this));
             }
             currentPlayer = currentPlayer == 1 ? 2 : 1;
             // check the next player's conditions as well.
