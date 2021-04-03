@@ -84,6 +84,8 @@ public class ChessMenuBar extends JMenuBar {
                 System.out.println("------------GUARDADO--------------");
                 viewBoard(board.getChessCells());
 
+                JOptionPane.showMessageDialog(null,"Tablero Guardado.");
+
             } else if (buttonName.equals("Restaurar")) {
 
                     int index=Integer.parseInt(JOptionPane.showInputDialog("Versiones disponibles: "+caretaker.getMementos().size()));
@@ -96,8 +98,10 @@ public class ChessMenuBar extends JMenuBar {
 
                         restaurarGame(temp);
 
+                        JOptionPane.showMessageDialog(null,"Version "+index+" restaurada.");
+
                     }else{
-                        JOptionPane.showMessageDialog(null,"Version no disponible");
+                        JOptionPane.showMessageDialog(null,"Version no disponible.");
                     }
 
 
