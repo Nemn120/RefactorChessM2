@@ -11,7 +11,6 @@ public class PieceFactory {
     public static ChessGamePiece createPiece(String piece,ChessGameBoard board,int row,int col, int color){
         AgregadoConcreto agregado = new AgregadoConcreto();
         Iterador iterador = agregado.getIterador();
-        String pieceS = null;
         while(iterador.hasNext() == true){
             if(piece == "Bishop"){
                 return new Bishop(board,row,col,color);
