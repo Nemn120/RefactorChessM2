@@ -34,7 +34,7 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
     @Override
     public boolean move(ChessGameBoard board, ChessGamePiece piece, int row, int col) {
         if (canMove(board,piece, row, col)) {
-            String moveLog = this.toString() + " -> ";
+            String moveLog = this.toString( piece,piece.getRow(),  piece.getColumn()) + " -> ";
             board.clearCell(piece.getRow(), piece.getColumn());
             if (IsEnemy.invoke(board, row, col,piece.getColorOfPiece().getColor())) {
                 ChessGraveyard graveyard;
@@ -160,5 +160,10 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
             return false;
         }
         return false;
+    }
+
+    public String toString(ChessGamePiece piece,int row, int col){
+        return piece.getClass().toString().substring( 6 ) + " @ (" + row
+                + ", " + col + ")";
     }
 }
