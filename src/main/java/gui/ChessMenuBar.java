@@ -81,8 +81,8 @@ public class ChessMenuBar extends JMenuBar {
                 originator.setEstado(board.getChessCells());
                 caretaker.addMemento(originator.guardar());
 
-                System.out.println("------------GUARDADO--------------");
-                viewBoard(board.getChessCells());
+                //System.out.println("------------GUARDADO--------------");
+                //viewBoard(board.getChessCells());
 
                 JOptionPane.showMessageDialog(null,"Tablero Guardado.");
 
@@ -93,8 +93,8 @@ public class ChessMenuBar extends JMenuBar {
                         originator.restaurar(caretaker.getMemento(index - 1));
                         BoardSquare[][] temp = originator.getEstado();
 
-                        System.out.println("------------RESTAURADO--------------");
-                        viewBoard(temp);
+                        //System.out.println("------------RESTAURADO--------------");
+                        //viewBoard(temp);
 
                         restaurarGame(temp);
 
