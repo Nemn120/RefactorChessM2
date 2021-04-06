@@ -1,6 +1,7 @@
 package gui;
 
 import business.game.ChessGameEngine;
+import business.log.GameLog;
 import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
@@ -164,9 +165,16 @@ public class ChessMenuBar extends JMenuBar {
      * Takes an appropriate action if the toggle game log button is clicked.
      */
     private void toggleGameLogHandler() {
-        ((ChessPanel) this.getParent()).getGameLog().setVisible(
+        /*((ChessPanel) this.getParent()).getGameLog().setVisible(
                 !((ChessPanel) this.getParent()).getGameLog().isVisible());
-        ((ChessPanel) this.getParent()).revalidate();
+        ((ChessPanel) this.getParent()).revalidate();*/
+
+        if (((ChessPanel) this.getParent()).getGameLog() instanceof GameLog) {
+
+            ((GameLog) ((ChessPanel) this.getParent()).getGameLog())
+                    .setVisible(!((GameLog) ((ChessPanel) this.getParent()).getGameLog()).isVisible());
+            ((ChessPanel) this.getParent()).revalidate();
+        }
     }
 
     public  void viewBoard(BoardSquare[][] board){
