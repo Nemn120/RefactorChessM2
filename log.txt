@@ -11,3 +11,4 @@ Mon Apr 05 22:54:52 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@
 Mon Apr 05 22:54:52 PET 2021 - It is now Player 2's turn.
 Mon Apr 05 22:54:54 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (2, 0)
 Mon Apr 05 22:54:54 PET 2021 - It is now Player 1's turn.
+Mon Apr 05 23:54:23 PET 2021 - start
