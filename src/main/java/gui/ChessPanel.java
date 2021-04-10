@@ -1,6 +1,10 @@
 package gui;
 
 import business.game.ChessGameEngine;
+import business.log.ConsoleLog;
+import business.log.FileLog;
+import business.log.GameLog;
+import business.log.Log;
 import gui.board.ChessGameBoard;
 
 import javax.swing.*;
@@ -17,7 +21,8 @@ import java.awt.*;
 public class ChessPanel extends JPanel {
     private ChessMenuBar menuBar;
     private ChessGameBoard gameBoard;
-    private ChessGameLog gameLog;
+    //private ChessGameLog gameLog;
+    private Log gameLog;
     private ChessGraveyard playerOneGraveyard;
     private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
@@ -29,17 +34,19 @@ public class ChessPanel extends JPanel {
         this.setLayout(new BorderLayout());
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
-        gameLog = ChessGameLog.getLogInstance();
+        //gameLog = ChessGameLog.getLogInstance();
         playerOneGraveyard = new ChessGraveyard("Player 1's graveyard");
         playerTwoGraveyard = new ChessGraveyard("Player 2's graveyard");
         this.add(menuBar, BorderLayout.NORTH);
         this.add(gameBoard, BorderLayout.CENTER);
-        this.add(gameLog, BorderLayout.SOUTH);
+
+        //this.add(gameLog, BorderLayout.SOUTH);
+        strategyLogger();
+
         this.add(playerOneGraveyard, BorderLayout.WEST);
         this.add(playerTwoGraveyard, BorderLayout.EAST);
         this.setPreferredSize(new Dimension(800, 600));
         gameEngine = new ChessGameEngine(gameBoard); // start the game
-
 
         menuBar.board=gameBoard;
 
@@ -50,7 +57,7 @@ public class ChessPanel extends JPanel {
      *
      * @return ChessGameLog the ChessGameLog object
      */
-    public ChessGameLog getGameLog() {
+    public Log getGameLog() {
         return gameLog;
     }
 
@@ -87,4 +94,30 @@ public class ChessPanel extends JPanel {
             return null;
         }
     }
+
+    public void strategyLogger(){
+        int  i=0;
+        do{
+            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
+                    "\n1.GameLog              2.ConsoleLog" +
+                    "\n                     3.FileLog"));
+
+            if (i == 1) {
+                gameLog = new GameLog();
+                this.add((GameLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 2) {
+                gameLog = new ConsoleLog();
+                this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 3) {
+                gameLog = new FileLog();
+                this.add((FileLog) gameLog, BorderLayout.SOUTH);
+            } else {
+                JOptionPane.showMessageDialog(null, "Logger no valido!");
+            }
+        }while(i!= 1 && i!=2 && i!=3);
+    }
+
 }
+
+
+

@@ -222,21 +222,26 @@ public class ChessGameBoard extends JPanel {
             for (int j = 0; j < chessCells[0].length; j++) {
                 ChessGamePiece pieceToAdd;
                 if(boardSquare[i][j].getPieceOnSquare() instanceof Pawn){
-                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 } else if (boardSquare[i][j].getPieceOnSquare() instanceof Rook) {
-                    pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Bishop) {
-                    pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Knight) {
-                    pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof King) {
-                    pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Queen) {
-                    pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j].getPieceOnSquare().getColorOfPiece().getColor());;
+                    pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());;
                 }else{
                     pieceToAdd =null;
                 }
-
                 chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
                 if ((i + j) % 2 == 0) {
                     chessCells[i][j].setBackground(Color.WHITE);

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import util.ResourceOfPiece;
 import util.colorFactory.ColorfactoryTest;
 
-import java.awt.*;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,10 +41,10 @@ class ColorFactoryFlyWeightTest {
         assertNotNull(colors);
         assertEquals(1,BlackFlyWeight.num);
         assertEquals(1,WhiteFlyWeight.num);
-        assertEquals(1,NullFlyWeight.num);
+        assertEquals(1, UndefinedFlyWeight.num);
         System.out.println("BLACK INSTANCES: " + BlackFlyWeight.num);
         System.out.println("WHITE INSTANCES: " + WhiteFlyWeight.num);
-        System.out.println("UNDEFINED INSTANCES: " + NullFlyWeight.num);
+        System.out.println("UNDEFINED INSTANCES: " + UndefinedFlyWeight.num);
 
 
 

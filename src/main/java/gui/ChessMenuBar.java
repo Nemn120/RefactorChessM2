@@ -1,6 +1,5 @@
 package gui;
 
-import business.game.ChessGameEngine;
 import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
@@ -8,10 +7,8 @@ import gui.board.ChessGameBoard;
 import gui.patternCommand.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 /**
  * Represents the north menu-bar that contains various controls for the game.
@@ -165,9 +162,13 @@ public class ChessMenuBar extends JMenuBar {
     /**
      * Takes an appropriate action if the toggle game log button is clicked.
      */
-    /*public void toggleGameLogHandler() {
-        ((ChessPanel) this.getParent()).getGameLog().setVisible(
-                !((ChessPanel) this.getParent()).getGameLog().isVisible());
+    /*private void toggleGameLogHandler() {
+        if (((ChessPanel) this.getParent()).getGameLog() instanceof GameLog) {
+            ((GameLog) ((ChessPanel) this.getParent()).getGameLog())
+                    .setVisible(!((GameLog) ((ChessPanel) this.getParent()).getGameLog()).isVisible());
+            ((ChessPanel) this.getParent()).revalidate();
+        }
+    }
         ((ChessPanel) this.getParent()).revalidate();
     }*/
 
