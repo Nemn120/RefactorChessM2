@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 import java.util.logging.Logger;
 
 public class StateTest {
@@ -70,35 +71,35 @@ public class StateTest {
     @Test
     public void patternStateValidatorCheck() {
         //blanco
-        simulateClick(chessPanel.getGameBoard().getCell(6, 1));//peon delante del caballo
-        simulateClick(chessPanel.getGameBoard().getCell(5, 1));//avanza 1
+        simulateClick(chessPanel.getGameBoard().getCell(6, 3));//peon delante de la reina
+        simulateClick(chessPanel.getGameBoard().getCell(5, 3));//avanza 1
         //negro
         simulateClick(chessPanel.getGameBoard().getCell(1, 4));//peon delante del rey
         simulateClick(chessPanel.getGameBoard().getCell(2, 4));//avanza 1
         //blanco
-        simulateClick(chessPanel.getGameBoard().getCell(7, 1));//caballo
-        simulateClick(chessPanel.getGameBoard().getCell(5, 2));
-        //negro
-        simulateClick(chessPanel.getGameBoard().getCell(0, 3));//reina
-        simulateClick(chessPanel.getGameBoard().getCell(4, 7));
-        //blanco
-        simulateClick(chessPanel.getGameBoard().getCell(6, 0));//peon delante de la torre
-        simulateClick(chessPanel.getGameBoard().getCell(5, 0));//avanza 1
+        simulateClick(chessPanel.getGameBoard().getCell(6, 5));//peon delante del alfil
+        simulateClick(chessPanel.getGameBoard().getCell(4, 5));//avanza 2
         //estado
-        logger.info("State: "+chessPanel.getGameEngine().getState().getType());
         assertEquals(State.NORMAL,chessPanel.getGameEngine().getState().getType());
+        assertEquals(true,chessPanel.getGameBoard().getCell(7, 4).getBackground()==Color.BLACK);
+        logger.info("Estado: "+chessPanel.getGameEngine().getState().getType() +
+            " ,Color: "+chessPanel.getGameBoard().getCell(7, 4).getBackground());
         //negro 
-        simulateClick(chessPanel.getGameBoard().getCell(4, 7)); //reina
-        simulateClick(chessPanel.getGameBoard().getCell(6, 5));
+        simulateClick(chessPanel.getGameBoard().getCell(0, 3)); //reina
+        simulateClick(chessPanel.getGameBoard().getCell(4, 7));//avanza en diagonal 4
         //estado
-        logger.info("State: "+chessPanel.getGameEngine().getState().getType());
         assertEquals(State.CHECK,chessPanel.getGameEngine().getState().getType());
-        logger.info("Player in check: "+chessPanel.getGameEngine().getState().getPlayerInCheck());
         assertEquals(1,chessPanel.getGameEngine().getState().getPlayerInCheck());
+        assertEquals(true,chessPanel.getGameBoard().getCell(7, 4).getBackground()==Color.RED);
+        logger.info("Estado: "+chessPanel.getGameEngine().getState().getType() +
+            " ,Jugador en jaque: "+chessPanel.getGameEngine().getState().getPlayerInCheck() +
+            " ,Color: "+chessPanel.getGameBoard().getCell(7, 4).getBackground());
         //blanco
         simulateClick(chessPanel.getGameBoard().getCell(7, 4));//rey
-        simulateClick(chessPanel.getGameBoard().getCell(6, 5));
-        logger.info("State: "+chessPanel.getGameEngine().getState().getType());
+        simulateClick(chessPanel.getGameBoard().getCell(6, 3));
         assertEquals(State.NORMAL,chessPanel.getGameEngine().getState().getType());
+        assertEquals(true,chessPanel.getGameBoard().getCell(7, 4).getBackground()==Color.BLACK);
+        logger.info("Estado: "+chessPanel.getGameEngine().getState().getType() +
+            " ,Color: "+chessPanel.getGameBoard().getCell(7, 4).getBackground());
     }
 }
