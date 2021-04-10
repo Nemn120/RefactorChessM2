@@ -96,28 +96,28 @@ public class ChessPanel extends JPanel {
     }
 
     public void strategyLogger(){
-
-        Integer  i=0;
+        int  i=0;
         do{
+            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
+                    "\n1.GameLog              2.ConsoleLog" +
+                    "\n                     3.FileLog"));
 
-            i= Integer.parseInt( JOptionPane.showInputDialog(null, "Loggers:\n1.GameLog\n2.ConsoleLog\n3.FileLog"));
-
-
-                if (i == 1) {
-                    gameLog = new GameLog();
-                    this.add((GameLog) gameLog, BorderLayout.SOUTH);
-                } else if (i == 2) {
-                    gameLog = new ConsoleLog();
-                    this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
-                } else if (i == 3) {
-                    gameLog = new FileLog();
-                    this.add((FileLog) gameLog, BorderLayout.SOUTH);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Logger no valido!");
-                }
-
-
+            if (i == 1) {
+                gameLog = new GameLog();
+                this.add((GameLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 2) {
+                gameLog = new ConsoleLog();
+                this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 3) {
+                gameLog = new FileLog();
+                this.add((FileLog) gameLog, BorderLayout.SOUTH);
+            } else {
+                JOptionPane.showMessageDialog(null, "Logger no valido!");
+            }
         }while(i!= 1 && i!=2 && i!=3);
-
     }
+
 }
+
+
+
