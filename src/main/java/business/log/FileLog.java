@@ -15,13 +15,14 @@ import javax.swing.JComponent;
 
 public class FileLog extends JComponent implements Log{
 
+    public String message;
+
     Path path=Paths.get("log.txt");
 
     @Override
     public void addToLog(String s) {
 
-
-
+        message=s;
 
         String log=new Date() + " - " + s+"\n";
 
@@ -46,7 +47,7 @@ public class FileLog extends JComponent implements Log{
 
     @Override
     public String getLastLog() {
-        return "\nRetornando al pasado!";
+        return "Retornando al pasado!";
     }
 
 
