@@ -1,6 +1,10 @@
 package gui;
 
 import business.game.ChessGameEngine;
+import business.log.ConsoleLog;
+import business.log.FileLog;
+import business.log.GameLog;
+import business.log.Log;
 import business.mediator.Buttons;
 import business.mediator.Fan;
 import business.mediator.Mediator;
@@ -9,8 +13,6 @@ import gui.board.ChessGameBoard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * The main panel of the Chess game.
@@ -23,7 +25,8 @@ import java.awt.event.ActionListener;
 public class ChessPanel extends JPanel implements ActionListener{
     private ChessMenuBar menuBar;
     private ChessGameBoard gameBoard;
-    private ChessGameLog gameLog;
+    //private ChessGameLog gameLog;
+    private Log gameLog;
     private ChessGraveyard playerOneGraveyard;
     private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
@@ -46,12 +49,15 @@ public class ChessPanel extends JPanel implements ActionListener{
         this.setLayout(new BorderLayout());
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
-        gameLog = ChessGameLog.getLogInstance();
+        //gameLog = ChessGameLog.getLogInstance();
         playerOneGraveyard = new ChessGraveyard("Player 1's graveyard");
         playerTwoGraveyard = new ChessGraveyard("Player 2's graveyard");
         this.add(menuBar, BorderLayout.NORTH);
         this.add(gameBoard, BorderLayout.CENTER);
-        this.add(gameLog, BorderLayout.SOUTH);
+
+        //this.add(gameLog, BorderLayout.SOUTH);
+        strategyLogger();
+
         this.add(playerOneGraveyard, BorderLayout.WEST);
         this.add(playerTwoGraveyard, BorderLayout.EAST);
         this.setPreferredSize(new Dimension(800, 600));
@@ -61,6 +67,7 @@ public class ChessPanel extends JPanel implements ActionListener{
         playerOneGraveyard.add(b);
         b.addActionListener(this);
         gameEngine = new ChessGameEngine(gameBoard); // start the game
+
         menuBar.board=gameBoard;
         fan = new Fan();
     }
@@ -70,7 +77,7 @@ public class ChessPanel extends JPanel implements ActionListener{
      *
      * @return ChessGameLog the ChessGameLog object
      */
-    public ChessGameLog getGameLog() {
+    public Log getGameLog() {
         return gameLog;
     }
 
@@ -122,3 +129,30 @@ public class ChessPanel extends JPanel implements ActionListener{
         }
     }
 }
+
+    public void strategyLogger(){
+        int  i=0;
+        do{
+            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
+                    "\n1.GameLog              2.ConsoleLog" +
+                    "\n                     3.FileLog"));
+
+            if (i == 1) {
+                gameLog = new GameLog();
+                this.add((GameLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 2) {
+                gameLog = new ConsoleLog();
+                this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 3) {
+                gameLog = new FileLog();
+                this.add((FileLog) gameLog, BorderLayout.SOUTH);
+            } else {
+                JOptionPane.showMessageDialog(null, "Logger no valido!");
+            }
+        }while(i!= 1 && i!=2 && i!=3);
+    }
+
+}
+
+
+
