@@ -22,7 +22,7 @@ public class BlackPieces implements Observable{
     public void addNewDeadPiece(ChessGamePiece piece){
         this.deadPieces.add(piece);
         this._notify();
-        System.out.println("nueva pieza negra muerta" + piece.toString());
+        //System.out.println("nueva pieza negra muerta" + piece.toString());
 
     }
 

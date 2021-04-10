@@ -22,7 +22,7 @@ public class WhitePieces implements Observable{
     public void addNewDeadPiece(ChessGamePiece piece){
         this.deadPieces.add(piece);
         this._notify();
-        System.out.println("nueva pieza blanca muerta" + piece.toString());
+        //System.out.println("nueva pieza blanca muerta" + piece.toString());
 
     }
 
@@ -33,3 +33,5 @@ public class WhitePieces implements Observable{
         });
     }
 }
+
+

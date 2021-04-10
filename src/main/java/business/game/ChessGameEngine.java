@@ -252,7 +252,7 @@ public class ChessGameEngine {
         // loss
         {
             return 1;
-        }
+        }else
         if ((kingService.isChecked(king2) && !playerHasLegalMoves(2)) || (((ChessPanel) board.getParent()).getGraveyard(2).quiereRendirse(2)==0)) // player 2
         // loss
         {
