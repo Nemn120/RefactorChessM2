@@ -239,7 +239,7 @@ public class ChessGameEngine {
                         + " cry in a corner!");
                 return;
             } else if (isKingInCheck(true)) {
-                state.changeState(new CheckState(this,board,king1,king2,currentPlayer));
+                state.changeState(new CheckState(this,board,king1,king2,currentPlayer.allowPlay()));
                 JOptionPane.showMessageDialog(
                         board.getParent(),
                         "Be careful player " + currentPlayer.allowPlay() + ", " +
@@ -247,7 +247,7 @@ public class ChessGameEngine {
                                 "him out of check or you're screwed.",
                         "Warning",
                         JOptionPane.WARNING_MESSAGE);
-            } else if (state.getType() == State.CHECK && state.getPlayerInCheck() == currentPlayer){
+            } else if (state.getType() == State.CHECK && state.getPlayerInCheck() == currentPlayer.allowPlay()){
                 state.changeState(new NormalState(this,board,king1,king2));
             }
             currentPlayer = new ProxyPlayer( currentPlayer.allowPlay() == 1 ? 2 : 1 );
