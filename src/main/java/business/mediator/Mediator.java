@@ -1,6 +1,9 @@
 package business.mediator;
 
+import gui.ChessGameLog;
 import gui.ChessGraveyard;
+
+import javax.swing.*;
 
 public class Mediator {
     private Fan fan;
@@ -38,21 +41,21 @@ public class Mediator {
         this.power = power;
     }
 
-    public void press(ChessGraveyard panel,ChessGraveyard panel2){
+    public void press(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
         if(fan.getIsOn()){
-            fan.turnOff(panel,panel2);
+            fan.turnOff(panel,panel2,log);
         }
         else{
-            fan.turnOn(panel,panel2);
+            fan.turnOn(panel,panel2,log);
         }
     }
 
-    public void start(ChessGraveyard panel,ChessGraveyard panel2){
-        power.turnOn(panel,panel2);
+    public void start(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
+        power.turnOn(panel,panel2,log);
     }
 
-    public void stop(ChessGraveyard panel,ChessGraveyard panel2){
-        power.turnOff(panel,panel2);
+    public void stop(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
+        power.turnOff(panel,panel2,log);
     }
 
 }

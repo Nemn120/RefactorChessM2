@@ -118,7 +118,7 @@ public class ChessPanel extends JPanel implements ActionListener{
             fan.setMediator(mediator);
             mediator.setFan(fan);
             mediator.setPower(power);
-            bn.press(playerOneGraveyard,playerTwoGraveyard);
+            bn.press(playerOneGraveyard,playerTwoGraveyard,gameLog);
         }
     }
 }
