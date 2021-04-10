@@ -43,11 +43,11 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
                 if (gameEngine.getCurrentPlayer().allowPlay() == 1) {
                     graveyard =
                             ((ChessPanel) board.getParent()).getGraveyard(2);
-                    graveyard.quiereRendirse(2);
+                    //graveyard.quiereRendirse(2);
                 } else {
                     graveyard =
                             ((ChessPanel) board.getParent()).getGraveyard(1);
-                    graveyard.quiereRendirse(1);
+                    //graveyard.quiereRendirse(1);
                 }
                 graveyard.addPiece(
                         board.getCell(row, col).getPieceOnSquare());
