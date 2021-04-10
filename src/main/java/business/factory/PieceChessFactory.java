@@ -3,6 +3,8 @@ package business.factory;
 import business.pieces.*;
 import business.piecenull.PieceNull;
 import gui.board.ChessGameBoard;
+import util.IteratorPattern.AgregadoConcreto;
+import util.IteratorPattern.Iterador;
 
 public class PieceChessFactory {
     public static ChessGamePiece createChessPiece(String PieceType, ChessGameBoard board,

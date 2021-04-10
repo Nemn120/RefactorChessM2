@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.util.List;
 
 public abstract class ChessGamePiece {
+
+    private String namePiece;
+
     protected boolean skipMoveGeneration;
     protected ColorOfPiece colorOfPiece;
     protected ImageIcon pieceImage;

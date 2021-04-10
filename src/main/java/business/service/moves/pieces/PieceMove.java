@@ -2,6 +2,7 @@ package business.service.moves.pieces;
 
 import business.service.moves.cardinal.CalculateCardinalMove;
 import gui.board.ChessGameBoard;
+import util.TypeOfMove;
 
 import java.util.ArrayList;
 import java.util.List;

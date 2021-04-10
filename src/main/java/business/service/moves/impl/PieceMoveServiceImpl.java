@@ -34,25 +34,30 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
     @Override
     public boolean move(ChessGameBoard board, ChessGamePiece piece, int row, int col) {
         if (canMove(board,piece, row, col)) {
-            String moveLog = this.toString() + " -> ";
+            String moveLog = this.toString( piece,piece.getRow(),  piece.getColumn()) + " -> ";
             board.clearCell(piece.getRow(), piece.getColumn());
             if (IsEnemy.invoke(board, row, col,piece.getColorOfPiece().getColor())) {
                 ChessGraveyard graveyard;
                 ChessGameEngine gameEngine =
                         ((ChessPanel) board.getParent()).getGameEngine();
-                if (gameEngine.getCurrentPlayer() == 1) {
+                if (gameEngine.getCurrentPlayer().allowPlay() == 1) {
                     graveyard =
                             ((ChessPanel) board.getParent()).getGraveyard(2);
+                    graveyard.quiereRendirse(2);
                 } else {
                     graveyard =
                             ((ChessPanel) board.getParent()).getGraveyard(1);
+                    graveyard.quiereRendirse(1);
                 }
                 graveyard.addPiece(
                         board.getCell(row, col).getPieceOnSquare());
+
             }
+
             piece.setPieceLocation(row, col);
             moveLog += " (" + row + ", " + col + ")";
             ((ChessPanel) board.getParent()).getGameLog().addToLog(moveLog);
+
             board.getCell(row, col).setPieceOnSquare(piece);
             if (!piece.isSkipMoveGeneration()) {
                 piece.calculatePossibleMoves(board);
@@ -160,5 +165,10 @@ public class PieceMoveServiceImpl implements IPieceMoveService {
             return false;
         }
         return false;
+    }
+
+    public String toString(ChessGamePiece piece,int row, int col){
+        return piece.getClass().toString().substring( 6 ) + " @ (" + row
+                + ", " + col + ")";
     }
 }

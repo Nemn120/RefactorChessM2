@@ -37,6 +37,7 @@ public class LoginMaster {
                 frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame2.pack();
                 frame2.setVisible(true);
+                frame2.setLocationRelativeTo(null);
 
                 frameMaster.dispose();
             }

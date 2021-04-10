@@ -1,4 +1,4 @@
-package gui;
+package business.log;
 
 import javax.swing.*;
 import java.util.Date;
@@ -13,14 +13,16 @@ import java.util.Date;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessGameLog extends JScrollPane {
+public class GameLog extends JScrollPane implements Log {
 
-    public JTextArea textArea;
+    public String message;
+
+    private JTextArea textArea;
 
     /**
      * Create a new ChessGameLog object.
      */
-    public ChessGameLog() {
+    public GameLog() {
         super(
                 new JTextArea("", 5, 30),
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -28,11 +30,11 @@ public class ChessGameLog extends JScrollPane {
         textArea = ((JTextArea) this.getViewport().getView());
     }
 
-    private static ChessGameLog logInstance;
+    private static gui.ChessGameLog logInstance;
 
-    public static ChessGameLog getLogInstance() {
+    public static gui.ChessGameLog getLogInstance() {
         if(logInstance == null){
-            logInstance = new ChessGameLog();
+            logInstance = new gui.ChessGameLog();
         }
         return logInstance;
     }
@@ -43,6 +45,9 @@ public class ChessGameLog extends JScrollPane {
      * @param s the line of text to add
      */
     public void addToLog(String s) {
+
+        message=s;
+
         if (textArea.getText().length() > 0) {
             textArea.setText(textArea.getText() + "\n" + new Date() + " - "
                     + s);
