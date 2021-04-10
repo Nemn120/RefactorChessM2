@@ -211,7 +211,7 @@ public class ChessGameEngine {
      * method).
      */
     private void checkGameConditions() {
-        int origPlayer = currentPlayer.allowPlay();
+        IPlayer origPlayer = currentPlayer;
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
             if (gameLostRetVal < 0) {
@@ -232,10 +232,11 @@ public class ChessGameEngine {
                         "Warning",
                         JOptionPane.WARNING_MESSAGE);
             }
+            currentPlayer = new ProxyPlayer( currentPlayer.allowPlay() == 1 ? 2 : 1 );
 
             // check the next player's conditions as well.
         }
-
+        currentPlayer = origPlayer;
         nextTurn();
     }
 
@@ -247,12 +248,12 @@ public class ChessGameEngine {
      * still valid game.
      */
     public int determineGameLost() {
-        if (kingService.isChecked(king1) && !playerHasLegalMoves(1)) // player 1
+        if ((kingService.isChecked(king1) && !playerHasLegalMoves(1)) || (((ChessPanel) board.getParent()).getGraveyard(1).quiereRendirse(1)==0) ) // player 1
         // loss
         {
             return 1;
         }
-        if (kingService.isChecked(king2) && !playerHasLegalMoves(2)) // player 2
+        if ((kingService.isChecked(king2) && !playerHasLegalMoves(2)) || (((ChessPanel) board.getParent()).getGraveyard(2).quiereRendirse(2)==0)) // player 2
         // loss
         {
             return 2;
