@@ -10,7 +10,6 @@ public class RealPlayer1 implements IPlayer{
 
     @Override
     public int allowPlay() {
-        //System.out.println("turno jugador 1.");
         return 1;
     }
 
