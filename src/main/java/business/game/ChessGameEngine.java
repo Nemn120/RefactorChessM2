@@ -48,8 +48,8 @@ public class ChessGameEngine {
         firstClick = true;
         currentPlayer = 1;
         this.board = board;
-        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
-        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        this.king1 = (King) board.getCell(7, 4).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 4).getPieceOnSquare();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "A new chess "
@@ -58,7 +58,7 @@ public class ChessGameEngine {
 
         pieceMoveService = PieceMoveServiceImpl.getInstance();
         kingService = KingService.getInstance(board, pieceMoveService);
-        setState(new NormalState(this));
+        setState(new NormalState(this,board,king1,king2));
     }
 
     public State getState() {
@@ -66,6 +66,7 @@ public class ChessGameEngine {
     }
 
     public void setState(State state) {
+        state.update();
         this.state = state;
     }
 
@@ -110,7 +111,7 @@ public class ChessGameEngine {
                 "A new chess "
                         + "game has been started. Player 1 (white) will play "
                         + "against Player 2 (black). BEGIN!");
-        setState(new NormalState(this));
+        state.changeState(new NormalState(this,board,king1,king2));
     }
 
     /**
@@ -208,18 +209,18 @@ public class ChessGameEngine {
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
             if (gameLostRetVal < 0) {
-                setState(new StaleMateState(this));
+                state.changeState(new StaleMateState(this,board,king1,king2));
                 askUserToPlayAgain("Game over - STALEMATE. You should both go"
                         + " cry in a corner!");
                 return;
             } else if (gameLostRetVal > 0) {
-                setState(new CheckMateState(this,gameLostRetVal));
+                state.changeState(new CheckMateState(this,board,king1,king2,gameLostRetVal));
                 askUserToPlayAgain("Game over - CHECKMATE. " + "Player "
                         + gameLostRetVal + " loses and should go"
                         + " cry in a corner!");
                 return;
             } else if (isKingInCheck(true)) {
-                setState(new CheckState(this,currentPlayer));
+                state.changeState(new CheckState(this,board,king1,king2,currentPlayer));
                 JOptionPane.showMessageDialog(
                         board.getParent(),
                         "Be careful player " + currentPlayer + ", " +
@@ -227,8 +228,8 @@ public class ChessGameEngine {
                                 "him out of check or you're screwed.",
                         "Warning",
                         JOptionPane.WARNING_MESSAGE);
-            } else if (getState().getStateName() == State.CHECK && getState().getPlayer() == currentPlayer){
-                setState(new NormalState(this));
+            } else if (state.getType() == State.CHECK && state.getPlayerInCheck() == currentPlayer){
+                state.changeState(new NormalState(this,board,king1,king2));
             }
             currentPlayer = currentPlayer == 1 ? 2 : 1;
             // check the next player's conditions as well.
@@ -277,6 +278,7 @@ public class ChessGameEngine {
         BoardSquare squareClicked = (BoardSquare) e.getSource();
         ChessGamePiece pieceOnSquare = squareClicked.getPieceOnSquare();
         board.clearColorsOnBoard();
+        state.update();
         if (firstClick) {
             currentPiece = squareClicked.getPieceOnSquare();
             if (selectedPieceIsValid()) {
