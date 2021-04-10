@@ -66,7 +66,7 @@ public class ChessGraveyard extends JPanel {
 
     public int quiereRendirse(int currentPlayer){
         int rendirse = 3;
-        if(this.getBascunian().getDeadPieces()>10){
+        if(this.getBascunian().getDeadPieces()>10){ // CAMBIAR PARA RENDIRSE
             rendirse=JOptionPane.showConfirmDialog(null, "Quieres rendirte jugador " + currentPlayer + "?");
         }
         if(rendirse == 1 || rendirse == 2){

@@ -1,6 +1,5 @@
 package gui;
 
-import business.game.ChessGameEngine;
 import business.log.GameLog;
 import business.memento.Caretaker;
 import business.memento.Originator;
@@ -11,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 /**
  * Represents the north menu-bar that contains various controls for the game.
