@@ -1,5 +1,7 @@
 package gui;
 
+import business.businessdelegate.BusinessDelegate;
+import business.businessdelegate.Client;
 import business.log.GameLog;
 import business.memento.Caretaker;
 import business.memento.Originator;
@@ -26,6 +28,11 @@ public class ChessMenuBar extends JMenuBar {
     Caretaker caretaker = new Caretaker();
     Originator originator = new Originator();
 
+
+    BusinessDelegate businessDelegate = new BusinessDelegate();
+    Client client = new Client(businessDelegate);;
+
+
     /**
      * Create a new ChessMenuBar object.
      */
@@ -33,9 +40,10 @@ public class ChessMenuBar extends JMenuBar {
 
 
 
-        String[] menuCategories = {"File", "Options","Partida", "Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Reproductor","Help"};
         String[] menuItemLists =
                 {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
+                        "OneService,TwoService",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -77,6 +85,16 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
+            } else if (buttonName.equals("OneService")) {
+
+                businessDelegate.setServiceType("One");
+                client.doTask();
+
+            }else if (buttonName.equals("TwoService")) {
+
+                businessDelegate.setServiceType("Two");
+                client.doTask();
+
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
             } else if (buttonName.equals("Guardar")) {
