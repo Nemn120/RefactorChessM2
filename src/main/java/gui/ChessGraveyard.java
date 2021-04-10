@@ -23,6 +23,8 @@ public class ChessGraveyard extends JPanel {
     //private Referee bascunian = new Referee(wp);
     private Observable wp;
     private Referee bascunian;
+    public JLabel name;
+
     /**
      * Create a new ChessGraveyard object.
      *
@@ -30,7 +32,8 @@ public class ChessGraveyard extends JPanel {
      */
     public ChessGraveyard(String title) {
         this.title = title;
-        this.add(new JLabel(title));
+        name = new JLabel(title);
+        this.add(name);
         this.setLayout(new GridLayout(8, 0));
         if(this.title=="Player 1's graveyard"){
             this.wp = new WhitePieces();
