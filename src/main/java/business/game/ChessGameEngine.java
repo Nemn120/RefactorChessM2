@@ -7,6 +7,7 @@ import business.service.king.KingService;
 import business.service.moves.IPieceMoveService;
 import business.service.moves.impl.PieceMoveServiceImpl;
 import util.ColorOfPiece;
+import business.game.state.*;
 import business.pieces.ChessGamePiece;
 import business.pieces.King;
 import gui.ChessPanel;
@@ -37,6 +38,7 @@ public class ChessGameEngine {
     private IKingService kingService;
     private King king1;
     private King king2;
+    private State state;
 
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -48,8 +50,8 @@ public class ChessGameEngine {
         firstClick = true;
         currentPlayer = new ProxyPlayer(1);
         this.board = board;
-        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
-        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        this.king1 = (King) board.getCell(7, 4).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 4).getPieceOnSquare();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "A new chess "
@@ -58,6 +60,16 @@ public class ChessGameEngine {
 
         pieceMoveService = PieceMoveServiceImpl.getInstance();
         kingService = KingService.getInstance(board, pieceMoveService);
+        setState(new NormalState(this,board,king1,king2));
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        state.update();
+        this.state = state;
     }
 
     /**
@@ -94,13 +106,14 @@ public class ChessGameEngine {
         ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
         ((ChessPanel) board.getParent()).getGameBoard().initializeBoard();
         ((ChessPanel) board.getParent()).revalidate();
-        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
-        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        this.king1 = (King) board.getCell(7, 4).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 4).getPieceOnSquare();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "A new chess "
                         + "game has been started. Player 1 (white) will play "
                         + "against Player 2 (black). BEGIN!");
+        state.changeState(new NormalState(this,board,king1,king2));
     }
 
     /**
@@ -211,19 +224,22 @@ public class ChessGameEngine {
      * method).
      */
     private void checkGameConditions() {
-        int origPlayer = currentPlayer.allowPlay();
+        IPlayer origPlayer = currentPlayer;
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
             if (gameLostRetVal < 0) {
+                state.changeState(new StaleMateState(this,board,king1,king2));
                 askUserToPlayAgain("Game over - STALEMATE. You should both go"
                         + " cry in a corner!");
                 return;
             } else if (gameLostRetVal > 0) {
+                state.changeState(new CheckMateState(this,board,king1,king2,gameLostRetVal));
                 askUserToPlayAgain("Game over - CHECKMATE. " + "Player "
                         + gameLostRetVal + " loses and should go"
                         + " cry in a corner!");
                 return;
             } else if (isKingInCheck(true)) {
+                state.changeState(new CheckState(this,board,king1,king2,currentPlayer.allowPlay()));
                 JOptionPane.showMessageDialog(
                         board.getParent(),
                         "Be careful player " + currentPlayer.allowPlay() + ", " +
@@ -231,11 +247,14 @@ public class ChessGameEngine {
                                 "him out of check or you're screwed.",
                         "Warning",
                         JOptionPane.WARNING_MESSAGE);
+            } else if (state.getType() == State.CHECK && state.getPlayerInCheck() == currentPlayer.allowPlay()){
+                state.changeState(new NormalState(this,board,king1,king2));
             }
+            currentPlayer = new ProxyPlayer( currentPlayer.allowPlay() == 1 ? 2 : 1 );
 
             // check the next player's conditions as well.
         }
-
+        currentPlayer = origPlayer;
         nextTurn();
     }
 
@@ -247,12 +266,12 @@ public class ChessGameEngine {
      * still valid game.
      */
     public int determineGameLost() {
-        if (kingService.isChecked(king1) && !playerHasLegalMoves(1)) // player 1
+        if ((kingService.isChecked(king1) && !playerHasLegalMoves(1)) || (((ChessPanel) board.getParent()).getGraveyard(1).quiereRendirse(1)==0) ) // player 1
         // loss
         {
             return 1;
         }
-        if (kingService.isChecked(king2) && !playerHasLegalMoves(2)) // player 2
+        if ((kingService.isChecked(king2) && !playerHasLegalMoves(2)) || (((ChessPanel) board.getParent()).getGraveyard(2).quiereRendirse(2)==0)) // player 2
         // loss
         {
             return 2;
@@ -279,6 +298,7 @@ public class ChessGameEngine {
         BoardSquare squareClicked = (BoardSquare) e.getSource();
         ChessGamePiece pieceOnSquare = squareClicked.getPieceOnSquare();
         board.clearColorsOnBoard();
+        state.update();
         if (firstClick) {
             currentPiece = squareClicked.getPieceOnSquare();
             if (selectedPieceIsValid()) {
