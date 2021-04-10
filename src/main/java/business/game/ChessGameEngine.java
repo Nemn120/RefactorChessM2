@@ -104,8 +104,8 @@ public class ChessGameEngine {
         ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
         ((ChessPanel) board.getParent()).getGameBoard().initializeBoard();
         ((ChessPanel) board.getParent()).revalidate();
-        this.king1 = (King) board.getCell(7, 3).getPieceOnSquare();
-        this.king2 = (King) board.getCell(0, 3).getPieceOnSquare();
+        this.king1 = (King) board.getCell(7, 4).getPieceOnSquare();
+        this.king2 = (King) board.getCell(0, 4).getPieceOnSquare();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "A new chess "
