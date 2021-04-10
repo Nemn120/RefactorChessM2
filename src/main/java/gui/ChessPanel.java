@@ -100,7 +100,9 @@ public class ChessPanel extends JPanel {
         Integer  i=0;
         do{
 
-            i= Integer.parseInt( JOptionPane.showInputDialog(null, "Loggers:\n1.GameLog\n2.ConsoleLog\n3.FileLog"));
+            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
+                    "\n1.GameLog              2.ConsoleLog" +
+                    "\n                     3.FileLog"));
 
 
                 if (i == 1) {
