@@ -1,14 +1,5 @@
-Mon Apr 05 22:54:13 PET 2021 - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!
-Mon Apr 05 22:54:16 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (4, 7)
-Mon Apr 05 22:54:16 PET 2021 - It is now Player 2's turn.
-Mon Apr 05 22:54:30 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (3, 7)
-Mon Apr 05 22:54:30 PET 2021 - It is now Player 1's turn.
-Mon Apr 05 22:54:36 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (5, 7)
-Mon Apr 05 22:54:36 PET 2021 - It is now Player 2's turn.
-Mon Apr 05 22:54:38 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (2, 7)
-Mon Apr 05 22:54:38 PET 2021 - It is now Player 1's turn.
-Mon Apr 05 22:54:52 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (5, 2)
-Mon Apr 05 22:54:52 PET 2021 - It is now Player 2's turn.
-Mon Apr 05 22:54:54 PET 2021 - business.service.moves.impl.PieceMoveServiceImpl@7c653542 ->  (2, 0)
-Mon Apr 05 22:54:54 PET 2021 - It is now Player 1's turn.
-Mon Apr 05 23:54:23 PET 2021 - start
+Fri Apr 09 22:54:06 PET 2021 - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!
+Fri Apr 09 22:54:18 PET 2021 - business.pieces.Pawn @ (6, 7) ->  (4, 7)
+Fri Apr 09 22:54:18 PET 2021 - It is now Player 2's turn.
+Fri Apr 09 22:54:25 PET 2021 - business.pieces.Knight @ (0, 6) ->  (2, 5)
+Fri Apr 09 22:54:25 PET 2021 - It is now Player 1's turn.
