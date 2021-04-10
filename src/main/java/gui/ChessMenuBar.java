@@ -5,6 +5,7 @@ import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
 import gui.board.ChessGameBoard;
+import gui.patternCommand.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,15 +68,18 @@ public class ChessMenuBar extends JMenuBar {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
+            ChessMenuBarInvoker invoker = new ChessMenuBarInvoker();
+            ChessPanel parentChessPanel = (ChessPanel) getParent();
+
             String buttonName = ((JMenuItem) event.getSource()).getText();
             if (buttonName.equals("About")) {
-                aboutHandler();
+                invoker.executeCommand(new CommandAboutGame(parentChessPanel));
             } else if (buttonName.equals("New game/restart")) {
-                restartHandler();
+                invoker.executeCommand(new CommandRestartGame(parentChessPanel));
             } else if (buttonName.equals("Toggle game log")) {
-                toggleGameLogHandler();
+                invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
             } else if (buttonName.equals("Exit")) {
-                exitHandler();
+                invoker.executeCommand(new CommandExitGame(parentChessPanel));
             } else if (buttonName.equals("Guardar")) {
 
                 originator.setEstado(board.getChessCells());
@@ -104,10 +108,8 @@ public class ChessMenuBar extends JMenuBar {
                         JOptionPane.showMessageDialog(null,"Version no disponible.");
                     }
 
-
-
             } else {
-                toggleGraveyardHandler();
+                invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
             }
         }
     }
@@ -125,7 +127,7 @@ public class ChessMenuBar extends JMenuBar {
     /**
      * Takes an appropriate action if the restart button is clicked.
      */
-    private void restartHandler() {
+    public void restartHandler() {
         ((ChessPanel) this.getParent()).getGameEngine().reset();
     }
 
@@ -138,7 +140,7 @@ public class ChessMenuBar extends JMenuBar {
      * Uses Tony Allevato's code for exiting a GUI app without System.exit()
      * calls.
      */
-    private void exitHandler() {
+    /*public void exitHandler() {
         JOptionPane.showMessageDialog(this.getParent(), "Thanks for leaving"
                 + ", quitter! >:(");
         Component possibleFrame = this;
@@ -148,26 +150,26 @@ public class ChessMenuBar extends JMenuBar {
         JFrame frame = (JFrame) possibleFrame;
         frame.setVisible(false);
         frame.dispose();
-    }
+    }*/
 
     /**
      * Takes an appropriate action if the toggle graveyard button is clicked.
      */
-    private void toggleGraveyardHandler() {
+    /*public void toggleGraveyardHandler() {
         ((ChessPanel) this.getParent()).getGraveyard(1).setVisible(
                 !((ChessPanel) this.getParent()).getGraveyard(1).isVisible());
         ((ChessPanel) this.getParent()).getGraveyard(2).setVisible(
                 !((ChessPanel) this.getParent()).getGraveyard(2).isVisible());
-    }
+    }*/
 
     /**
      * Takes an appropriate action if the toggle game log button is clicked.
      */
-    private void toggleGameLogHandler() {
+    /*public void toggleGameLogHandler() {
         ((ChessPanel) this.getParent()).getGameLog().setVisible(
                 !((ChessPanel) this.getParent()).getGameLog().isVisible());
         ((ChessPanel) this.getParent()).revalidate();
-    }
+    }*/
 
     public  void viewBoard(BoardSquare[][] board){
         for (int i = 0; i < 8; i++) {
