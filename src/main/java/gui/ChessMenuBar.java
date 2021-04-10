@@ -1,5 +1,6 @@
 package gui;
 
+import business.log.GameLog;
 import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
@@ -74,7 +75,8 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("New game/restart")) {
                 invoker.executeCommand(new CommandRestartGame(parentChessPanel));
             } else if (buttonName.equals("Toggle game log")) {
-                invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
+                toggleGameLogHandler();
+                //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
             } else if (buttonName.equals("Guardar")) {
@@ -159,18 +161,14 @@ public class ChessMenuBar extends JMenuBar {
                 !((ChessPanel) this.getParent()).getGraveyard(2).isVisible());
     }*/
 
-    /**
-     * Takes an appropriate action if the toggle game log button is clicked.
-     */
-    /*private void toggleGameLogHandler() {
+    private void toggleGameLogHandler() {
         if (((ChessPanel) this.getParent()).getGameLog() instanceof GameLog) {
+
             ((GameLog) ((ChessPanel) this.getParent()).getGameLog())
                     .setVisible(!((GameLog) ((ChessPanel) this.getParent()).getGameLog()).isVisible());
             ((ChessPanel) this.getParent()).revalidate();
         }
     }
-        ((ChessPanel) this.getParent()).revalidate();
-    }*/
 
     public  void viewBoard(BoardSquare[][] board){
         for (int i = 0; i < 8; i++) {

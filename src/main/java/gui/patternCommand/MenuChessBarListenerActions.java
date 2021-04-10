@@ -44,9 +44,11 @@ public class MenuChessBarListenerActions {
     }
 
     public void toggleGameLogHandler() {
-        (this.panel).getGameLog().setVisible(
+       /* (this.panel).getGameLog().setVisible(
                 !(this.panel).getGameLog().isVisible());
         (this.panel).revalidate();
+
+        */
     }
 
 
