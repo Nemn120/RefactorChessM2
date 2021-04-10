@@ -13,6 +13,8 @@ import gui.board.ChessGameBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The main panel of the Chess game.
@@ -22,7 +24,7 @@ import java.awt.*;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessPanel extends JPanel implements ActionListener{
+public class ChessPanel extends JPanel implements ActionListener {
     private ChessMenuBar menuBar;
     private ChessGameBoard gameBoard;
     //private ChessGameLog gameLog;
@@ -125,10 +127,9 @@ public class ChessPanel extends JPanel implements ActionListener{
             fan.setMediator(mediator);
             mediator.setFan(fan);
             mediator.setPower(power);
-            bn.press(playerOneGraveyard,playerTwoGraveyard,gameLog);
+            bn.press(playerOneGraveyard,playerTwoGraveyard);
         }
     }
-}
 
     public void strategyLogger(){
         int  i=0;

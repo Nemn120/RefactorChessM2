@@ -41,21 +41,21 @@ public class Mediator {
         this.power = power;
     }
 
-    public void press(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
+    public void press(ChessGraveyard panel,ChessGraveyard panel2){
         if(fan.getIsOn()){
-            fan.turnOff(panel,panel2,log);
+            fan.turnOff(panel,panel2);
         }
         else{
-            fan.turnOn(panel,panel2,log);
+            fan.turnOn(panel,panel2);
         }
     }
 
-    public void start(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
-        power.turnOn(panel,panel2,log);
+    public void start(ChessGraveyard panel,ChessGraveyard panel2){
+        power.turnOn(panel,panel2);
     }
 
-    public void stop(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
-        power.turnOff(panel,panel2,log);
+    public void stop(ChessGraveyard panel,ChessGraveyard panel2){
+        power.turnOff(panel,panel2);
     }
 
 }

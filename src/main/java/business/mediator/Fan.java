@@ -19,14 +19,14 @@ public class Fan {
         this.mediator = mediator;
     }
 
-    public void turnOn(ChessGraveyard panel, ChessGraveyard panel2, ChessGameLog log){
-        mediator.start(panel,panel2,log);
+    public void turnOn(ChessGraveyard panel, ChessGraveyard panel2){
+        mediator.start(panel,panel2);
         isOn = true;
     }
 
-    public void turnOff(ChessGraveyard panel,ChessGraveyard panel2, ChessGameLog log){
+    public void turnOff(ChessGraveyard panel,ChessGraveyard panel2){
         isOn = false;
-        mediator.stop(panel,panel2,log);
+        mediator.stop(panel,panel2);
     }
 
     public boolean getIsOn() {
