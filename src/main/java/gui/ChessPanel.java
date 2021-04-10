@@ -5,10 +5,16 @@ import business.log.ConsoleLog;
 import business.log.FileLog;
 import business.log.GameLog;
 import business.log.Log;
+import business.mediator.Buttons;
+import business.mediator.Fan;
+import business.mediator.Mediator;
+import business.mediator.Power;
 import gui.board.ChessGameBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The main panel of the Chess game.
@@ -18,7 +24,7 @@ import java.awt.*;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessPanel extends JPanel {
+public class ChessPanel extends JPanel implements ActionListener {
     private ChessMenuBar menuBar;
     private ChessGameBoard gameBoard;
     //private ChessGameLog gameLog;
@@ -26,6 +32,17 @@ public class ChessPanel extends JPanel {
     private ChessGraveyard playerOneGraveyard;
     private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
+    private Fan fan;
+
+    public JButton getB() {
+        return b;
+    }
+
+    public void setB(JButton b) {
+        this.b = b;
+    }
+
+    private JButton b;
 
     /**
      * Create a new ChessPanel object.
@@ -46,10 +63,15 @@ public class ChessPanel extends JPanel {
         this.add(playerOneGraveyard, BorderLayout.WEST);
         this.add(playerTwoGraveyard, BorderLayout.EAST);
         this.setPreferredSize(new Dimension(800, 600));
+        this.setBackground(Color.blue);
+        b = new JButton("Cambiar color");
+        b.setBounds(0, 500, 50, 50);
+        playerOneGraveyard.add(b);
+        b.addActionListener(this);
         gameEngine = new ChessGameEngine(gameBoard); // start the game
 
         menuBar.board=gameBoard;
-
+        fan = new Fan();
     }
 
     /**
@@ -95,29 +117,43 @@ public class ChessPanel extends JPanel {
         }
     }
 
-    public void strategyLogger(){
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-        Integer  i=0;
-        do{
-
-            i= Integer.parseInt( JOptionPane.showInputDialog(null, "Loggers:\n1.GameLog\n2.ConsoleLog\n3.FileLog"));
-
-
-                if (i == 1) {
-                    gameLog = new GameLog();
-                    this.add((GameLog) gameLog, BorderLayout.SOUTH);
-                } else if (i == 2) {
-                    gameLog = new ConsoleLog();
-                    this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
-                } else if (i == 3) {
-                    gameLog = new FileLog();
-                    this.add((FileLog) gameLog, BorderLayout.SOUTH);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Logger no valido!");
-                }
-
-
-        }while(i!= 1 && i!=2 && i!=3);
-
+        if (e.getSource() == b) {
+            Mediator mediator = new Mediator();
+            Buttons bn = new Buttons(mediator);
+            Power power = new Power();
+            fan.setMediator(mediator);
+            mediator.setFan(fan);
+            mediator.setPower(power);
+            bn.press(playerOneGraveyard,playerTwoGraveyard);
+        }
     }
+
+    public void strategyLogger(){
+        int  i=0;
+        do{
+            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
+                    "\n1.GameLog              2.ConsoleLog" +
+                    "\n                     3.FileLog"));
+
+            if (i == 1) {
+                gameLog = new GameLog();
+                this.add((GameLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 2) {
+                gameLog = new ConsoleLog();
+                this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
+            } else if (i == 3) {
+                gameLog = new FileLog();
+                this.add((FileLog) gameLog, BorderLayout.SOUTH);
+            } else {
+                JOptionPane.showMessageDialog(null, "Logger no valido!");
+            }
+        }while(i!= 1 && i!=2 && i!=3);
+    }
+
 }
+
+
+

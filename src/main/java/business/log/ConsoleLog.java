@@ -9,8 +9,12 @@ import javax.swing.JComponent;
  */
 public class ConsoleLog extends JComponent implements Log{
 
+    public String message;
+
     @Override
     public void addToLog(String s) {
+
+        message=s;
 
         System.out.println(new Date() + " - " + s );
 
@@ -26,7 +30,7 @@ public class ConsoleLog extends JComponent implements Log{
     @Override
     public String getLastLog() {
         // TODO Auto-generated method stub
-        return "\nRetornando al pasado!";
+        return "Retornando al pasado!";
     }
 
 
