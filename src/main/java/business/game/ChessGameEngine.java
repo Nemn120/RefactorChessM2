@@ -17,7 +17,13 @@ import gui.board.ChessGameBoard;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 /**
  * This is the backend behind the Chess game. Handles the turn-based aspects of
@@ -30,6 +36,10 @@ import java.util.ArrayList;
  */
 public class ChessGameEngine {
 
+    private String SOCKET_SERVER_ADDR = "localhost";
+    private int PORT = 50000;
+
+
     private ChessGamePiece currentPiece;
     private boolean firstClick;
     private IPlayer currentPlayer;
@@ -39,6 +49,11 @@ public class ChessGameEngine {
     private King king1;
     private King king2;
     private State state;
+
+    private ServerSocket listener;
+    private Socket socket;
+    private PrintWriter printWriter;
+
 
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -331,6 +346,7 @@ public class ChessGameEngine {
                                 board,currentPiece,squareClicked.getRow(), squareClicked.getColumn());
                 if (moveSuccessful) {
                     checkGameConditions();
+                    this.movePieceNetwork(currentPiece,squareClicked);
                 } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
@@ -352,6 +368,85 @@ public class ChessGameEngine {
             }
         }
     }
+
+    private Boolean movePiece(ChessGamePiece pieceOnSquare,int row, int col ) {
+        if (pieceOnSquare == null || !pieceOnSquare.equals(currentPiece)){
+            boolean moveSuccessful = pieceMoveService.move(
+                            board, currentPiece, row, col);
+            if (moveSuccessful) {
+                checkGameConditions();
+            }
+        }
+        return false;
+    }
+
+    public void movePieceNetwork(ChessGamePiece piece, BoardSquare boardSquare){
+        if(piece == null && boardSquare == null){
+            return;
+        }
+        if (printWriter != null) {
+            printWriter.println(piece.getColumn() + "," + piece.getRow() +
+                    "," +boardSquare.getColumn() + "," + boardSquare.getRow());
+        }
+    }
+
+
+    private void receiveMove(Scanner scanner) {
+        while (scanner.hasNextLine()) {
+            String moveStr = scanner.nextLine();
+            System.out.println("chess move received: " + moveStr);
+            String[] moveStrArr = moveStr.split(",");
+            Integer fromCol = Integer.parseInt(moveStrArr[0]);
+            Integer fromRow = Integer.parseInt(moveStrArr[1]);
+            Integer toCol = Integer.parseInt(moveStrArr[2]);
+            Integer toRow = Integer.parseInt(moveStrArr[3]);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    BoardSquare boardSquare = board.getCell(fromRow,fromCol);
+                    movePiece(boardSquare.getPieceOnSquare(),toCol,toRow);
+                }
+            });
+        }
+    }
+
+    public void runSocketServer() {
+        Executors.newFixedThreadPool(1).execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    listener = new ServerSocket(PORT);
+                    System.out.println("server is listening on port " + PORT);
+                    socket = listener.accept();
+                    System.out.println("connected from " + socket.getInetAddress());
+                    printWriter = new PrintWriter(socket.getOutputStream(), true);
+                    Scanner scanner = new Scanner(socket.getInputStream());
+                    receiveMove(scanner);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void runSocketClient() {
+        try {
+            socket = new Socket(SOCKET_SERVER_ADDR, PORT);
+            System.out.println("client connected to port " + PORT);
+            Scanner scanner = new Scanner(socket.getInputStream());
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+
+            Executors.newFixedThreadPool(1).execute(new Runnable() {
+                @Override
+                public void run() {
+                    receiveMove(scanner);
+                }
+            });
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
 
     public ChessGamePiece getCurrentPiece() {
         return currentPiece;

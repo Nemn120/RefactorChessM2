@@ -33,6 +33,8 @@ public class ChessPanel extends JPanel implements ActionListener {
     private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
     private Fan fan;
+    private JButton b;
+
 
     public JButton getB() {
         return b;
@@ -41,8 +43,6 @@ public class ChessPanel extends JPanel implements ActionListener {
     public void setB(JButton b) {
         this.b = b;
     }
-
-    private JButton b;
 
     /**
      * Create a new ChessPanel object.
@@ -72,33 +72,7 @@ public class ChessPanel extends JPanel implements ActionListener {
 
         menuBar.board=gameBoard;
         fan = new Fan();
-    }
 
-    /**
-     * Gets the logger object for use in other classes.
-     *
-     * @return ChessGameLog the ChessGameLog object
-     */
-    public Log getGameLog() {
-        return gameLog;
-    }
-
-    /**
-     * Gets the board object for use in other classes.
-     *
-     * @return ChessGameBoard the ChessGameBoard object
-     */
-    public ChessGameBoard getGameBoard() {
-        return gameBoard;
-    }
-
-    /**
-     * Gets the game engine object for use in other classes
-     *
-     * @return ChessGameEngine the ChessGameEngine object
-     */
-    public ChessGameEngine getGameEngine() {
-        return gameEngine;
     }
 
     /**
@@ -153,6 +127,34 @@ public class ChessPanel extends JPanel implements ActionListener {
         }while(i!= 1 && i!=2 && i!=3);
     }
 
+
+
+    /**
+     * Gets the logger object for use in other classes.
+     *
+     * @return ChessGameLog the ChessGameLog object
+     */
+    public Log getGameLog() {
+        return gameLog;
+    }
+
+    /**
+     * Gets the board object for use in other classes.
+     *
+     * @return ChessGameBoard the ChessGameBoard object
+     */
+    public ChessGameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    /**
+     * Gets the game engine object for use in other classes
+     *
+     * @return ChessGameEngine the ChessGameEngine object
+     */
+    public ChessGameEngine getGameEngine() {
+        return gameEngine;
+    }
 }
 
 

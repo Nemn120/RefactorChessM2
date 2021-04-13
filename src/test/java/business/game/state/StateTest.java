@@ -2,15 +2,15 @@ package business.game.state;
 
 import gui.ChessPanel;
 import gui.board.BoardSquare;
-
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
+import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
 import java.util.logging.Logger;
+
+import static org.junit.Assert.assertEquals;
 
 public class StateTest {
     
@@ -30,6 +30,7 @@ public class StateTest {
         MouseEvent.MOUSE_CLICKED, 0, MouseEvent.BUTTON1_MASK, 0, 0, 1, false));
     }
 
+    @Ignore
     @Test
     public void patternStateValidatorCheckMate() {
         //blanco
