@@ -196,7 +196,7 @@ public class ChessGameBoard extends JPanel {
 
                         pieceToAdd = PieceFactory.createPiece ("Bishop",this, i, j, colNum);
 
-                    } else if (j == 3) {
+                    } else if (j == 4) {
                         pieceToAdd = PieceFactory.createPiece("King",this, i, j, colNum);
                     } else {
                         pieceToAdd = PieceFactory.createPiece ("Queen",this, i, j, colNum);

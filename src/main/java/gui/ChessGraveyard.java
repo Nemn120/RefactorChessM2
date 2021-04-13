@@ -19,8 +19,12 @@ import java.awt.*;
  */
 public class ChessGraveyard extends JPanel {
     private String title;
+    //private WhitePieces wp = new WhitePieces();
+    //private Referee bascunian = new Referee(wp);
     private Observable wp;
     private Referee bascunian;
+    public JLabel name;
+
     /**
      * Create a new ChessGraveyard object.
      *
@@ -28,7 +32,8 @@ public class ChessGraveyard extends JPanel {
      */
     public ChessGraveyard(String title) {
         this.title = title;
-        this.add(new JLabel(title));
+        name = new JLabel(title);
+        this.add(name);
         this.setLayout(new GridLayout(8, 0));
         if(this.title=="Player 1's graveyard"){
             this.wp = new WhitePieces();
@@ -63,10 +68,9 @@ public class ChessGraveyard extends JPanel {
     }
 
     public int quiereRendirse(int currentPlayer){
-        JOptionPane p = new JOptionPane();
         int rendirse = 3;
-        if(this.getBascunian().getDeadPieces()==2){
-            rendirse=p.showConfirmDialog(null, "Quieres rendirte jugador " + currentPlayer + "?");
+        if(this.getBascunian().getDeadPieces()>10){ // CAMBIAR PARA RENDIRSE
+            rendirse=JOptionPane.showConfirmDialog(null, "Quieres rendirte jugador " + currentPlayer + "?");
         }
         if(rendirse == 1 || rendirse == 2){
             rendirse = 3;
