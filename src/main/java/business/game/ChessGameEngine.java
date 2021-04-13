@@ -341,12 +341,16 @@ public class ChessGameEngine {
             if (pieceOnSquare == null ||
                     !pieceOnSquare.equals(currentPiece)) // moving
             {
+                int rowSelect = currentPiece.getRow();
+                int colSelect = currentPiece.getColumn();
+                System.out.println("ACTUAL => row: "+rowSelect+ " col:"+colSelect);
                 boolean moveSuccessful =
                         pieceMoveService.move(
                                 board,currentPiece,squareClicked.getRow(), squareClicked.getColumn());
+                System.out.println("NUEVO => row: "+currentPiece.getRow()+ " col:"+currentPiece.getColumn());
                 if (moveSuccessful) {
                     checkGameConditions();
-                    this.movePieceNetwork(currentPiece,squareClicked);
+                    this.movePieceNetwork(rowSelect,colSelect,squareClicked);
                 } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
@@ -370,22 +374,28 @@ public class ChessGameEngine {
     }
 
     private Boolean movePiece(ChessGamePiece pieceOnSquare,int row, int col ) {
-        if (pieceOnSquare == null || !pieceOnSquare.equals(currentPiece)){
+        if (pieceOnSquare == null || (pieceOnSquare.getColumn() != col || pieceOnSquare.getRow() != col)){
+            int rowSelect = pieceOnSquare.getRow();
+            int colSelect = pieceOnSquare.getColumn();
             boolean moveSuccessful = pieceMoveService.move(
-                            board, currentPiece, row, col);
+                    board, pieceOnSquare, row, col);
             if (moveSuccessful) {
                 checkGameConditions();
+                board.clearCell(rowSelect,colSelect);
+
             }
         }
         return false;
     }
 
-    public void movePieceNetwork(ChessGamePiece piece, BoardSquare boardSquare){
-        if(piece == null && boardSquare == null){
+
+
+    public void movePieceNetwork(int row, int col, BoardSquare boardSquare){
+        if(boardSquare == null){
             return;
         }
         if (printWriter != null) {
-            printWriter.println(piece.getColumn() + "," + piece.getRow() +
+            printWriter.println(col + "," + row +
                     "," +boardSquare.getColumn() + "," + boardSquare.getRow());
         }
     }
@@ -404,7 +414,7 @@ public class ChessGameEngine {
                 @Override
                 public void run() {
                     BoardSquare boardSquare = board.getCell(fromRow,fromCol);
-                    movePiece(boardSquare.getPieceOnSquare(),toCol,toRow);
+                    movePiece(boardSquare.getPieceOnSquare(),toRow,toCol);
                 }
             });
         }
