@@ -10,9 +10,9 @@ public class BusinessDelegate {
         this.serviceType = serviceType;
     }
 
-    public void doTask()
+    public void doTask(String historial)
     {
         businessService = lookupService.getBusinessService(serviceType);
-        businessService.doProcessing();
+        businessService.doProcessing(historial);
     }
 }

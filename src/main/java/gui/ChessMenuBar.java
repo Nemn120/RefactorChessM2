@@ -2,7 +2,9 @@ package gui;
 
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
+import business.log.FileLog;
 import business.log.GameLog;
+import business.log.Log;
 import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
@@ -29,8 +31,11 @@ public class ChessMenuBar extends JMenuBar {
     Originator originator = new Originator();
 
 
+    public Log log;
     BusinessDelegate businessDelegate = new BusinessDelegate();
     Client client = new Client(businessDelegate);;
+
+
 
 
     /**
@@ -88,12 +93,12 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("OneService")) {
 
                 businessDelegate.setServiceType("One");
-                client.doTask();
+                client.doTask(log.toString());
 
             }else if (buttonName.equals("TwoService")) {
 
                 businessDelegate.setServiceType("Two");
-                client.doTask();
+                client.doTask(log.toString());
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));

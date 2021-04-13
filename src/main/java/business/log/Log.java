@@ -21,4 +21,5 @@ public interface Log {
      */
     public String getLastLog();
 
+    public String toString();
 }

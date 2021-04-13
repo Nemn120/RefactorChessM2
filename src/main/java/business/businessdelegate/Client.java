@@ -8,8 +8,8 @@ public class Client {
         this.businessService  = businessService;
     }
 
-    public void doTask()
+    public void doTask(String historial)
     {
-        businessService.doTask();
+        businessService.doTask(historial);
     }
 }

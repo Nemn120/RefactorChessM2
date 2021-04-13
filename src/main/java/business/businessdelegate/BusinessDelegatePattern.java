@@ -7,9 +7,9 @@ public class BusinessDelegatePattern {
         businessDelegate.setServiceType("One");
 
         Client client = new Client(businessDelegate);
-        client.doTask();
+        //client.doTask();
 
         businessDelegate.setServiceType("Two");
-        client.doTask();
+        //client.doTask();
     }
 }

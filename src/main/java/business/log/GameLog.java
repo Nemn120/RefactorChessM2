@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class GameLog extends JScrollPane implements Log {
 
-    public String message;
+    public String message="";
 
     private JTextArea textArea;
 
@@ -46,7 +46,7 @@ public class GameLog extends JScrollPane implements Log {
      */
     public void addToLog(String s) {
 
-        message=s;
+        message=message+new Date() + " - " + s+"\n";
 
         if (textArea.getText().length() > 0) {
             textArea.setText(textArea.getText() + "\n" + new Date() + " - "
@@ -75,4 +75,9 @@ public class GameLog extends JScrollPane implements Log {
         }
         return textArea.getText().substring(indexOfLastNewLine + 1);
     }
+
+    public String toString(){
+        return message;
+    }
+
 }
