@@ -382,7 +382,8 @@ public class ChessGameEngine {
             if (moveSuccessful) {
                 checkGameConditions();
                 board.clearCell(rowSelect,colSelect);
-
+                board.repaint();
+                board.revalidate();
             }
         }
         return false;
