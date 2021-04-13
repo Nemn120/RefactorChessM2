@@ -30,7 +30,8 @@ public class OneService implements BusinessService{
             st.executeUpdate();
             st.close();
         } catch (SQLException throwables) {
-            System.out.println("Catch ejecutado");
+
+            System.out.println("Exepcion ejecutada:");
             throwables.printStackTrace();
 
         }
