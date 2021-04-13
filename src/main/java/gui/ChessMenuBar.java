@@ -2,6 +2,7 @@ package gui;
 
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
+import business.businessdelegate.Historial;
 import business.log.FileLog;
 import business.log.GameLog;
 import business.log.Log;
@@ -93,12 +94,13 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("OneService")) {
 
                 businessDelegate.setServiceType("One");
-                client.doTask(log.toString());
+                String alias=JOptionPane.showInputDialog("Ingrese alias del historial:");
+                client.doTask(new Historial(alias,log.toString()));
 
             }else if (buttonName.equals("TwoService")) {
 
                 businessDelegate.setServiceType("Two");
-                client.doTask(log.toString());
+                client.doTask(new Historial("",""));
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));

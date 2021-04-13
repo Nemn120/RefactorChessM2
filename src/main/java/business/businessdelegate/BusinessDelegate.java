@@ -10,7 +10,7 @@ public class BusinessDelegate {
         this.serviceType = serviceType;
     }
 
-    public void doTask(String historial)
+    public void doTask(Historial historial)
     {
         businessService = lookupService.getBusinessService(serviceType);
         businessService.doProcessing(historial);

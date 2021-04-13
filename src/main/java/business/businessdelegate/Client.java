@@ -8,7 +8,7 @@ public class Client {
         this.businessService  = businessService;
     }
 
-    public void doTask(String historial)
+    public void doTask(Historial historial)
     {
         businessService.doTask(historial);
     }

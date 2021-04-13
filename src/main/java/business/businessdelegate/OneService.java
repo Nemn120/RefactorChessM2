@@ -13,7 +13,7 @@ public class OneService implements BusinessService{
 
     Connection conexion = null;
 
-    public void doProcessing(String historial)
+    public void doProcessing(Historial historial)
     {
         System.out.println("Processed Service One");
 
@@ -23,10 +23,10 @@ public class OneService implements BusinessService{
 
             System.out.println("BD conectada!");
            // PreparedStatement st = conexion.prepareStatement(
-                 //   "INSERT INTO ajedrez(alias,historial) VALUES ('Juan',historial)");
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO ajedrez(alias,historial) VALUES (?,?)");
-            st.setString(1, "uno");
-            st.setString(2, historial);
+                 //   "INSERT INTO historial(alias,historial) VALUES ('Juan',historial)");
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO historial(alias,texto) VALUES (?,?)");
+            st.setString(1, historial.getAlias());
+            st.setString(2, historial.getTexto());
             st.executeUpdate();
             st.close();
         } catch (SQLException throwables) {
