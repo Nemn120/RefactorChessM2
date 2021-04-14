@@ -46,10 +46,10 @@ public class ChessMenuBar extends JMenuBar {
 
 
 
-        String[] menuCategories = {"File", "Options","Partida", "Reproductor","Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
         String[] menuItemLists =
                 {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
-                        "OneService,TwoService",
+                        "Guardar,Visualizar",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -92,13 +92,13 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
-            } else if (buttonName.equals("OneService")) {
+            } else if (buttonName.equals("Guardar")) {
 
                 businessDelegate.setServiceType("One");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a guardar:");
                 client.doTask(new Historial(alias,log.toString()));
 
-            }else if (buttonName.equals("TwoService")) {
+            }else if (buttonName.equals("Visualizar")) {
 
                 businessDelegate.setServiceType("Two");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a visualizar:");
