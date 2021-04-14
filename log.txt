@@ -1,1 +1,4 @@
 Tue Apr 13 19:38:58 PET 2021 - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!
+Wed Apr 14 12:07:31 PET 2021 - chess
+Wed Apr 14 12:08:12 PET 2021 - chess
+Wed Apr 14 12:08:21 PET 2021 - chess

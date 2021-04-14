@@ -14,4 +14,8 @@ public class BusinessDelegate {
         BusinessService businessService = lookupService.getBusinessService(serviceType);
         businessService.doProcessing(historial);
     }
+
+    public BusinessLookUp getLookupService() {
+        return lookupService;
+    }
 }
