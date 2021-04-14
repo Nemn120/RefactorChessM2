@@ -88,19 +88,21 @@ public class ChessMenuBar extends JMenuBar {
                 invoker.executeCommand(new CommandAboutGame(parentChessPanel));
             } else if (buttonName.equals("New game/restart")) {
                 invoker.executeCommand(new CommandRestartGame(parentChessPanel));
+                log.clearLog();
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
             } else if (buttonName.equals("OneService")) {
 
                 businessDelegate.setServiceType("One");
-                String alias=JOptionPane.showInputDialog("Ingrese alias del historial:");
+                String alias=JOptionPane.showInputDialog("Ingrese alias del historial a guardar:");
                 client.doTask(new Historial(alias,log.toString()));
 
             }else if (buttonName.equals("TwoService")) {
 
                 businessDelegate.setServiceType("Two");
-                client.doTask(new Historial("",""));
+                String alias=JOptionPane.showInputDialog("Ingrese alias del historial a visualizar:");
+                client.doTask(new Historial(alias));
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));

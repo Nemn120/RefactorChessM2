@@ -15,12 +15,14 @@ public class TwoService implements BusinessService{
         try (Connection conexion = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             System.out.println("BD conectada!");
-            PreparedStatement st = conexion.prepareStatement("SELECT * FROM historial");
+            //PreparedStatement st = conexion.prepareStatement("SELECT * FROM historial");
             //PreparedStatement st = conexion.prepareStatement("SELECT * FROM historial where id=20");
-
+            PreparedStatement st = conexion.prepareStatement("SELECT * FROM historial where alias=?");
+            st.setString(1, historial.getAlias());
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " " + rs.getString("alias"));
+               // System.out.println(rs.getInt("id") + " " + rs.getString("alias"));
+                System.out.println(rs.getString("alias")+":\n"+rs.getString("texto"));
             }
 
             rs.close();

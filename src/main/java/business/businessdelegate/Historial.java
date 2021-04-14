@@ -6,8 +6,8 @@ public class Historial {
     private String alias;
     private String texto;
 
-    public Historial(int id) {
-        this.id = id;
+    public Historial(String alias) {
+        this.alias = alias;
     }
 
     public Historial(String alias, String texto) {
