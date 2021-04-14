@@ -3,13 +3,15 @@ package business.businessdelegate;
 import java.sql.*;
 
 public class TwoService implements BusinessService{
+
+    final String USER = "postgres";
+    final String PASS = "postgres";
+
     public void doProcessing(Historial historial) {
+
         System.out.println("Processed Service Two");
 
         final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
-
-        final String USER = "postgres";
-        final String PASS = "postgres";
 
         // finally de manera implicita - cierra recursos de manera automatica
         try (Connection conexion = DriverManager.getConnection(DB_URL, USER, PASS);) {

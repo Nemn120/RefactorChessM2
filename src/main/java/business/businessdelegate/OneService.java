@@ -11,8 +11,6 @@ public class OneService implements BusinessService{
     final String USER = "postgres";
     final String PASS = "postgres";
 
-    Connection conexion = null;
-
     public void doProcessing(Historial historial)
     {
         System.out.println("Processed Service One");
