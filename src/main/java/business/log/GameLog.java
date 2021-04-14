@@ -61,6 +61,7 @@ public class GameLog extends JScrollPane implements Log {
      */
     public void clearLog() {
         textArea.setText("");
+
     }
 
     /**
@@ -69,6 +70,7 @@ public class GameLog extends JScrollPane implements Log {
      * @return String the most recent log statement
      */
     public String getLastLog() {
+
         int indexOfLastNewLine = textArea.getText().lastIndexOf("\n");
         if (indexOfLastNewLine < 0) {
             return textArea.getText();
@@ -78,6 +80,10 @@ public class GameLog extends JScrollPane implements Log {
 
     public String toString(){
         return message;
+    }
+
+    public void clear() {
+        message = new Date() +" - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!"+"\n";
     }
 
 }

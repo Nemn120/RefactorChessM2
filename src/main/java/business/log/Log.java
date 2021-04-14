@@ -22,4 +22,6 @@ public interface Log {
     public String getLastLog();
 
     public String toString();
+
+    public void clear();
 }

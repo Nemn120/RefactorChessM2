@@ -36,6 +36,7 @@ public class FileLog extends JComponent implements Log{
 
     @Override
     public void clearLog() {
+
         String t="";
         try {
             Files.write(path,t.getBytes(),StandardOpenOption.TRUNCATE_EXISTING );
@@ -53,5 +54,7 @@ public class FileLog extends JComponent implements Log{
     public String toString(){
         return message;
     }
-
+    public void clear(){
+        message=new Date() +" - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!"+"\n";
+    }
 }

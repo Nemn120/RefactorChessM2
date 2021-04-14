@@ -88,7 +88,7 @@ public class ChessMenuBar extends JMenuBar {
                 invoker.executeCommand(new CommandAboutGame(parentChessPanel));
             } else if (buttonName.equals("New game/restart")) {
                 invoker.executeCommand(new CommandRestartGame(parentChessPanel));
-                log.clearLog();
+                log.clear();
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
