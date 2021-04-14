@@ -1,8 +1,7 @@
 package business.businessdelegate;
 
 public class BusinessDelegate {
-    private BusinessLookUp lookupService = new BusinessLookUp();
-    private BusinessService businessService;
+    private final BusinessLookUp lookupService = new BusinessLookUp();
     private String serviceType;
 
     public void setServiceType(String serviceType)
@@ -12,7 +11,7 @@ public class BusinessDelegate {
 
     public void doTask(Historial historial)
     {
-        businessService = lookupService.getBusinessService(serviceType);
+        BusinessService businessService = lookupService.getBusinessService(serviceType);
         businessService.doProcessing(historial);
     }
 }
