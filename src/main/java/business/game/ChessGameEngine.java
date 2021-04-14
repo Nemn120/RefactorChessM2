@@ -406,7 +406,7 @@ public class ChessGameEngine {
     private void receiveMove(Scanner scanner) {
         while (scanner.hasNextLine()) {
             String moveStr = scanner.nextLine();
-            System.out.println("Movimiento recivido: " + moveStr);
+            System.out.println("Movimiento recibido: " + moveStr);
             String[] moveStrArr = moveStr.split(",");
             Integer fromCol = Integer.parseInt(moveStrArr[0]);
             Integer fromRow = Integer.parseInt(moveStrArr[1]);
@@ -429,9 +429,8 @@ public class ChessGameEngine {
                 try {
                     if(listener == null || listener.isClosed()){
                         listener = new ServerSocket(PORT);
-                        System.out.println("server is listening on port " + PORT);
+                        System.out.println("Servidor escuchando puerto: " + PORT);
                         socket = listener.accept();
-                        System.out.println("connected from " + socket.getInetAddress());
                         printWriter = new PrintWriter(socket.getOutputStream(), true);
                         Scanner scanner = new Scanner(socket.getInputStream());
                         receiveMove(scanner);
