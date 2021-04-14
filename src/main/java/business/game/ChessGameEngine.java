@@ -430,7 +430,6 @@ public class ChessGameEngine {
                     if(listener == null || listener.isClosed()){
                         listener = new ServerSocket(PORT);
                         System.out.println("server is listening on port " + PORT);
-                        System.out.println(InetAddress.getLocalHost());
                         socket = listener.accept();
                         System.out.println("connected from " + socket.getInetAddress());
                         printWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -444,14 +443,14 @@ public class ChessGameEngine {
         });
     }
 
-    public void runSocketClient(String ipSelect) {
+    public void runSocketClient() {
         try {
             if(socket!= null && socket.isConnected()){
                 return;
             }
 
-            socket = new Socket(ipSelect, PORT);
-            System.out.println("Cliente conectandose a: "+ipSelect + " Puerto: " + PORT);
+            socket = new Socket(SOCKET_SERVER_ADDR, PORT);
+            System.out.println("Cliente conectandose a Puerto: " + PORT);
             Scanner scanner = new Scanner(socket.getInputStream());
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
