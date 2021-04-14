@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -426,13 +427,16 @@ public class ChessGameEngine {
             @Override
             public void run() {
                 try {
-                    listener = new ServerSocket(PORT);
-                    System.out.println("Server escuchando en puerto:  " + PORT);
-                    socket = listener.accept();
-                    System.out.println("Conectando desde:" + socket.getInetAddress());
-                    printWriter = new PrintWriter(socket.getOutputStream(), true);
-                    Scanner scanner = new Scanner(socket.getInputStream());
-                    receiveMove(scanner);
+                    if(listener == null || listener.isClosed()){
+                        listener = new ServerSocket(PORT);
+                        System.out.println("server is listening on port " + PORT);
+                        System.out.println(InetAddress.getLocalHost());
+                        socket = listener.accept();
+                        System.out.println("connected from " + socket.getInetAddress());
+                        printWriter = new PrintWriter(socket.getOutputStream(), true);
+                        Scanner scanner = new Scanner(socket.getInputStream());
+                        receiveMove(scanner);
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -440,10 +444,14 @@ public class ChessGameEngine {
         });
     }
 
-    public void runSocketClient() {
+    public void runSocketClient(String ipSelect) {
         try {
-            socket = new Socket(SOCKET_SERVER_ADDR, PORT);
-            System.out.println("Cliente conectandose al puerto: " + PORT);
+            if(socket!= null && socket.isConnected()){
+                return;
+            }
+
+            socket = new Socket(ipSelect, PORT);
+            System.out.println("Cliente conectandose a: "+ipSelect + " Puerto: " + PORT);
             Scanner scanner = new Scanner(socket.getInputStream());
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 

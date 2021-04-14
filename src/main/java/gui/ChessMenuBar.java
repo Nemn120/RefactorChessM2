@@ -115,9 +115,11 @@ public class ChessMenuBar extends JMenuBar {
                     JOptionPane.showMessageDialog( null,"Escuchado puerto: " + PORT);
                 }else{
                     if(buttonName.equals("Unirse")){
-                        System.out.println("unido");
-                        parentChessPanel.getGameEngine().runSocketClient();
-                        JOptionPane.showMessageDialog( null,"Conectando al puerto: " + PORT);
+                        String ipSelect = JOptionPane.showInputDialog("Ingrese IP a conectarse");
+                        if(ipSelect != null){
+                            parentChessPanel.getGameEngine().runSocketClient(ipSelect);
+                            JOptionPane.showMessageDialog( null,"Conectando al puerto: " + PORT);
+                        }
                     }else{
                         invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
                     }
