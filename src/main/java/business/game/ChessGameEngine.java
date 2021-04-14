@@ -405,7 +405,7 @@ public class ChessGameEngine {
     private void receiveMove(Scanner scanner) {
         while (scanner.hasNextLine()) {
             String moveStr = scanner.nextLine();
-            System.out.println("chess move received: " + moveStr);
+            System.out.println("Movimiento recivido: " + moveStr);
             String[] moveStrArr = moveStr.split(",");
             Integer fromCol = Integer.parseInt(moveStrArr[0]);
             Integer fromRow = Integer.parseInt(moveStrArr[1]);
@@ -427,9 +427,9 @@ public class ChessGameEngine {
             public void run() {
                 try {
                     listener = new ServerSocket(PORT);
-                    System.out.println("server is listening on port " + PORT);
+                    System.out.println("Server escuchando en puerto:  " + PORT);
                     socket = listener.accept();
-                    System.out.println("connected from " + socket.getInetAddress());
+                    System.out.println("Conectando desde:" + socket.getInetAddress());
                     printWriter = new PrintWriter(socket.getOutputStream(), true);
                     Scanner scanner = new Scanner(socket.getInputStream());
                     receiveMove(scanner);
@@ -443,7 +443,7 @@ public class ChessGameEngine {
     public void runSocketClient() {
         try {
             socket = new Socket(SOCKET_SERVER_ADDR, PORT);
-            System.out.println("client connected to port " + PORT);
+            System.out.println("Cliente conectandose al puerto: " + PORT);
             Scanner scanner = new Scanner(socket.getInputStream());
             printWriter = new PrintWriter(socket.getOutputStream(), true);
 
