@@ -19,12 +19,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
+
+import static business.interceptingfilter.MultiplayerFilter.MULTIPLAYER_MODE;
 
 /**
  * This is the backend behind the Chess game. Handles the turn-based aspects of
@@ -54,6 +55,7 @@ public class ChessGameEngine {
     private ServerSocket listener;
     private Socket socket;
     private PrintWriter printWriter;
+    private Integer playerSelect = 0;
 
 
     /**
@@ -163,9 +165,14 @@ public class ChessGameEngine {
      * Switches the turn to be the next player's turn.
      */
     private void nextTurn() {
-        currentPlayer = new ProxyPlayer( currentPlayer.allowPlay() == 1 ? 2 : 1 );
-        ((ChessPanel) board.getParent()).getGameLog().addToLog(
-                "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
+        if (MULTIPLAYER_MODE.equals(((ChessPanel) board.getParent()).getMultiplayerFilter().getModoSelect())) {
+            if (playerSelect != 0)
+                currentPlayer = new ProxyPlayer(playerSelect == 1 ? 2 : 1);
+        } else {
+            currentPlayer = new ProxyPlayer(currentPlayer.allowPlay() == 1 ? 2 : 1);
+            ((ChessPanel) board.getParent()).getGameLog().addToLog(
+                    "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
+        }
     }
 
     /**
@@ -339,19 +346,17 @@ public class ChessGameEngine {
                 }
             }
         } else {
-            if (pieceOnSquare == null ||
-                    !pieceOnSquare.equals(currentPiece)) // moving
-            {
+            if (pieceOnSquare == null || !pieceOnSquare.equals(currentPiece)){
                 int rowSelect = currentPiece.getRow();
                 int colSelect = currentPiece.getColumn();
-                System.out.println("ACTUAL => row: "+rowSelect+ " col:"+colSelect);
                 boolean moveSuccessful =
                         pieceMoveService.move(
                                 board,currentPiece,squareClicked.getRow(), squareClicked.getColumn());
-                System.out.println("NUEVO => row: "+currentPiece.getRow()+ " col:"+currentPiece.getColumn());
                 if (moveSuccessful) {
                     checkGameConditions();
-                    this.movePieceNetwork(rowSelect,colSelect,squareClicked);
+                    if(MULTIPLAYER_MODE.equals(((ChessPanel) board.getParent()).getMultiplayerFilter().getModoSelect())){
+                        this.movePieceNetwork(rowSelect,colSelect,squareClicked);
+                    }
                 } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
@@ -430,6 +435,7 @@ public class ChessGameEngine {
                     if(listener == null || listener.isClosed()){
                         listener = new ServerSocket(PORT);
                         System.out.println("Servidor escuchando puerto: " + PORT);
+                        playerSelect = 1;
                         socket = listener.accept();
                         printWriter = new PrintWriter(socket.getOutputStream(), true);
                         Scanner scanner = new Scanner(socket.getInputStream());
@@ -452,7 +458,7 @@ public class ChessGameEngine {
             System.out.println("Cliente conectandose a Puerto: " + PORT);
             Scanner scanner = new Scanner(socket.getInputStream());
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-
+            playerSelect = 2;
             Executors.newFixedThreadPool(1).execute(new Runnable() {
                 @Override
                 public void run() {
