@@ -15,6 +15,14 @@ public class Universitario {
         this.codigo = codigo;
     }
 
+    public Universitario(String nombres, String apellidos, String dni, String escuela, String codigo) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.dni = dni;
+        this.escuela = escuela;
+        this.codigo = codigo;
+    }
+
     public Universitario(int id, String nombres, String apellidos, String dni, String escuela, String codigo) {
         this.id = id;
         this.nombres = nombres;

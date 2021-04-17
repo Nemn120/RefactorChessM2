@@ -5,6 +5,14 @@ import business.DTO.DAO.DAOUniversitarioImp;
 
 public class UniversitarioService {
 
+
+    public void guardarUsuario(Universitario u){
+
+        DAOUniversitario dao=new DAOUniversitarioImp();
+        dao.registrar(u);
+
+    }
+
     public UniversitarioDTO createDTO(Universitario universitario) {
         UniversitarioDTO dto=null;
 
