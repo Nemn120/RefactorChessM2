@@ -21,23 +21,34 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
        return null;
     }
 
-    public Universitario buscar(String code) {
+    public Universitario buscar(String codigo) {
 
         final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+        Universitario universitarioBD=null;
+
         try (Connection connexion = DriverManager.getConnection(DB_URL, USER, PASS);) {
             System.out.println("BD conectada!");
-            PreparedStatement st = connexion.prepareStatement("SELECT * FROM universitario where code=?");
-            st.setString(1, code);
+            PreparedStatement st = connexion.prepareStatement("SELECT * FROM universitario where codigo=?");
+            st.setString(1, codigo);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("code") + ":\n" + rs.getString("nombres"));
+                universitarioBD=new Universitario(rs.getInt("id"),
+                        rs.getString("nombres"),
+                        rs.getString("apellidos"),
+                        rs.getString("dni"),
+                        rs.getString("escuela"),
+                        rs.getString("codigo"));
+                System.out.println("Universitario: "+universitarioBD.toString());
+            }
+            if(universitarioBD==null){
+                System.out.println("Universitario: No existe");
             }
             rs.close();
             st.close();
         } catch (SQLException e) {
             System.out.println("Exception ejecutada: " + e.getMessage());
         }
-        return null;
+        return universitarioBD;
     }
 
 }

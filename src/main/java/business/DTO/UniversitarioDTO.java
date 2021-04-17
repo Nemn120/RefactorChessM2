@@ -20,4 +20,12 @@ public class UniversitarioDTO {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "UniversitarioDTO{" +
+                "fullName='" + fullName + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

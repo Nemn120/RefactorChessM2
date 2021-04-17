@@ -6,15 +6,22 @@ public class Universitario {
     private String apellidos;
     private String dni;
     private String escuela;
-    private String code;
+    private String codigo;
 
-    public Universitario(int id, String nombres, String apellidos, String dni, String escuela, String code) {
+    public Universitario() {
+    }
+
+    public Universitario(int id) {
+        this.id = id;
+    }
+
+    public Universitario(int id, String nombres, String apellidos, String dni, String escuela, String codigo) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.dni = dni;
         this.escuela = escuela;
-        this.code = code;
+        this.codigo = codigo;
     }
 
     public int getId() {
@@ -57,11 +64,23 @@ public class Universitario {
         this.escuela = escuela;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        return "Universitario{" +
+                "id=" + id +
+                ", nombres='" + nombres + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", dni='" + dni + '\'' +
+                ", escuela='" + escuela + '\'' +
+                ", codigo='" + codigo + '\'' +
+                '}';
     }
 }
