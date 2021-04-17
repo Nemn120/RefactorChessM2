@@ -59,13 +59,15 @@ public class ChessPanel extends JPanel implements ActionListener {
 
         filterManager = new FilterManager(new Target());
         LogFilter logFilter = new LogFilter();
-        filterManager.setFilter(logFilter);
+
         multiplayerFilter = new MultiplayerFilter();
         filterManager.setFilter(multiplayerFilter);
+        filterManager.setFilter(logFilter);
 
         Client clientChess = new Client();
         clientChess.setFilterManager(filterManager);
         clientChess.sendRequest();
+
         gameLog = logFilter.getGamelog();
         this.add( logFilter.getComponent(), BorderLayout.SOUTH);
 
