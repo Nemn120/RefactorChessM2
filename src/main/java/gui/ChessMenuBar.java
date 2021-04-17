@@ -46,10 +46,10 @@ public class ChessMenuBar extends JMenuBar {
 
 
 
-        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Registrar","Help"};
         String[] menuItemLists =
                 {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
-                        "Guardar,Visualizar",
+                        "Guardar,Visualizar","Universitario",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -133,6 +133,9 @@ public class ChessMenuBar extends JMenuBar {
                     }else{
                         JOptionPane.showMessageDialog(null,"Version no disponible.");
                     }
+            } else if (buttonName.equals("Universitario")) {
+
+                JOptionPane.showMessageDialog(null,"Registrando...");
 
             } else {
                 invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
