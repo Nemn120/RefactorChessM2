@@ -44,6 +44,8 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.b = b;
     }
 
+    private JButton b;
+
     /**
      * Create a new ChessPanel object.
      */
