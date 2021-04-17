@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Shows the GUI for the Chess game.

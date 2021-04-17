@@ -10,7 +10,7 @@ public class Referee implements Observer{
     @Override
     public void update() {
         //lógica para ver el arreglo de piezas muertas;
-        System.out.println("nueva ficha muerta");
+        //System.out.println("nueva ficha muerta");
         this.deadPieces++;
     }
 

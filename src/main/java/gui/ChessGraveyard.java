@@ -18,6 +18,9 @@ import java.awt.*;
  * @version 2010.11.17
  */
 public class ChessGraveyard extends JPanel {
+
+    public static final String PLAYER1_GRAVEYARD = "Jugador 1 cementerio";
+    public static final String PLAYER2_GRAVEYARD = "Jugador 2 cementerio";
     private String title;
     //private WhitePieces wp = new WhitePieces();
     //private Referee bascunian = new Referee(wp);
@@ -37,12 +40,12 @@ public class ChessGraveyard extends JPanel {
         name = new JLabel(title);
         this.add(name);
         this.setLayout(new GridLayout(8, 0));
-        if(this.title=="Player 1's graveyard"){
+        if(PLAYER1_GRAVEYARD.equals(this.title)){
             this.wp = new WhitePieces();
             this.bascunian = new Referee(wp);
             this.wp.attach(bascunian);
         }
-        if(this.title=="Player 2's graveyard"){
+        if(PLAYER2_GRAVEYARD.equals(this.title)){
             this.wp = new BlackPieces();
             this.bascunian = new Referee(wp);
             this.wp.attach(bascunian);
@@ -74,7 +77,7 @@ public class ChessGraveyard extends JPanel {
 
     public int quiereRendirse(int currentPlayer){
         int rendirse = 3;
-        if(this.getBascunian().getDeadPieces()>10){
+        if(this.getBascunian().getDeadPieces()>10){ // CAMBIAR PARA RENDIRSE
             rendirse=JOptionPane.showConfirmDialog(null, "Quieres rendirte jugador " + currentPlayer + "?");
         }
         if(rendirse == 1 || rendirse == 2){

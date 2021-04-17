@@ -1,6 +1,5 @@
 package gui;
 
-import business.pieces.BishopTest;
 import gui.patternCommand.ChessMenuBarInvoker;
 import gui.patternCommand.CommandAboutGame;
 import org.junit.Before;
@@ -8,7 +7,7 @@ import org.junit.Test;
 
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChessMenuBarTest {
 
@@ -25,7 +24,7 @@ public class ChessMenuBarTest {
     public void validatePatternCommand() {
         ChessPanel parentChessPanel = (ChessPanel) chessMenuBar.getParent();
         boolean validate  = this.validateParentPanel(parentChessPanel);
-        assertEquals(true, validate);
+        assertTrue(validate);
         logger.info("EJECUTADO CON EXITO");
 
     }
