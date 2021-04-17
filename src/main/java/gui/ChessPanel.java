@@ -80,6 +80,12 @@ public class ChessPanel extends JPanel implements ActionListener {
         gameEngine = new ChessGameEngine(gameBoard); // start the game
 
         menuBar.board=gameBoard;
+        if(MultiplayerFilter.getNumberPlayer() == 1){
+            getGameEngine().runSocketServer();
+        }
+        if(MultiplayerFilter.getNumberPlayer() == 2){
+            getGameEngine().runSocketClient();
+        }
         fan = new Fan();
     }
 
