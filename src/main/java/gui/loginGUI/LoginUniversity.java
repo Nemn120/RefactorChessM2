@@ -1,5 +1,8 @@
 package gui.loginGUI;
 
+import business.DTO.Universitario;
+import business.DTO.UniversitarioDTO;
+import business.DTO.UniversitarioService;
 import business.login.Login;
 import business.login.LoginUniversityCardAdapter;
 import business.login.LoginUsernamePassword;
@@ -28,7 +31,41 @@ public class LoginUniversity {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 Login l=new LoginUniversityCardAdapter();
+                String code=textField1.getText();
+
+                UniversitarioService s=new UniversitarioService();
+                UniversitarioDTO universitarioDTO=s.createDTO(new Universitario(code));
+
+                if (universitarioDTO!=null) {
+
+                    JFrame frame = new JFrame("YetAnotherChessGame 1.0");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.getContentPane().add(new ChessPanel());
+                    frame.pack();
+                    frame.setVisible(true);
+
+                    frameLoginUniversity.dispose();
+                    JOptionPane.showMessageDialog(null,"Bienvenido "+ universitarioDTO.getFullName());
+                }else{
+                    JOptionPane.showMessageDialog(null,"Codigo de estudiante Invalida!");
+                }
+
+
+
+            }
+        });
+
+    }
+
+    public JPanel getPanel1() {
+        return panel1;
+    }
+}
+
+/*
+    Login l=new LoginUniversityCardAdapter();
                 String code=textField1.getText();
                 if (l.loginIn(code,null) && !"admin".equals(code)) {
 
@@ -43,13 +80,4 @@ public class LoginUniversity {
                 }else{
                     JOptionPane.showMessageDialog(null,"Codigo de estudiante Invalida!");
                 }
-
-            }
-        });
-
-    }
-
-    public JPanel getPanel1() {
-        return panel1;
-    }
-}
+ */

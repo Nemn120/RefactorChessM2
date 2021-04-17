@@ -13,8 +13,6 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
 
     public void registrar(Universitario u) throws Exception {
 
-
-
     }
 
     public List<Universitario> listar() throws Exception {
