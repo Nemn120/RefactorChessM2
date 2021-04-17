@@ -35,7 +35,7 @@ public class LoginUniversity {
                 String code=textField1.getText();
 
                 UniversitarioService s=new UniversitarioService();
-                UniversitarioDTO universitarioDTO=s.createDTO(new Universitario(code));
+                UniversitarioDTO universitarioDTO=s.createDTO(code);
 
                 if (universitarioDTO!=null) {
 
