@@ -11,19 +11,38 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
     final String USER = "postgres";
     final String PASS = "postgres";
 
-    public void registrar(Universitario u) throws Exception {
+    public void registrar(Universitario u) {
+
+        System.out.println("Guardando Universitario!");
+        final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+        try (Connection connexion = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            System.out.println("BD conectada!");
+            PreparedStatement st = connexion.prepareStatement(
+                    "INSERT INTO universitario(nombres,apellidos,dni,escuela,codigo) VALUES (?,?,?,?,?)");
+            st.setString(1, u.getNombres());
+            st.setString(2, u.getApellidos());
+            st.setString(1, u.getDni());
+            st.setString(2, u.getEscuela());
+            st.setString(1, u.getCodigo());
+
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Exception ejecutada:");
+            e.printStackTrace();
+        }
 
     }
 
-    public List<Universitario> listar() throws Exception {
+    public List<Universitario> listar(){
        return null;
     }
 
     public Universitario buscar(String codigo) {
 
+        System.out.println("Buscando Universitario!");
         final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
         Universitario universitarioBD=null;
-
         try (Connection connexion = DriverManager.getConnection(DB_URL, USER, PASS);) {
             System.out.println("BD conectada!");
             PreparedStatement st = connexion.prepareStatement("SELECT * FROM universitario where codigo=?");
