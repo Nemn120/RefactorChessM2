@@ -1,6 +1,7 @@
 package business.piecenull;
 
 import business.pieces.ChessGamePiece;
+import business.visitor.Visitor;
 import gui.board.ChessGameBoard;
 
 import javax.swing.*;
@@ -37,6 +38,11 @@ public class PieceNull extends ChessGamePiece {
     public ImageIcon createImageByPieceType() {
         System.out.println("Este objeto es nulo");
         return null;
+    }
+
+    @Override
+    public void aceptar(Visitor v) {
+
     }
 
 

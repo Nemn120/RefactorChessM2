@@ -1,6 +1,7 @@
 package business.pieces;
 
 import business.service.moves.pieces.PawnMove;
+import business.visitor.Visitor;
 import gui.board.ChessGameBoard;
 
 import javax.swing.*;
@@ -63,5 +64,10 @@ public class Pawn extends ChessGamePiece {
         return new ImageIcon(
                 getClass().getResource(resourceOfPiece.resourceByType("Pawn"))
         );
+    }
+
+    @Override
+    public void aceptar(Visitor v) {
+        v.visitPawn(this);
     }
 }
