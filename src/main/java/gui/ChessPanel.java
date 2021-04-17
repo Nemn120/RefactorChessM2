@@ -61,7 +61,7 @@ public class ChessPanel extends JPanel implements ActionListener {
         LogFilter logFilter = new LogFilter();
         filterManager.setFilter(logFilter);
         multiplayerFilter = new MultiplayerFilter();
-        filterManager.setFilter(new MultiplayerFilter());
+        filterManager.setFilter(multiplayerFilter);
 
         Client clientChess = new Client();
         clientChess.setFilterManager(filterManager);
