@@ -55,8 +55,16 @@ public class ObjectPool {
         }
     }
 
-    public void ReturnPiece(ChessGamePiece piece){
+    public void returnPiece(ChessGamePiece piece){
         _pool.add(piece);
+    }
+
+    public List<ChessGamePiece> get_pool() {
+        return _pool;
+    }
+
+    public void set_pool(List<ChessGamePiece> _pool) {
+        this._pool = _pool;
     }
 
 
