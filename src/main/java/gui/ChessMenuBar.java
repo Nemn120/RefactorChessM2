@@ -139,17 +139,18 @@ public class ChessMenuBar extends JMenuBar {
                     }
             } else if (buttonName.equals("Universitario")) {
 
-                UniversitarioService s=new UniversitarioService();
-
-                String code="20";
-                s.guardarUsuario(new Universitario("a","b","c","d",code));
-/*
+                //Lamamos la interfaz
+                /*
                 JFrame frame = new JFrame("YetAnotherChessGame 1.0");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.getContentPane().add(new ChessPanel());
                 frame.pack();
                 frame.setVisible(true);
-*/
+                */
+
+                UniversitarioService s=new UniversitarioService();
+                String code="20";
+                s.guardarUsuario(new Universitario("a","b","c","d",code));
                 JOptionPane.showMessageDialog(null,"Registrado: "+code);
 
             } else {
