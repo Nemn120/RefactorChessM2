@@ -3,6 +3,7 @@ package gui;
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
 import business.businessdelegate.Historial;
+import business.game.ChessGameEngine;
 import business.log.FileLog;
 import business.log.GameLog;
 import business.log.Log;
@@ -28,6 +29,7 @@ public class ChessMenuBar extends JMenuBar {
 
 
     public ChessGameBoard board;
+    public ChessGameEngine gameEngine;
     Caretaker caretaker = new Caretaker();
     Originator originator = new Originator();
 
@@ -48,7 +50,7 @@ public class ChessMenuBar extends JMenuBar {
 
         String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar.,Restaurar",
                         "Guardar,Visualizar",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
@@ -106,9 +108,11 @@ public class ChessMenuBar extends JMenuBar {
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
-            } else if (buttonName.equals("Guardar")) {
+            } else if (buttonName.equals("Guardar.")) {
 
                 originator.setEstado(board.getChessCells());
+                System.out.println(gameEngine.getCurrentPlayer().allowPlay());
+                originator.setCurrentPlayer(gameEngine.getCurrentPlayer().allowPlay());
                 caretaker.addMemento(originator.guardar());
 
                 System.out.println("------------GUARDADO--------------");
@@ -126,7 +130,7 @@ public class ChessMenuBar extends JMenuBar {
                         System.out.println("------------RESTAURADO--------------");
                         viewBoard(temp);
 
-                        restaurarGame(temp);
+                        restaurarGame(temp, originator.getCurrentPlayer());
 
                         JOptionPane.showMessageDialog(null,"Version "+index+" restaurada.");
 
@@ -157,8 +161,8 @@ public class ChessMenuBar extends JMenuBar {
         ((ChessPanel) this.getParent()).getGameEngine().reset();
     }
 
-    private void restaurarGame(BoardSquare[][] boardSquare) {
-        ((ChessPanel) this.getParent()).getGameEngine().restaurar(boardSquare);
+    private void restaurarGame(BoardSquare[][] boardSquare, int currentPlayer) {
+        ((ChessPanel) this.getParent()).getGameEngine().restaurar(boardSquare, currentPlayer);
     }
 
     /**
