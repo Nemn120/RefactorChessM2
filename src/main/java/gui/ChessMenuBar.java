@@ -14,6 +14,8 @@ import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
 import gui.board.ChessGameBoard;
+import gui.loginGUI.FormAlumn;
+import gui.loginGUI.LoginUniversity;
 import gui.patternCommand.*;
 
 import javax.swing.*;
@@ -140,19 +142,24 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Universitario")) {
 
                 //Lamamos la interfaz
-                /*
-                JFrame frame = new JFrame("YetAnotherChessGame 1.0");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().add(new ChessPanel());
-                frame.pack();
-                frame.setVisible(true);
-                */
 
+                JFrame frame2=new JFrame("Registry");
+
+                FormAlumn formAlumn=new FormAlumn();
+                formAlumn.frameAlum=frame2;
+
+                frame2.setContentPane(formAlumn.getPanel1());
+                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame2.pack();
+                frame2.setVisible(true);
+                frame2.setLocationRelativeTo(null);
+
+/*
                 UniversitarioService s=new UniversitarioService();
                 String code="20";
                 s.guardarUsuario(new Universitario("a","b","c","d",code));
                 JOptionPane.showMessageDialog(null,"Registrado: "+code);
-
+*/
             } else {
                 invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
             }

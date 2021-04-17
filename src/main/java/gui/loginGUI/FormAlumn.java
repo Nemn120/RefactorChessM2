@@ -1,6 +1,8 @@
 package gui.loginGUI;
 
 
+import business.DTO.Universitario;
+import business.DTO.UniversitarioService;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
@@ -25,6 +27,12 @@ public class FormAlumn implements ActionListener {
     private JLabel codeAlumnLabel;
     private JButton saveButton;
     private JPanel panel1;
+
+    public JFrame frameAlum;
+
+    public JPanel getPanel1() {
+        return panel1;
+    }
 
     public FormAlumn() {
         this.formAlumnFrame = new JFrame();
@@ -60,8 +68,14 @@ public class FormAlumn implements ActionListener {
     }
 
     public void save() {
-        // Metodo para obtener los datos con los gets de los inputs de los valores y hacer la logica de guardar
+         UniversitarioService s=new UniversitarioService();
 
+        s.guardarUsuario(new Universitario(this.getNameInput().getText(),
+                this.getSurnameAndLastNameInput().getText(),
+                this.getDniInput().getText(),
+                this.getSchoolInput().getText(),
+                this.getCodeAlumnInput().getText()));
+        JOptionPane.showMessageDialog(null,"Registrado: "+this.getCodeAlumnInput().getText());
     }
 
     @Override
