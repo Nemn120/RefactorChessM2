@@ -12,21 +12,23 @@ public class MultiplayerFilter implements Filter {
     @Override
     public void execute() {
 
-        Object[] options1 = {SOLO_MODE, MULTIPLAYER_MODE};
+        Object[] options1 = {SOLO_MODE, "Crear","Unirse"};
         Integer input = JOptionPane.showOptionDialog(null, "Seleccione modo de juego", "Modo",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options1, null);
         System.out.println(input);
 
         if (input == JOptionPane.OK_OPTION) {
             this.modoSelect = SOLO_MODE;
+            this.numberPlayer = 0;
         }
         if (input == JOptionPane.INFORMATION_MESSAGE) {
             this.modoSelect = MULTIPLAYER_MODE;
-            if(this.numberPlayer == 2){
-                this.numberPlayer = 0;
-            }
-            this.numberPlayer++;
+           this.numberPlayer = 1;
 
+        }
+        if(input == JOptionPane.CANCEL_OPTION){
+            this.modoSelect = MULTIPLAYER_MODE;
+            this.numberPlayer = 2;
         }
     }
 
