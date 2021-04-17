@@ -1,6 +1,7 @@
 package gui.board;
 
 import business.game.ChessGameEngine;
+import business.objectPool.ObjectPool;
 import business.piecenull.PieceNull;
 import business.pieces.factory.PieceFactory;
 import business.service.moves.IPieceMoveService;
@@ -30,7 +31,7 @@ public class ChessGameBoard extends JPanel {
     private BoardSquare[][] chessCells;
     private BoardListener listener;
     private IPieceMoveService pieceMoveService;
-
+    private ObjectPool poolPiece;
 
 
     /**
@@ -178,28 +179,36 @@ public class ChessGameBoard extends JPanel {
         for (int i = 0; i < chessCells.length; i++) {
             for (int j = 0; j < chessCells[0].length; j++) {
                 ChessGamePiece pieceToAdd;
+
                 if (i == 1) // black pawns
                 {
-                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.BLACK);
+                    //pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.BLACK);
+                    pieceToAdd = ObjectPool.getInstance("Pawn",this, i, j, ColorOfPiece.BLACK).getNewPiece("Pawn",this, i, j, ColorOfPiece.BLACK);
                 } else if (i == 6) // white pawns
                 {
-                    pieceToAdd =  PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.WHITE);
+                    //pieceToAdd =  PieceFactory.createPiece("Pawn",this, i, j, ColorOfPiece.WHITE);
+                    pieceToAdd = ObjectPool.getInstance("Pawn",this, i, j, ColorOfPiece.WHITE).getNewPiece("Pawn",this, i, j, ColorOfPiece.WHITE);
                 } else if (i == 0 || i == 7) // main rows
                 {
                     int colNum =
                             i == 0 ? ColorOfPiece.BLACK : ColorOfPiece.WHITE;
                     if (j == 0 || j == 7) {
-                        pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, colNum);
+                        //pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, colNum);
+                        pieceToAdd = ObjectPool.getInstance("Rook",this, i, j, colNum).getNewPiece("Rook",this, i, j, colNum);
                     } else if (j == 1 || j == 6) {
-                        pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, colNum);
+                        //pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, colNum);
+                        pieceToAdd = ObjectPool.getInstance("Knight",this, i, j, colNum).getNewPiece("Knight",this, i, j, colNum);
                     } else if (j == 2 || j == 5) {
 
-                        pieceToAdd = PieceFactory.createPiece ("Bishop",this, i, j, colNum);
+                        //pieceToAdd = PieceFactory.createPiece ("Bishop",this, i, j, colNum);
+                        pieceToAdd = ObjectPool.getInstance("Bishop",this, i, j, colNum).getNewPiece("Bishop",this, i, j, colNum);
 
                     } else if (j == 4) {
-                        pieceToAdd = PieceFactory.createPiece("King",this, i, j, colNum);
+                        //pieceToAdd = PieceFactory.createPiece("King",this, i, j, colNum);
+                        pieceToAdd = ObjectPool.getInstance("King",this, i, j, colNum).getNewPiece("King",this, i, j, colNum);
                     } else {
-                        pieceToAdd = PieceFactory.createPiece ("Queen",this, i, j, colNum);
+                        //pieceToAdd = PieceFactory.createPiece ("Queen",this, i, j, colNum);
+                        pieceToAdd = ObjectPool.getInstance("Queen",this, i, j, colNum).getNewPiece("Queen",this, i, j, colNum);
                     }
                 } else {
                     pieceToAdd = null;
@@ -222,23 +231,41 @@ public class ChessGameBoard extends JPanel {
             for (int j = 0; j < chessCells[0].length; j++) {
                 ChessGamePiece pieceToAdd;
                 if(boardSquare[i][j].getPieceOnSquare() instanceof Pawn){
-                    pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j]
+                    //pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = ObjectPool.getInstance("Pawn",this, i, j,boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Pawn",this, i, j,boardSquare[i][j]
                             .getPieceOnSquare().getColorOfPiece().getColor());
                 } else if (boardSquare[i][j].getPieceOnSquare() instanceof Rook) {
-                    pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j]
+                    //pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = ObjectPool.getInstance("Rook",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Rook",this, i, j, boardSquare[i][j]
                             .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Bishop) {
-                    pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j]
+                    //pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = ObjectPool.getInstance("Bishop",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Bishop",this, i, j, boardSquare[i][j]
                             .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Knight) {
-                    pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j]
+                    //pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = ObjectPool.getInstance("Knight",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Knight",this, i, j, boardSquare[i][j]
                             .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof King) {
-                    pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j]
+                    //pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());
+                    pieceToAdd = ObjectPool.getInstance("King",this, i, j,boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("King",this, i, j,boardSquare[i][j]
                             .getPieceOnSquare().getColorOfPiece().getColor());
                 }else if (boardSquare[i][j].getPieceOnSquare() instanceof Queen) {
-                    pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());;
+                    //pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j]
+                      //      .getPieceOnSquare().getColorOfPiece().getColor());;
+                    pieceToAdd = ObjectPool.getInstance("Queen",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Queen",this, i, j, boardSquare[i][j]
+                            .getPieceOnSquare().getColorOfPiece().getColor());
                 }else{
                     pieceToAdd =null;
                 }
