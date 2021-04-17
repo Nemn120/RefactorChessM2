@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
  */
 public class ChessMenuBar extends JMenuBar {
 
-
+    private int PORT = 50000;
     public ChessGameBoard board;
     public ChessGameEngine gameEngine;
     Caretaker caretaker = new Caretaker();
@@ -50,9 +50,8 @@ public class ChessMenuBar extends JMenuBar {
 
         String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar.,Restaurar",
-                        "Guardar,Visualizar",
-                        "About"};
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Activar,Unirse,Guardar,Restaurar",
+                        "Guardar,Visualizar", "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
             String[] currMenuItemList = menuItemLists[i].split(",");
@@ -139,7 +138,20 @@ public class ChessMenuBar extends JMenuBar {
                     }
 
             } else {
-                invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
+                if(buttonName.equals("Activar")){
+                    System.out.println("ACTIVADO");
+
+                    parentChessPanel.getGameEngine().runSocketServer();
+                    JOptionPane.showMessageDialog( null,"Escuchado puerto: " + PORT);
+                }else{
+                    if(buttonName.equals("Unirse")){
+                        parentChessPanel.getGameEngine().runSocketClient();
+                        JOptionPane.showMessageDialog( null,"Conectando al puerto: " + PORT);
+                    }else{
+                        invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
+                    }
+                }
+
             }
         }
     }
