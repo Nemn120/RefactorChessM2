@@ -31,7 +31,6 @@ public class LoginUniversity {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
                 Login l=new LoginUniversityCardAdapter();
                 String code=textField1.getText();
 
@@ -51,8 +50,6 @@ public class LoginUniversity {
                 }else{
                     JOptionPane.showMessageDialog(null,"Codigo de estudiante Invalida!");
                 }
-
-
 
             }
         });
