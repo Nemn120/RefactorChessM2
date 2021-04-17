@@ -5,34 +5,30 @@ import business.DTO.DAO.DAOUniversitarioImp;
 
 public class UniversitarioService {
 
+    DAOUniversitario universitarioDao;
+    IUniversitarioMapper universitarioMapper;
 
-    public void guardarUsuario(Universitario u){
-
-        DAOUniversitario dao=new DAOUniversitarioImp();
-        dao.registrar(u);
-
+    public UniversitarioService() {
+        this.universitarioDao = new DAOUniversitarioImp();
+        this.universitarioMapper = new UniversitarioMapper();
     }
 
-    public UniversitarioDTO createDTO(Universitario universitario) {
-        UniversitarioDTO dto=null;
+    public void guardarUsuario(Universitario u){
+        universitarioDao.registrar(u);
+    }
 
-        //metodo para buscar
-        DAOUniversitario dao=new DAOUniversitarioImp();
-        Universitario universitarioBD=dao.buscar(universitario.getCodigo());
+    public UniversitarioDTO createDTO(String code) {
+        if(code == null){
+            return null;
+        }
+        Universitario universitario=universitarioDao.buscar(code);
+        UniversitarioDTO universitarioDTO =universitarioMapper.mapIn(universitario);
 
-        //Create dto
-        if(universitarioBD!=null){
-            dto = new UniversitarioDTO();
-            dto.setFullName(universitarioBD.getNombres() + " " + universitarioBD.getApellidos());
-            dto.setCode(universitarioBD.getCodigo());
-            System.out.println("UniversitarioDTO: "+dto.toString());
+        if(universitarioDTO != null){
+            System.out.println("UniversitarioDTO: "+universitarioDTO.toString());
         }else{
             System.out.println("UniversitarioDTO: No existe");
         }
-
-        //Return DTO
-        return dto;
-
+        return universitarioDTO;
     }
-
 }
