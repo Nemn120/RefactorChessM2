@@ -1,5 +1,6 @@
 package business.game;
 
+import business.interceptingfilter.MultiplayerFilter;
 import business.proxy.IPlayer;
 import business.proxy.ProxyPlayer;
 import business.service.king.IKingService;
@@ -55,8 +56,6 @@ public class ChessGameEngine {
     private ServerSocket listener;
     private Socket socket;
     private PrintWriter printWriter;
-    private Integer playerSelect = 0;
-
 
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -166,13 +165,14 @@ public class ChessGameEngine {
      */
     private void nextTurn() {
         if (MULTIPLAYER_MODE.equals(((ChessPanel) board.getParent()).getMultiplayerFilter().getModoSelect())) {
-            if (playerSelect != 0)
-                currentPlayer = new ProxyPlayer(playerSelect == 1 ? 2 : 1);
+            if (MultiplayerFilter.getNumberPlayer() != 0){
+                currentPlayer = new ProxyPlayer(MultiplayerFilter.getNumberPlayer() == 1 ? 2 : 1);
+            }
         } else {
             currentPlayer = new ProxyPlayer(currentPlayer.allowPlay() == 1 ? 2 : 1);
-            ((ChessPanel) board.getParent()).getGameLog().addToLog(
-                    "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
         }
+        ((ChessPanel) board.getParent()).getGameLog().addToLog(
+                "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
     }
 
     /**
@@ -435,7 +435,6 @@ public class ChessGameEngine {
                     if(listener == null || listener.isClosed()){
                         listener = new ServerSocket(PORT);
                         System.out.println("Servidor escuchando puerto: " + PORT);
-                        playerSelect = 1;
                         socket = listener.accept();
                         printWriter = new PrintWriter(socket.getOutputStream(), true);
                         Scanner scanner = new Scanner(socket.getInputStream());
@@ -458,7 +457,6 @@ public class ChessGameEngine {
             System.out.println("Cliente conectandose a Puerto: " + PORT);
             Scanner scanner = new Scanner(socket.getInputStream());
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-            playerSelect = 2;
             Executors.newFixedThreadPool(1).execute(new Runnable() {
                 @Override
                 public void run() {
