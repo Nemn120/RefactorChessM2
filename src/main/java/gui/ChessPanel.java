@@ -8,6 +8,7 @@ import business.mediator.Fan;
 import business.mediator.Mediator;
 import business.mediator.Power;
 import gui.board.ChessGameBoard;
+import gui.patternCompositeEntity.InfoAdvanceOfPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +45,9 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.b = b;
     }
 
+    private JButton infoPLayer1Button;
+    private JButton infoPLayer2Button;
+
     /**
      * Create a new ChessPanel object.
      */
@@ -77,8 +81,11 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.setBackground(Color.blue);
         b = new JButton("Cambiar color");
         b.setBounds(0, 500, 50, 50);
+        createButtonInfoFromPlayer();
         playerOneGraveyard.add(b);
         b.addActionListener(this);
+        this.getInfoPLayer1Button().addActionListener(this);
+        this.getInfoPLayer2Button().addActionListener(this);
         gameEngine = new ChessGameEngine(gameBoard); // start the game
 
         menuBar.board=gameBoard;
@@ -97,34 +104,28 @@ public class ChessPanel extends JPanel implements ActionListener {
         fan = new Fan();
     }
 
-    /**
-     * Gets the appropriate graveyard object for use in other classes.
-     *
-     * @param whichPlayer the number of the player (1 or 2)
-     * @return ChessGraveyard the graveyard requested
-     */
-    public ChessGraveyard getGraveyard(int whichPlayer) {
-        if (whichPlayer == 1) {
-            return playerOneGraveyard;
-        } else if (whichPlayer == 2) {
-            return playerTwoGraveyard;
-        } else {
-            return null;
-        }
+    public void createButtonInfoFromPlayer() {
+        this.setInfoPLayer1Button(new JButton("Ver progreso"));
+        playerOneGraveyard.add(this.getInfoPLayer1Button());
+        this.setInfoPLayer2Button(new JButton("Ver progreso"));
+        playerTwoGraveyard.add(this.getInfoPLayer2Button());
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public JButton getInfoPLayer1Button() {
+        return infoPLayer1Button;
+    }
 
-        if (e.getSource() == b) {
-            Mediator mediator = new Mediator();
-            Buttons bn = new Buttons(mediator);
-            Power power = new Power();
-            fan.setMediator(mediator);
-            mediator.setFan(fan);
-            mediator.setPower(power);
-            bn.press(playerOneGraveyard,playerTwoGraveyard);
-        }
+    public void setInfoPLayer1Button(JButton infoPLayer1Button) {
+        this.infoPLayer1Button = infoPLayer1Button;
+    }
+
+    public JButton getInfoPLayer2Button() {
+        return infoPLayer2Button;
+    }
+
+    public void setInfoPLayer2Button(JButton infoPLayer2Button) {
+        this.infoPLayer2Button = infoPLayer2Button;
     }
 
     /**
@@ -152,6 +153,44 @@ public class ChessPanel extends JPanel implements ActionListener {
      */
     public ChessGameEngine getGameEngine() {
         return gameEngine;
+    }
+
+    /**
+     * Gets the appropriate graveyard object for use in other classes.
+     *
+     * @param whichPlayer the number of the player (1 or 2)
+     * @return ChessGraveyard the graveyard requested
+     */
+    public ChessGraveyard getGraveyard(int whichPlayer) {
+        if (whichPlayer == 1) {
+            return playerOneGraveyard;
+        } else if (whichPlayer == 2) {
+            return playerTwoGraveyard;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        InfoAdvanceOfPlayer playerInfo = new InfoAdvanceOfPlayer();
+
+        if (e.getSource() == b) {
+            Mediator mediator = new Mediator();
+            Buttons bn = new Buttons(mediator);
+            Power power = new Power();
+            fan.setMediator(mediator);
+            mediator.setFan(fan);
+            mediator.setPower(power);
+            bn.press(playerOneGraveyard,playerTwoGraveyard);
+        } else if(e.getSource() == this.getInfoPLayer1Button()) {
+            int deadsWhite = playerOneGraveyard.getNumDeadsWhitePiece();
+            playerInfo.showJframeInfoPlayer("Player 1", deadsWhite);
+        } else if(e.getSource() == this.getInfoPLayer2Button()) {
+            int deadsBlack = playerTwoGraveyard.getNumDeadsBlackPiece();
+            playerInfo.showJframeInfoPlayer("Player 2", deadsBlack);
+        }
+
     }
 
     public MultiplayerFilter getMultiplayerFilter() {

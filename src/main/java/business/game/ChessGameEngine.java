@@ -383,7 +383,7 @@ public class ChessGameEngine {
             boolean moveSuccessful = pieceMoveService.move(
                     board, pieceOnSquare, row, col);
             if (moveSuccessful) {
-                checkGameConditions();
+                checkGameConditions(true);
                 board.clearCell(rowSelect,colSelect);
                 board.repaint();
                 board.revalidate();

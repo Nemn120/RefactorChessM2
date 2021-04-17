@@ -27,6 +27,8 @@ public class ChessGraveyard extends JPanel {
     private Observable wp;
     private Referee bascunian;
     public JLabel name;
+    private int numDeadsBlackPiece = 0;
+    private int numDeadsWhitePiece = 0;
 
     /**
      * Create a new ChessGraveyard object.
@@ -61,9 +63,12 @@ public class ChessGraveyard extends JPanel {
 
         if(piece.getColorOfPiece().getColor()==1){
             ((WhitePieces) this.wp).addNewDeadPiece(piece);
+            numDeadsWhitePiece = numDeadsWhitePiece + 1;
         }
         if(piece.getColorOfPiece().getColor()==0){
             ((BlackPieces) this.wp).addNewDeadPiece(piece);
+            //this.setNumDeadsBlackPiece(this.getNumDeadsBlackPiece() + 1);
+            numDeadsBlackPiece = numDeadsBlackPiece + 1;
         }
         JLabel pieceLabel = new JLabel();
         pieceLabel.setIcon(piece.getImage());
@@ -90,6 +95,23 @@ public class ChessGraveyard extends JPanel {
         this.bascunian = new Referee(wp);
         this.wp.attach(bascunian);
         this.add(new JLabel(title));
+    }
+
+    public int getNumDeadsBlackPiece() {
+        return numDeadsBlackPiece;
+    }
+
+    public void setNumDeadsBlackPiece(int numDeadsBlackPiece) {
+        this.numDeadsBlackPiece = numDeadsBlackPiece;
+    }
+
+    public int getNumDeadsWhitePiece() {
+        return numDeadsWhitePiece;
+    }
+
+
+    public void setNumDeadsWhitePiece(int numDeadsWhitePiece) {
+        this.numDeadsWhitePiece = numDeadsWhitePiece;
     }
 
     public Observable getWp() {
