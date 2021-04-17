@@ -10,6 +10,7 @@ import business.mediator.Fan;
 import business.mediator.Mediator;
 import business.mediator.Power;
 import gui.board.ChessGameBoard;
+import gui.patternCompositeEntity.InfoAdvanceOfPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +44,8 @@ public class ChessPanel extends JPanel implements ActionListener {
     }
 
     private JButton b;
+    private JButton infoPLayer1Button;
+    private JButton infoPLayer2Button;
 
     /**
      * Create a new ChessPanel object.
@@ -66,12 +69,39 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.setBackground(Color.blue);
         b = new JButton("Cambiar color");
         b.setBounds(0, 500, 50, 50);
+        createButtonInfoFromPlayer();
         playerOneGraveyard.add(b);
         b.addActionListener(this);
+        this.getInfoPLayer1Button().addActionListener(this);
+        this.getInfoPLayer2Button().addActionListener(this);
         gameEngine = new ChessGameEngine(gameBoard); // start the game
 
         menuBar.board=gameBoard;
         fan = new Fan();
+    }
+
+    public void createButtonInfoFromPlayer() {
+        this.setInfoPLayer1Button(new JButton("Ver progreso"));
+        playerOneGraveyard.add(this.getInfoPLayer1Button());
+        this.setInfoPLayer2Button(new JButton("Ver progreso"));
+        playerTwoGraveyard.add(this.getInfoPLayer2Button());
+
+    }
+
+    public JButton getInfoPLayer1Button() {
+        return infoPLayer1Button;
+    }
+
+    public void setInfoPLayer1Button(JButton infoPLayer1Button) {
+        this.infoPLayer1Button = infoPLayer1Button;
+    }
+
+    public JButton getInfoPLayer2Button() {
+        return infoPLayer2Button;
+    }
+
+    public void setInfoPLayer2Button(JButton infoPLayer2Button) {
+        this.infoPLayer2Button = infoPLayer2Button;
     }
 
     /**
@@ -119,6 +149,7 @@ public class ChessPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        InfoAdvanceOfPlayer playerInfo = new InfoAdvanceOfPlayer();
 
         if (e.getSource() == b) {
             Mediator mediator = new Mediator();
@@ -128,7 +159,14 @@ public class ChessPanel extends JPanel implements ActionListener {
             mediator.setFan(fan);
             mediator.setPower(power);
             bn.press(playerOneGraveyard,playerTwoGraveyard);
+        } else if(e.getSource() == this.getInfoPLayer1Button()) {
+            int deadsWhite = playerOneGraveyard.getNumDeadsWhitePiece();
+            playerInfo.showJframeInfoPlayer("Player 1", deadsWhite);
+        } else if(e.getSource() == this.getInfoPLayer2Button()) {
+            int deadsBlack = playerTwoGraveyard.getNumDeadsBlackPiece();
+            playerInfo.showJframeInfoPlayer("Player 2", deadsBlack);
         }
+
     }
 
     public void strategyLogger(){
