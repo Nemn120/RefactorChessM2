@@ -72,6 +72,7 @@ public class ChessPanel extends JPanel implements ActionListener {
 
         menuBar.board=gameBoard;
         menuBar.log=gameLog;
+        menuBar.gameEngine=gameEngine;
 
         fan = new Fan();
     }
