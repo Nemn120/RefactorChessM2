@@ -34,10 +34,6 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
 
     }
 
-    public List<Universitario> listar(){
-       return null;
-    }
-
     public Universitario buscar(String codigo) {
 
         System.out.println("Buscando Universitario!");
