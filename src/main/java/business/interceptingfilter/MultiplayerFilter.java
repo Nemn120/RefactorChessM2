@@ -7,7 +7,7 @@ public class MultiplayerFilter implements Filter {
     private String modoSelect;
     public static final String SOLO_MODE="Solo";
     public static final String MULTIPLAYER_MODE="Multijugador";
-    public static Integer numberPlayer=1;
+    public static Integer numberPlayer=0;
 
     @Override
     public void execute() {
