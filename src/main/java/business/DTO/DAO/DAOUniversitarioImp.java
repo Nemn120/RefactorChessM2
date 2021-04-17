@@ -1,46 +1,43 @@
 package business.DTO.DAO;
 
 import business.DTO.Universitario;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOUniversitarioImp extends Conexion implements DAOUniversitario{
+public class DAOUniversitarioImp  implements DAOUniversitario{
+
+    final String USER = "postgres";
+    final String PASS = "postgres";
 
     public void registrar(Universitario u) throws Exception {
 
-        try {
-            this.conectar();
-            PreparedStatement ps=this.conexion.prepareStatement("INSERT INTO persona(nombre) VALUES(?)");
-            //ps.setString(1, p.getNombre());
-            ps.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            this.cerrar();
-        }
+
 
     }
 
     public List<Universitario> listar() throws Exception {
-        List<Universitario> lista;
-        try {
-            this.conectar();
-            PreparedStatement ps=this.conexion.prepareStatement("SELECT * FROM persona");
-            ResultSet rs= ps.executeQuery();
-            lista=new ArrayList<>();
-            while (rs.next()) {
-                //lista.add(new Persona(rs.getInt("id"), rs.getString("nombre")));
-            }
-
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            this.cerrar();
-        }
-        return lista;
+       return null;
     }
+
+    public Universitario buscar(String code) {
+
+        final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
+        try (Connection connexion = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            System.out.println("BD conectada!");
+            PreparedStatement st = connexion.prepareStatement("SELECT * FROM universitario where code=?");
+            st.setString(1, code);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getString("code") + ":\n" + rs.getString("nombres"));
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("Exception ejecutada: " + e.getMessage());
+        }
+        return null;
+    }
+
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import business.DTO.DAO.DAOUniversitarioImp;
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
 import business.businessdelegate.Historial;
@@ -134,6 +135,9 @@ public class ChessMenuBar extends JMenuBar {
                         JOptionPane.showMessageDialog(null,"Version no disponible.");
                     }
             } else if (buttonName.equals("Universitario")) {
+
+                //DAOUniversitarioImp buscar=DAOUniversitarioImp();
+
 
                 JOptionPane.showMessageDialog(null,"Registrando...");
 
