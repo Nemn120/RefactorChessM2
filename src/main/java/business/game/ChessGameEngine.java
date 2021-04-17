@@ -119,12 +119,13 @@ public class ChessGameEngine {
     /**
      * Resets the game to its save state.
      */
-    public void restaurar(BoardSquare[][] boardSquare) {
+    public void restaurar(BoardSquare[][] boardSquare, int currentPlayer) {
         firstClick = true;
-        currentPlayer = new ProxyPlayer(1);
         ((ChessPanel) board.getParent()).getGraveyard(1).clearGraveyard();
         ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
-        ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare);
+        ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare, this);
+        this.currentPlayer = new ProxyPlayer(currentPlayer);
+        checkGameConditions(false);
         ((ChessPanel) board.getParent()).revalidate();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
@@ -223,7 +224,7 @@ public class ChessGameEngine {
      * 'normal'). If it should not, the user is asked to play again (see above
      * method).
      */
-    private void checkGameConditions() {
+    private void checkGameConditions(boolean nextTurn) {
         IPlayer origPlayer = currentPlayer;
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
@@ -255,7 +256,7 @@ public class ChessGameEngine {
             // check the next player's conditions as well.
         }
         currentPlayer = origPlayer;
-        nextTurn();
+        if(nextTurn)nextTurn();
     }
 
     /**
@@ -330,7 +331,7 @@ public class ChessGameEngine {
                         pieceMoveService.move(
                                 board,currentPiece,squareClicked.getRow(), squareClicked.getColumn());
                 if (moveSuccessful) {
-                    checkGameConditions();
+                    checkGameConditions(true);
                 } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
