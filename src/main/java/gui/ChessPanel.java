@@ -1,15 +1,14 @@
 package gui;
 
 import business.game.ChessGameEngine;
-import business.log.ConsoleLog;
-import business.log.FileLog;
-import business.log.GameLog;
+import business.interceptingfilter.*;
 import business.log.Log;
 import business.mediator.Buttons;
 import business.mediator.Fan;
 import business.mediator.Mediator;
 import business.mediator.Power;
 import gui.board.ChessGameBoard;
+import gui.patternCompositeEntity.InfoAdvanceOfPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +32,10 @@ public class ChessPanel extends JPanel implements ActionListener {
     private ChessGraveyard playerTwoGraveyard;
     private ChessGameEngine gameEngine;
     private Fan fan;
+    private JButton b;
+
+    private FilterManager filterManager;
+    private MultiplayerFilter multiplayerFilter;
 
     public JButton getB() {
         return b;
@@ -42,7 +45,8 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.b = b;
     }
 
-    private JButton b;
+    private JButton infoPLayer1Button;
+    private JButton infoPLayer2Button;
 
     /**
      * Create a new ChessPanel object.
@@ -51,14 +55,25 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
-        //gameLog = ChessGameLog.getLogInstance();
-        playerOneGraveyard = new ChessGraveyard("Player 1's graveyard");
-        playerTwoGraveyard = new ChessGraveyard("Player 2's graveyard");
+        playerOneGraveyard = new ChessGraveyard("Jugador 1 cementerio");
+        playerTwoGraveyard = new ChessGraveyard("Jugador 2 cementerio");
+
         this.add(menuBar, BorderLayout.NORTH);
         this.add(gameBoard, BorderLayout.CENTER);
 
-        //this.add(gameLog, BorderLayout.SOUTH);
-        strategyLogger();
+        filterManager = new FilterManager(new Target());
+        LogFilter logFilter = new LogFilter();
+
+        multiplayerFilter = new MultiplayerFilter();
+        filterManager.setFilter(multiplayerFilter);
+        filterManager.setFilter(logFilter);
+
+        Client clientChess = new Client();
+        clientChess.setFilterManager(filterManager);
+        clientChess.sendRequest();
+
+        gameLog = logFilter.getGamelog();
+        this.add( logFilter.getComponent(), BorderLayout.SOUTH);
 
         this.add(playerOneGraveyard, BorderLayout.WEST);
         this.add(playerTwoGraveyard, BorderLayout.EAST);
@@ -66,12 +81,51 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.setBackground(Color.blue);
         b = new JButton("Cambiar color");
         b.setBounds(0, 500, 50, 50);
+        createButtonInfoFromPlayer();
         playerOneGraveyard.add(b);
         b.addActionListener(this);
+        this.getInfoPLayer1Button().addActionListener(this);
+        this.getInfoPLayer2Button().addActionListener(this);
         gameEngine = new ChessGameEngine(gameBoard); // start the game
 
         menuBar.board=gameBoard;
+        if(MultiplayerFilter.getNumberPlayer() != 0){
+            if(MultiplayerFilter.getNumberPlayer() == 1){
+                getGameEngine().runSocketServer();
+            }
+            if(MultiplayerFilter.getNumberPlayer() == 2){
+                getGameEngine().runSocketClient();
+            }
+        }
+
+        menuBar.log=gameLog;
+        menuBar.gameEngine=gameEngine;
+
         fan = new Fan();
+    }
+
+    public void createButtonInfoFromPlayer() {
+        this.setInfoPLayer1Button(new JButton("Ver progreso"));
+        playerOneGraveyard.add(this.getInfoPLayer1Button());
+        this.setInfoPLayer2Button(new JButton("Ver progreso"));
+        playerTwoGraveyard.add(this.getInfoPLayer2Button());
+
+    }
+
+    public JButton getInfoPLayer1Button() {
+        return infoPLayer1Button;
+    }
+
+    public void setInfoPLayer1Button(JButton infoPLayer1Button) {
+        this.infoPLayer1Button = infoPLayer1Button;
+    }
+
+    public JButton getInfoPLayer2Button() {
+        return infoPLayer2Button;
+    }
+
+    public void setInfoPLayer2Button(JButton infoPLayer2Button) {
+        this.infoPLayer2Button = infoPLayer2Button;
     }
 
     /**
@@ -119,6 +173,7 @@ public class ChessPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        InfoAdvanceOfPlayer playerInfo = new InfoAdvanceOfPlayer();
 
         if (e.getSource() == b) {
             Mediator mediator = new Mediator();
@@ -128,31 +183,19 @@ public class ChessPanel extends JPanel implements ActionListener {
             mediator.setFan(fan);
             mediator.setPower(power);
             bn.press(playerOneGraveyard,playerTwoGraveyard);
+        } else if(e.getSource() == this.getInfoPLayer1Button()) {
+            int deadsWhite = playerOneGraveyard.getNumDeadsWhitePiece();
+            playerInfo.showJframeInfoPlayer("Player 1", deadsWhite);
+        } else if(e.getSource() == this.getInfoPLayer2Button()) {
+            int deadsBlack = playerTwoGraveyard.getNumDeadsBlackPiece();
+            playerInfo.showJframeInfoPlayer("Player 2", deadsBlack);
         }
+
     }
 
-    public void strategyLogger(){
-        int  i=0;
-        do{
-            i= Integer.parseInt( JOptionPane.showInputDialog(null, "                       Logs" +
-                    "\n1.GameLog              2.ConsoleLog" +
-                    "\n                     3.FileLog"));
-
-            if (i == 1) {
-                gameLog = new GameLog();
-                this.add((GameLog) gameLog, BorderLayout.SOUTH);
-            } else if (i == 2) {
-                gameLog = new ConsoleLog();
-                this.add((ConsoleLog) gameLog, BorderLayout.SOUTH);
-            } else if (i == 3) {
-                gameLog = new FileLog();
-                this.add((FileLog) gameLog, BorderLayout.SOUTH);
-            } else {
-                JOptionPane.showMessageDialog(null, "Logger no valido!");
-            }
-        }while(i!= 1 && i!=2 && i!=3);
+    public MultiplayerFilter getMultiplayerFilter() {
+        return multiplayerFilter;
     }
-
 }
 
 

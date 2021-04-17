@@ -1,5 +1,6 @@
 package business.game;
 
+import business.interceptingfilter.MultiplayerFilter;
 import business.proxy.IPlayer;
 import business.proxy.ProxyPlayer;
 import business.service.king.IKingService;
@@ -17,7 +18,15 @@ import gui.board.ChessGameBoard;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
+
+import static business.interceptingfilter.MultiplayerFilter.MULTIPLAYER_MODE;
 
 /**
  * This is the backend behind the Chess game. Handles the turn-based aspects of
@@ -30,6 +39,10 @@ import java.util.ArrayList;
  */
 public class ChessGameEngine {
 
+    private String SOCKET_SERVER_ADDR = "localhost";
+    private int PORT = 50000;
+
+
     private ChessGamePiece currentPiece;
     private boolean firstClick;
     private IPlayer currentPlayer;
@@ -39,6 +52,11 @@ public class ChessGameEngine {
     private King king1;
     private King king2;
     private State state;
+
+    private ServerSocket listener;
+    private Socket socket;
+    private PrintWriter printWriter;
+
 
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
@@ -119,12 +137,13 @@ public class ChessGameEngine {
     /**
      * Resets the game to its save state.
      */
-    public void restaurar(BoardSquare[][] boardSquare) {
+    public void restaurar(BoardSquare[][] boardSquare, int currentPlayer) {
         firstClick = true;
-        currentPlayer = new ProxyPlayer(1);
         ((ChessPanel) board.getParent()).getGraveyard(1).clearGraveyard();
         ((ChessPanel) board.getParent()).getGraveyard(2).clearGraveyard();
-        ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare);
+        ((ChessPanel) board.getParent()).getGameBoard().restaurarBoard(boardSquare, this);
+        this.currentPlayer = new ProxyPlayer(currentPlayer);
+        checkGameConditions(false);
         ((ChessPanel) board.getParent()).revalidate();
         ((ChessPanel) board.getParent()).getGameLog().clearLog();
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
@@ -147,7 +166,7 @@ public class ChessGameEngine {
      * Switches the turn to be the next player's turn.
      */
     private void nextTurn() {
-        currentPlayer = new ProxyPlayer( currentPlayer.allowPlay() == 1 ? 2 : 1 );
+    currentPlayer = new ProxyPlayer(currentPlayer.allowPlay() == 1 ? 2 : 1);
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
     }
@@ -223,7 +242,7 @@ public class ChessGameEngine {
      * 'normal'). If it should not, the user is asked to play again (see above
      * method).
      */
-    private void checkGameConditions() {
+    private void checkGameConditions(boolean nextTurn) {
         IPlayer origPlayer = currentPlayer;
         for (int i = 0; i < 2; i++) {
             int gameLostRetVal = determineGameLost();
@@ -255,7 +274,7 @@ public class ChessGameEngine {
             // check the next player's conditions as well.
         }
         currentPlayer = origPlayer;
-        nextTurn();
+        if(nextTurn)nextTurn();
     }
 
     /**
@@ -299,7 +318,7 @@ public class ChessGameEngine {
         ChessGamePiece pieceOnSquare = squareClicked.getPieceOnSquare();
         board.clearColorsOnBoard();
         state.update();
-        if (firstClick) {
+        if ((firstClick)) {
             currentPiece = squareClicked.getPieceOnSquare();
             if (selectedPieceIsValid()) {
                 pieceMoveService.showLegalMoves(board,currentPiece);
@@ -323,14 +342,17 @@ public class ChessGameEngine {
                 }
             }
         } else {
-            if (pieceOnSquare == null ||
-                    !pieceOnSquare.equals(currentPiece)) // moving
-            {
+            if ((pieceOnSquare == null || !pieceOnSquare.equals(currentPiece))){
+                int rowSelect = currentPiece.getRow();
+                int colSelect = currentPiece.getColumn();
                 boolean moveSuccessful =
                         pieceMoveService.move(
                                 board,currentPiece,squareClicked.getRow(), squareClicked.getColumn());
                 if (moveSuccessful) {
-                    checkGameConditions();
+                    checkGameConditions(true);
+                    if(MULTIPLAYER_MODE.equals(((ChessPanel) board.getParent()).getMultiplayerFilter().getModoSelect())){
+                        this.movePieceNetwork(rowSelect,colSelect,squareClicked);
+                    }
                 } else {
                     int row = squareClicked.getRow();
                     int col = squareClicked.getColumn();
@@ -349,9 +371,98 @@ public class ChessGameEngine {
             // user is just unselecting the current piece
             {
                 firstClick = true;
+
             }
         }
     }
+
+    private Boolean movePiece(ChessGamePiece pieceOnSquare,int row, int col ) {
+        if (pieceOnSquare == null || (pieceOnSquare.getColumn() != col || pieceOnSquare.getRow() != col)){
+            int rowSelect = pieceOnSquare.getRow();
+            int colSelect = pieceOnSquare.getColumn();
+            boolean moveSuccessful = pieceMoveService.move(
+                    board, pieceOnSquare, row, col);
+            if (moveSuccessful) {
+                checkGameConditions(true);
+                board.clearCell(rowSelect,colSelect);
+                board.repaint();
+                board.revalidate();
+            }
+        }
+        return false;
+    }
+
+    public void movePieceNetwork(int row, int col, BoardSquare boardSquare){
+        if(boardSquare == null){
+            return;
+        }
+        if (printWriter != null) {
+            printWriter.println(col + "," + row +
+                    "," +boardSquare.getColumn() + "," + boardSquare.getRow());
+        }
+    }
+
+    private void receiveMove(Scanner scanner) {
+        while (scanner.hasNextLine()) {
+            String moveStr = scanner.nextLine();
+            System.out.println("Movimiento recibido: " + moveStr);
+            String[] moveStrArr = moveStr.split(",");
+            Integer fromCol = Integer.parseInt(moveStrArr[0]);
+            Integer fromRow = Integer.parseInt(moveStrArr[1]);
+            Integer toCol = Integer.parseInt(moveStrArr[2]);
+            Integer toRow = Integer.parseInt(moveStrArr[3]);
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    BoardSquare boardSquare = board.getCell(fromRow,fromCol);
+                    movePiece(boardSquare.getPieceOnSquare(),toRow,toCol);
+                }
+            });
+        }
+    }
+
+    public void runSocketServer() {
+        Executors.newFixedThreadPool(1).execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(listener == null || listener.isClosed()){
+                        listener = new ServerSocket(PORT);
+                        System.out.println("Servidor escuchando puerto: " + PORT);
+                        socket = listener.accept();
+                        printWriter = new PrintWriter(socket.getOutputStream(), true);
+                        Scanner scanner = new Scanner(socket.getInputStream());
+                        receiveMove(scanner);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void runSocketClient() {
+        try {
+            if(socket!= null && socket.isConnected()){
+                return;
+            }
+
+            socket = new Socket(SOCKET_SERVER_ADDR, PORT);
+            System.out.println("Cliente conectandose a Puerto: " + PORT);
+            Scanner scanner = new Scanner(socket.getInputStream());
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            Executors.newFixedThreadPool(1).execute(new Runnable() {
+                @Override
+                public void run() {
+                    receiveMove(scanner);
+                }
+            });
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
 
     public ChessGamePiece getCurrentPiece() {
         return currentPiece;

@@ -2,6 +2,7 @@ package business.pieces;
 
 import business.service.moves.cardinal.ICalculateCardinalKnightMove;
 import business.service.moves.pieces.*;
+import business.visitor.Visitor;
 import util.ColorOfPiece;
 import gui.board.ChessGameBoard;
 import util.TypeOfMove;
@@ -50,5 +51,10 @@ public class Knight extends ChessGamePiece {
     @Override
     public boolean isNull(){
         return false;
+    }
+
+    @Override
+    public void aceptar(Visitor v) {
+        v.visitKnight(this);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class GameLog extends JScrollPane implements Log {
 
-    public String message;
+    public String message="";
 
     private JTextArea textArea;
 
@@ -46,7 +46,7 @@ public class GameLog extends JScrollPane implements Log {
      */
     public void addToLog(String s) {
 
-        message=s;
+        message=message+new Date() + " - " + s+"\n";
 
         if (textArea.getText().length() > 0) {
             textArea.setText(textArea.getText() + "\n" + new Date() + " - "
@@ -61,6 +61,7 @@ public class GameLog extends JScrollPane implements Log {
      */
     public void clearLog() {
         textArea.setText("");
+
     }
 
     /**
@@ -69,10 +70,20 @@ public class GameLog extends JScrollPane implements Log {
      * @return String the most recent log statement
      */
     public String getLastLog() {
+
         int indexOfLastNewLine = textArea.getText().lastIndexOf("\n");
         if (indexOfLastNewLine < 0) {
             return textArea.getText();
         }
         return textArea.getText().substring(indexOfLastNewLine + 1);
     }
+
+    public String toString(){
+        return message;
+    }
+
+    public void clear() {
+        message = new Date() +" - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!"+"\n";
+    }
+
 }

@@ -1,6 +1,12 @@
 package gui;
 
+import business.businessdelegate.BusinessDelegate;
+import business.businessdelegate.Client;
+import business.businessdelegate.Historial;
+import business.game.ChessGameEngine;
+import business.log.FileLog;
 import business.log.GameLog;
+import business.log.Log;
 import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
@@ -21,10 +27,19 @@ import java.awt.event.ActionListener;
  */
 public class ChessMenuBar extends JMenuBar {
 
-
+    private int PORT = 50000;
     public ChessGameBoard board;
+    public ChessGameEngine gameEngine;
     Caretaker caretaker = new Caretaker();
     Originator originator = new Originator();
+
+
+    public Log log;
+    BusinessDelegate businessDelegate = new BusinessDelegate();
+    Client client = new Client(businessDelegate);;
+
+
+
 
     /**
      * Create a new ChessMenuBar object.
@@ -33,10 +48,10 @@ public class ChessMenuBar extends JMenuBar {
 
 
 
-        String[] menuCategories = {"File", "Options","Partida", "Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
-                        "About"};
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Activar,Unirse,Guardar,Restaurar",
+                        "Guardar,Visualizar", "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
             String[] currMenuItemList = menuItemLists[i].split(",");
@@ -74,14 +89,29 @@ public class ChessMenuBar extends JMenuBar {
                 invoker.executeCommand(new CommandAboutGame(parentChessPanel));
             } else if (buttonName.equals("New game/restart")) {
                 invoker.executeCommand(new CommandRestartGame(parentChessPanel));
+                log.clear();
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
-            } else if (buttonName.equals("Exit")) {
-                invoker.executeCommand(new CommandExitGame(parentChessPanel));
             } else if (buttonName.equals("Guardar")) {
 
+                businessDelegate.setServiceType("One");
+                String alias=JOptionPane.showInputDialog("Ingrese alias del historial a guardar:");
+                client.doTask(new Historial(alias,log.toString()));
+
+            }else if (buttonName.equals("Visualizar")) {
+
+                businessDelegate.setServiceType("Two");
+                String alias=JOptionPane.showInputDialog("Ingrese alias del historial a visualizar:");
+                client.doTask(new Historial(alias));
+
+            } else if (buttonName.equals("Exit")) {
+                invoker.executeCommand(new CommandExitGame(parentChessPanel));
+            } else if (buttonName.equals("Guardar.")) {
+
                 originator.setEstado(board.getChessCells());
+                System.out.println(gameEngine.getCurrentPlayer().allowPlay());
+                originator.setCurrentPlayer(gameEngine.getCurrentPlayer().allowPlay());
                 caretaker.addMemento(originator.guardar());
 
                 System.out.println("------------GUARDADO--------------");
@@ -99,7 +129,7 @@ public class ChessMenuBar extends JMenuBar {
                         System.out.println("------------RESTAURADO--------------");
                         viewBoard(temp);
 
-                        restaurarGame(temp);
+                        restaurarGame(temp, originator.getCurrentPlayer());
 
                         JOptionPane.showMessageDialog(null,"Version "+index+" restaurada.");
 
@@ -108,7 +138,20 @@ public class ChessMenuBar extends JMenuBar {
                     }
 
             } else {
-                invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
+                if(buttonName.equals("Activar")){
+                    System.out.println("ACTIVADO");
+
+                    parentChessPanel.getGameEngine().runSocketServer();
+                    JOptionPane.showMessageDialog( null,"Escuchado puerto: " + PORT);
+                }else{
+                    if(buttonName.equals("Unirse")){
+                        parentChessPanel.getGameEngine().runSocketClient();
+                        JOptionPane.showMessageDialog( null,"Conectando al puerto: " + PORT);
+                    }else{
+                        invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
+                    }
+                }
+
             }
         }
     }
@@ -130,8 +173,8 @@ public class ChessMenuBar extends JMenuBar {
         ((ChessPanel) this.getParent()).getGameEngine().reset();
     }
 
-    private void restaurarGame(BoardSquare[][] boardSquare) {
-        ((ChessPanel) this.getParent()).getGameEngine().restaurar(boardSquare);
+    private void restaurarGame(BoardSquare[][] boardSquare, int currentPlayer) {
+        ((ChessPanel) this.getParent()).getGameEngine().restaurar(boardSquare, currentPlayer);
     }
 
     /**

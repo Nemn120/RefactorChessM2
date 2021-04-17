@@ -5,6 +5,7 @@ import business.service.moves.pieces.CreateMoveFactory;
 import business.service.moves.pieces.FacadeMoveByPiece;
 import business.service.moves.pieces.ICreateMove;
 import business.service.moves.pieces.PieceMove;
+import business.visitor.Visitor;
 import gui.board.ChessGameBoard;
 import util.ColorOfPiece;
 import util.TypeOfMove;
@@ -62,5 +63,10 @@ public class Queen extends ChessGamePiece {
         return new ImageIcon(
                 getClass().getResource(resourceOfPiece.resourceByType("Queen"))
         );
+    }
+
+    @Override
+    public void aceptar(Visitor v) {
+        v.visitQueen(this);
     }
 }

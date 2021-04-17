@@ -5,13 +5,22 @@ import gui.board.BoardSquare;
 public class Originator {
 
     private BoardSquare[][] estado;
+    private int currentPlayer;
 
     public void setEstado(BoardSquare[][] estado) {
         this.estado = estado;
     }
 
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
     public BoardSquare[][] getEstado() {
         return estado;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public Memento guardar() {
@@ -24,11 +33,12 @@ public class Originator {
                             estado[i][j].getColumn(),estado[i][j].getPieceOnSquare());
             }
         }
-        return new Memento(temp);
+        return new Memento(temp,currentPlayer);
     }
 
     public void restaurar(Memento m) {
         this.estado = m.getEstado();
+        this.currentPlayer = m.getCurrentPlayer();
     }
 
 }

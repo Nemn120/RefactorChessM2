@@ -4,6 +4,7 @@ import business.service.moves.cardinal.CalculateCardinalMove;
 import business.service.moves.pieces.CreateMoveFactory;
 import business.service.moves.pieces.ICreateMove;
 import business.service.moves.pieces.PieceMove;
+import business.visitor.Visitor;
 import gui.board.ChessGameBoard;
 import util.ColorOfPiece;
 import util.TypeOfMove;
@@ -73,5 +74,10 @@ public class King extends ChessGamePiece{
     @Override
     public boolean isNull(){
         return false;
+    }
+
+    @Override
+    public void aceptar(Visitor v) {
+        v.visitKing(this);
     }
 }

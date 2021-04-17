@@ -18,12 +18,17 @@ import java.awt.*;
  * @version 2010.11.17
  */
 public class ChessGraveyard extends JPanel {
+
+    public static final String PLAYER1_GRAVEYARD = "Jugador 1 cementerio";
+    public static final String PLAYER2_GRAVEYARD = "Jugador 2 cementerio";
     private String title;
     //private WhitePieces wp = new WhitePieces();
     //private Referee bascunian = new Referee(wp);
     private Observable wp;
     private Referee bascunian;
     public JLabel name;
+    private int numDeadsBlackPiece = 0;
+    private int numDeadsWhitePiece = 0;
 
     /**
      * Create a new ChessGraveyard object.
@@ -35,12 +40,12 @@ public class ChessGraveyard extends JPanel {
         name = new JLabel(title);
         this.add(name);
         this.setLayout(new GridLayout(8, 0));
-        if(this.title=="Player 1's graveyard"){
+        if(PLAYER1_GRAVEYARD.equals(this.title)){
             this.wp = new WhitePieces();
             this.bascunian = new Referee(wp);
             this.wp.attach(bascunian);
         }
-        if(this.title=="Player 2's graveyard"){
+        if(PLAYER2_GRAVEYARD.equals(this.title)){
             this.wp = new BlackPieces();
             this.bascunian = new Referee(wp);
             this.wp.attach(bascunian);
@@ -58,9 +63,12 @@ public class ChessGraveyard extends JPanel {
 
         if(piece.getColorOfPiece().getColor()==1){
             ((WhitePieces) this.wp).addNewDeadPiece(piece);
+            numDeadsWhitePiece = numDeadsWhitePiece + 1;
         }
         if(piece.getColorOfPiece().getColor()==0){
             ((BlackPieces) this.wp).addNewDeadPiece(piece);
+            //this.setNumDeadsBlackPiece(this.getNumDeadsBlackPiece() + 1);
+            numDeadsBlackPiece = numDeadsBlackPiece + 1;
         }
         JLabel pieceLabel = new JLabel();
         pieceLabel.setIcon(piece.getImage());
@@ -87,6 +95,23 @@ public class ChessGraveyard extends JPanel {
         this.bascunian = new Referee(wp);
         this.wp.attach(bascunian);
         this.add(new JLabel(title));
+    }
+
+    public int getNumDeadsBlackPiece() {
+        return numDeadsBlackPiece;
+    }
+
+    public void setNumDeadsBlackPiece(int numDeadsBlackPiece) {
+        this.numDeadsBlackPiece = numDeadsBlackPiece;
+    }
+
+    public int getNumDeadsWhitePiece() {
+        return numDeadsWhitePiece;
+    }
+
+
+    public void setNumDeadsWhitePiece(int numDeadsWhitePiece) {
+        this.numDeadsWhitePiece = numDeadsWhitePiece;
     }
 
     public Observable getWp() {

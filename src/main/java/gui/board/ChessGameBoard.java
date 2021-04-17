@@ -6,6 +6,7 @@ import business.piecenull.PieceNull;
 import business.pieces.factory.PieceFactory;
 import business.service.moves.IPieceMoveService;
 import business.service.moves.impl.PieceMoveServiceImpl;
+import business.visitor.VisitorRestauracion;
 import util.ColorOfPiece;
 import business.pieces.*;
 import gui.ChessPanel;
@@ -225,51 +226,24 @@ public class ChessGameBoard extends JPanel {
         }
     }
 
-    public void restaurarBoard(BoardSquare[][] boardSquare) {
+    public void restaurarBoard(BoardSquare[][] boardSquare, ChessGameEngine chessGameEngine) {
         resetBoard(false);
+        VisitorRestauracion visitor = new VisitorRestauracion(this);
         for (int i = 0; i < chessCells.length; i++) {
             for (int j = 0; j < chessCells[0].length; j++) {
-                ChessGamePiece pieceToAdd;
-                if(boardSquare[i][j].getPieceOnSquare() instanceof Pawn){
-                    //pieceToAdd = PieceFactory.createPiece("Pawn",this, i, j,boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());
-                    pieceToAdd = ObjectPool.getInstance("Pawn",this, i, j,boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Pawn",this, i, j,boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                } else if (boardSquare[i][j].getPieceOnSquare() instanceof Rook) {
-                    //pieceToAdd = PieceFactory.createPiece("Rook",this, i, j, boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());
-                    pieceToAdd = ObjectPool.getInstance("Rook",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Rook",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Bishop) {
-                    //pieceToAdd = PieceFactory.createPiece("Bishop",this, i, j, boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());
-                    pieceToAdd = ObjectPool.getInstance("Bishop",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Bishop",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Knight) {
-                    //pieceToAdd = PieceFactory.createPiece("Knight",this, i, j, boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());
-                    pieceToAdd = ObjectPool.getInstance("Knight",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Knight",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                }else if (boardSquare[i][j].getPieceOnSquare() instanceof King) {
-                    //pieceToAdd = PieceFactory.createPiece("King",this, i, j,boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());
-                    pieceToAdd = ObjectPool.getInstance("King",this, i, j,boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("King",this, i, j,boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                }else if (boardSquare[i][j].getPieceOnSquare() instanceof Queen) {
-                    //pieceToAdd = PieceFactory.createPiece("Queen",this, i, j, boardSquare[i][j]
-                      //      .getPieceOnSquare().getColorOfPiece().getColor());;
-                    pieceToAdd = ObjectPool.getInstance("Queen",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor()).getPiece("Queen",this, i, j, boardSquare[i][j]
-                            .getPieceOnSquare().getColorOfPiece().getColor());
-                }else{
-                    pieceToAdd =null;
+                if(boardSquare[i][j].getPieceOnSquare() != null){
+                    visitor.setPieceLocation(i, j);
+                    boardSquare[i][j].getPieceOnSquare().aceptar(visitor);
+                    chessCells[i][j] = visitor.getChessCell();
+                    if(chessCells[i][j].getPieceOnSquare() instanceof King){
+                        King king = (King)chessCells[i][j].getPieceOnSquare();
+                        if(king.getColorOfPiece().getColor() == ColorOfPiece.WHITE) chessGameEngine.setKing1(king);
+                        if(king.getColorOfPiece().getColor() == ColorOfPiece.BLACK) chessGameEngine.setKing2(king);
+                    }
                 }
-                chessCells[i][j] = new BoardSquare(i, j, pieceToAdd);
+                else{
+                    chessCells[i][j] = new BoardSquare(i, j, null);
+                }
                 if ((i + j) % 2 == 0) {
                     chessCells[i][j].setBackground(Color.WHITE);
                 } else {
@@ -280,6 +254,7 @@ public class ChessGameBoard extends JPanel {
             }
         }
     }
+
 
     /**
      * Clears the colors on the board.
@@ -358,6 +333,10 @@ public class ChessGameBoard extends JPanel {
 
     public void setChessCells(BoardSquare[][] chessCells) {
         this.chessCells = chessCells;
+    }
+
+    public void setCell(int row, int col, BoardSquare boardSquare) {
+        this.chessCells[row][col] = boardSquare;
     }
 
 }

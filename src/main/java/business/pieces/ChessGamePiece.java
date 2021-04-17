@@ -1,6 +1,7 @@
 package business.pieces;
 
 import business.service.moves.pieces.PieceMove;
+import business.visitor.Visitor;
 import util.ColorOfPiece;
 import gui.board.ChessGameBoard;
 import util.ResourceOfPiece;
@@ -84,6 +85,8 @@ public abstract class ChessGamePiece {
             board.getCell(row, col).setPieceOnSquare(this);
         }
     }
+
+    public abstract void aceptar(Visitor v);
 
     public abstract ChessGamePiece clone(ChessGameBoard board);
 
