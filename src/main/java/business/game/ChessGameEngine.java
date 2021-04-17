@@ -57,6 +57,7 @@ public class ChessGameEngine {
     private Socket socket;
     private PrintWriter printWriter;
 
+
     /**
      * Create a new ChessGameEngine object. Accepts a fully-created
      * ChessGameBoard. (i.e. all components rendered)
@@ -164,13 +165,7 @@ public class ChessGameEngine {
      * Switches the turn to be the next player's turn.
      */
     private void nextTurn() {
-        if (MULTIPLAYER_MODE.equals(((ChessPanel) board.getParent()).getMultiplayerFilter().getModoSelect())) {
-            if (MultiplayerFilter.getNumberPlayer() != 0){
-                currentPlayer = new ProxyPlayer(MultiplayerFilter.getNumberPlayer() == 1 ? 2 : 1);
-            }
-        } else {
-            currentPlayer = new ProxyPlayer(currentPlayer.allowPlay() == 1 ? 2 : 1);
-        }
+    currentPlayer = new ProxyPlayer(currentPlayer.allowPlay() == 1 ? 2 : 1);
         ((ChessPanel) board.getParent()).getGameLog().addToLog(
                 "It is now Player " + currentPlayer.allowPlay() + "'s turn.");
     }
@@ -322,7 +317,7 @@ public class ChessGameEngine {
         ChessGamePiece pieceOnSquare = squareClicked.getPieceOnSquare();
         board.clearColorsOnBoard();
         state.update();
-        if (firstClick) {
+        if ((firstClick)) {
             currentPiece = squareClicked.getPieceOnSquare();
             if (selectedPieceIsValid()) {
                 pieceMoveService.showLegalMoves(board,currentPiece);
@@ -346,7 +341,7 @@ public class ChessGameEngine {
                 }
             }
         } else {
-            if (pieceOnSquare == null || !pieceOnSquare.equals(currentPiece)){
+            if ((pieceOnSquare == null || !pieceOnSquare.equals(currentPiece))){
                 int rowSelect = currentPiece.getRow();
                 int colSelect = currentPiece.getColumn();
                 boolean moveSuccessful =
@@ -375,6 +370,7 @@ public class ChessGameEngine {
             // user is just unselecting the current piece
             {
                 firstClick = true;
+
             }
         }
     }
@@ -395,8 +391,6 @@ public class ChessGameEngine {
         return false;
     }
 
-
-
     public void movePieceNetwork(int row, int col, BoardSquare boardSquare){
         if(boardSquare == null){
             return;
@@ -407,7 +401,6 @@ public class ChessGameEngine {
         }
     }
 
-
     private void receiveMove(Scanner scanner) {
         while (scanner.hasNextLine()) {
             String moveStr = scanner.nextLine();
@@ -417,6 +410,7 @@ public class ChessGameEngine {
             Integer fromRow = Integer.parseInt(moveStrArr[1]);
             Integer toCol = Integer.parseInt(moveStrArr[2]);
             Integer toRow = Integer.parseInt(moveStrArr[3]);
+
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
