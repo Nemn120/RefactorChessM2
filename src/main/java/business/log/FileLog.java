@@ -15,14 +15,14 @@ import javax.swing.JComponent;
 
 public class FileLog extends JComponent implements Log{
 
-    public String message;
+    public String message="";
 
     Path path=Paths.get("log.txt");
 
     @Override
     public void addToLog(String s) {
 
-        message=s;
+        message=message+new Date() + " - " + s+"\n";
 
         String log=new Date() + " - " + s+"\n";
 
@@ -36,6 +36,7 @@ public class FileLog extends JComponent implements Log{
 
     @Override
     public void clearLog() {
+
         String t="";
         try {
             Files.write(path,t.getBytes(),StandardOpenOption.TRUNCATE_EXISTING );
@@ -50,5 +51,10 @@ public class FileLog extends JComponent implements Log{
         return "Retornando al pasado!";
     }
 
-
+    public String toString(){
+        return message;
+    }
+    public void clear(){
+        message=new Date() +" - A new chess game has been started. Player 1 (white) will play against Player 2 (black). BEGIN!"+"\n";
+    }
 }

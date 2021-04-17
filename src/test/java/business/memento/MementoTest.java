@@ -36,7 +36,6 @@ public class MementoTest {
 
     @Test
     public void restaurarChess() {
-
         BoardSquare[][] actualBoard;
         BoardSquare[][] expectedBoard;
         boolean band=true;
@@ -65,7 +64,6 @@ public class MementoTest {
                 assertTrue(band);
             }
         }
-
     }
-
 }
+
