@@ -76,6 +76,7 @@ public class FormAlumn implements ActionListener {
                 this.getSchoolInput().getText(),
                 this.getCodeAlumnInput().getText()));
         JOptionPane.showMessageDialog(null,"Registrado: "+this.getCodeAlumnInput().getText());
+        frameAlum.dispose();
     }
 
     @Override
