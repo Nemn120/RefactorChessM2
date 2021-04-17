@@ -2,6 +2,8 @@ package gui;
 
 import business.DTO.DAO.DAOUniversitario;
 import business.DTO.DAO.DAOUniversitarioImp;
+import business.DTO.Universitario;
+import business.DTO.UniversitarioService;
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
 import business.businessdelegate.Historial;
@@ -137,8 +139,8 @@ public class ChessMenuBar extends JMenuBar {
                     }
             } else if (buttonName.equals("Universitario")) {
 
-                DAOUniversitario buscar=new DAOUniversitarioImp();
-                buscar.buscar("172003202");
+                UniversitarioService s=new UniversitarioService();
+                s.createDTO(new Universitario("17200320"));
 
 
                 JOptionPane.showMessageDialog(null,"Registrando...");

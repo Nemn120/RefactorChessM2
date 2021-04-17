@@ -5,7 +5,7 @@ import business.DTO.DAO.DAOUniversitarioImp;
 
 public class UniversitarioService {
 
-    private UniversitarioDTO createDTO(Universitario universitario) {
+    public UniversitarioDTO createDTO(Universitario universitario) {
         UniversitarioDTO dto=null;
 
         //metodo para buscar
