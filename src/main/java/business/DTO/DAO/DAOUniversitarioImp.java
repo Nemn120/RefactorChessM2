@@ -21,9 +21,9 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
                     "INSERT INTO universitario(nombres,apellidos,dni,escuela,codigo) VALUES (?,?,?,?,?)");
             st.setString(1, u.getNombres());
             st.setString(2, u.getApellidos());
-            st.setString(1, u.getDni());
-            st.setString(2, u.getEscuela());
-            st.setString(1, u.getCodigo());
+            st.setString(3, u.getDni());
+            st.setString(4, u.getEscuela());
+            st.setString(5, u.getCodigo());
 
             st.executeUpdate();
             st.close();
@@ -32,10 +32,6 @@ public class DAOUniversitarioImp  implements DAOUniversitario{
             e.printStackTrace();
         }
 
-    }
-
-    public List<Universitario> listar(){
-       return null;
     }
 
     public Universitario buscar(String codigo) {
