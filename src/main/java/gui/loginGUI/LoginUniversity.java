@@ -1,5 +1,8 @@
 package gui.loginGUI;
 
+import business.DTO.Universitario;
+import business.DTO.UniversitarioDTO;
+import business.DTO.UniversitarioService;
 import business.login.Login;
 import business.login.LoginUniversityCardAdapter;
 import business.login.LoginUsernamePassword;
@@ -30,7 +33,11 @@ public class LoginUniversity {
 
                 Login l=new LoginUniversityCardAdapter();
                 String code=textField1.getText();
-                if (l.loginIn(code,null) && !"admin".equals(code)) {
+
+                UniversitarioService s=new UniversitarioService();
+                UniversitarioDTO universitarioDTO=s.createDTO(code);
+
+                if (universitarioDTO!=null) {
 
                     JFrame frame = new JFrame("YetAnotherChessGame 1.0");
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +46,7 @@ public class LoginUniversity {
                     frame.setVisible(true);
 
                     frameLoginUniversity.dispose();
-                    JOptionPane.showMessageDialog(null,"Bienvenido "+ Credential.CODE.get(code));
+                    JOptionPane.showMessageDialog(null,"Bienvenido "+ universitarioDTO.getFullName());
                 }else{
                     JOptionPane.showMessageDialog(null,"Codigo de estudiante Invalida!");
                 }
@@ -53,3 +60,21 @@ public class LoginUniversity {
         return panel1;
     }
 }
+
+/*
+    Login l=new LoginUniversityCardAdapter();
+                String code=textField1.getText();
+                if (l.loginIn(code,null) && !"admin".equals(code)) {
+
+                    JFrame frame = new JFrame("YetAnotherChessGame 1.0");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.getContentPane().add(new ChessPanel());
+                    frame.pack();
+                    frame.setVisible(true);
+
+                    frameLoginUniversity.dispose();
+                    JOptionPane.showMessageDialog(null,"Bienvenido "+ Credential.CODE.get(code));
+                }else{
+                    JOptionPane.showMessageDialog(null,"Codigo de estudiante Invalida!");
+                }
+ */

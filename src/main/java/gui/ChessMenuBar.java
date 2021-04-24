@@ -1,5 +1,9 @@
 package gui;
 
+import business.DTO.DAO.DAOUniversitario;
+import business.DTO.DAO.DAOUniversitarioImp;
+import business.DTO.Universitario;
+import business.DTO.UniversitarioService;
 import business.businessdelegate.BusinessDelegate;
 import business.businessdelegate.Client;
 import business.businessdelegate.Historial;
@@ -10,6 +14,8 @@ import business.memento.Caretaker;
 import business.memento.Originator;
 import gui.board.BoardSquare;
 import gui.board.ChessGameBoard;
+import gui.loginGUI.FormAlumn;
+import gui.loginGUI.LoginUniversity;
 import gui.patternCommand.*;
 
 import javax.swing.*;
@@ -46,10 +52,10 @@ public class ChessMenuBar extends JMenuBar {
 
 
 
-        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
+        String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Registrar","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
-                        "Guardar,Visualizar",
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar Partida,Restaurar Partida",
+                        "Guardar Log,Visualizar Log","Universitario",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -92,13 +98,13 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
-            } else if (buttonName.equals("Guardar")) {
+            } else if (buttonName.equals("Guardar Log")) {
 
                 businessDelegate.setServiceType("One");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a guardar:");
                 client.doTask(new Historial(alias,log.toString()));
 
-            }else if (buttonName.equals("Visualizar")) {
+            }else if (buttonName.equals("Visualizar Log")) {
 
                 businessDelegate.setServiceType("Two");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a visualizar:");
@@ -106,7 +112,7 @@ public class ChessMenuBar extends JMenuBar {
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
-            } else if (buttonName.equals("Guardar")) {
+            } else if (buttonName.equals("Guardar Partida")) {
 
                 originator.setEstado(board.getChessCells());
                 caretaker.addMemento(originator.guardar());
@@ -116,7 +122,7 @@ public class ChessMenuBar extends JMenuBar {
 
                 JOptionPane.showMessageDialog(null,"Tablero Guardado.");
 
-            } else if (buttonName.equals("Restaurar")) {
+            } else if (buttonName.equals("Restaurar Partida")) {
 
                     int index=Integer.parseInt(JOptionPane.showInputDialog("Versiones disponibles: "+caretaker.getMementos().size()));
                     if(0<index && index <=caretaker.getMementos().size()) {
@@ -133,7 +139,27 @@ public class ChessMenuBar extends JMenuBar {
                     }else{
                         JOptionPane.showMessageDialog(null,"Version no disponible.");
                     }
+            } else if (buttonName.equals("Universitario")) {
 
+                //Lamamos la interfaz
+
+                JFrame frame2=new JFrame("Registry");
+
+                FormAlumn formAlumn=new FormAlumn();
+                formAlumn.frameAlum=frame2;
+
+                frame2.setContentPane(formAlumn.getPanel1());
+                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame2.pack();
+                frame2.setVisible(true);
+                frame2.setLocationRelativeTo(null);
+
+/*
+                UniversitarioService s=new UniversitarioService();
+                String code="20";
+                s.guardarUsuario(new Universitario("a","b","c","d",code));
+                JOptionPane.showMessageDialog(null,"Registrado: "+code);
+*/
             } else {
                 invoker.executeCommand(new CommandToggleGraveyard(parentChessPanel));
             }

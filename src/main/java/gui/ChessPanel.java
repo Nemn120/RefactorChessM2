@@ -57,8 +57,9 @@ public class ChessPanel extends JPanel implements ActionListener {
         this.add(menuBar, BorderLayout.NORTH);
         this.add(gameBoard, BorderLayout.CENTER);
 
-        //this.add(gameLog, BorderLayout.SOUTH);
-        strategyLogger();
+        //strategyLogger();//--
+        gameLog = new GameLog();//---
+        this.add((GameLog) gameLog, BorderLayout.SOUTH);//---
 
         this.add(playerOneGraveyard, BorderLayout.WEST);
         this.add(playerTwoGraveyard, BorderLayout.EAST);
