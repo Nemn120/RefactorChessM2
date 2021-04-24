@@ -54,8 +54,8 @@ public class ChessMenuBar extends JMenuBar {
 
         String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Registrar","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar,Restaurar",
-                        "Guardar,Visualizar","Universitario",
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Guardar Partida,Restaurar Partida",
+                        "Guardar Log,Visualizar Log","Universitario",
                         "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -98,13 +98,13 @@ public class ChessMenuBar extends JMenuBar {
             } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
                 //invoker.executeCommand(new CommandToggleGameLog(parentChessPanel));
-            } else if (buttonName.equals("Guardar")) {
+            } else if (buttonName.equals("Guardar Log")) {
 
                 businessDelegate.setServiceType("One");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a guardar:");
                 client.doTask(new Historial(alias,log.toString()));
 
-            }else if (buttonName.equals("Visualizar")) {
+            }else if (buttonName.equals("Visualizar Log")) {
 
                 businessDelegate.setServiceType("Two");
                 String alias=JOptionPane.showInputDialog("Ingrese alias del historial a visualizar:");
@@ -112,7 +112,7 @@ public class ChessMenuBar extends JMenuBar {
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
-            } else if (buttonName.equals("Guardar")) {
+            } else if (buttonName.equals("Guardar Partida")) {
 
                 originator.setEstado(board.getChessCells());
                 caretaker.addMemento(originator.guardar());
@@ -122,7 +122,7 @@ public class ChessMenuBar extends JMenuBar {
 
                 JOptionPane.showMessageDialog(null,"Tablero Guardado.");
 
-            } else if (buttonName.equals("Restaurar")) {
+            } else if (buttonName.equals("Restaurar Partida")) {
 
                     int index=Integer.parseInt(JOptionPane.showInputDialog("Versiones disponibles: "+caretaker.getMementos().size()));
                     if(0<index && index <=caretaker.getMementos().size()) {
