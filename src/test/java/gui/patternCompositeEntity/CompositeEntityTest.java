@@ -34,7 +34,7 @@ public class CompositeEntityTest {
 
     @Test
     public void invalidePatternCompositeEntity() {
-        assertEquals(true, setDeadsForPlayer1(17));
+        assertNotEquals(true, setDeadsForPlayer1(17));
         compositeEntity.setDataOfPlayers("Player 1", player1Graveyard.getNumDeadsWhitePiece());
         logger.info(compositeEntity.getData());
     }
