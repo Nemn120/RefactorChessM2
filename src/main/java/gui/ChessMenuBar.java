@@ -50,7 +50,7 @@ public class ChessMenuBar extends JMenuBar {
 
         String[] menuCategories = {"File", "Options","Partida", "Base de Datos","Help"};
         String[] menuItemLists =
-                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Activar,Unirse,Guardar,Restaurar",
+                {"New game/restart,Exit", "Toggle graveyard,Toggle game log","Activar,Unirse,Guardar Partida,Restaurar",
                         "Guardar,Visualizar", "About"};
         for (int i = 0; i < menuCategories.length; i++) {
             JMenu currMenu = new JMenu(menuCategories[i]);
@@ -107,7 +107,7 @@ public class ChessMenuBar extends JMenuBar {
 
             } else if (buttonName.equals("Exit")) {
                 invoker.executeCommand(new CommandExitGame(parentChessPanel));
-            } else if (buttonName.equals("Guardar.")) {
+            } else if (buttonName.equals("Guardar Partida")) {
 
                 originator.setEstado(board.getChessCells());
                 System.out.println(gameEngine.getCurrentPlayer().allowPlay());
